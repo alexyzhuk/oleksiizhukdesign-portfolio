@@ -547,10 +547,19 @@ p {
     display: flex;
     gap: 24px;
     will-change: transform;
-    cursor: grab;
-    user-select: none;
 }
 
-.testimonial-carousel-track:active {
-    cursor: grabbing;
+/* Testimonial Carousel Styles */
+
+.testimonial-scroll-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    scroll-behavior: auto;
+}
+
+.testimonial-scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
 }

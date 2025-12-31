@@ -65,7 +65,7 @@ const duplicatedTestimonials = [
     <div class="testimonial-carousel-container">
         <div
             id="testimonial-track"
-            class="testimonial-carousel-track flex gap-6 has-cursor-pointer"
+            class="testimonial-carousel-track flex gap-6"
         >
             {
                 duplicatedTestimonials.map((testimonial, index) => (
@@ -105,167 +105,154 @@ const duplicatedTestimonials = [
 </section>
 
 <script>
-    const track = document.getElementById("testimonial-track") as HTMLElement;
-    const container = document.querySelector(
-        ".testimonial-carousel-container",
-    ) as HTMLElement;
+    const track = document.getElementById("testimonial-track");
 
-    let position = 0;
-    let animationId: number;
-    let speed = 0.3; // pixels per frame
-    let isAutoScrolling = true;
+    if (!track) {
+        console.error("Testimonial track not found");
+    } else {
+        let position = 0;
+        let animationId: number;
+        let speed = 0.3;
+        let isAutoScrolling = true;
 
-    // Drag/swipe variables
-    let isDragging = false;
-    let startX = 0;
-    let currentX = 0;
-    let velocity = 0;
-    let lastPosition = 0;
-    let lastTime = Date.now();
+        // Touch/Drag variables
+        let isDragging = false;
+        let startX = 0;
+        let currentX = 0;
+        let velocity = 0;
+        let lastPosition = 0;
+        let lastTime = Date.now();
 
-    // Inactivity timer
-    let inactivityTimeout: number;
-    const INACTIVITY_DELAY = 10000; // 10 seconds
+        // Inactivity timer
+        let inactivityTimeout: number;
+        const INACTIVITY_DELAY = 10000;
 
-    // Get card width + gap based on screen size
-    const getCardWidth = () => {
-        const card = track.querySelector(".testimonial-card") as HTMLElement;
-        const cardWidth = card.offsetWidth;
-        const gap = 24; // 1.5rem = 24px
-        return cardWidth + gap;
-    };
+        const getCardWidth = () => {
+            const card = track.querySelector(
+                ".testimonial-card",
+            ) as HTMLElement;
+            if (!card) return 536;
+            return card.offsetWidth + 24;
+        };
 
-    // Calculate total width of one set of testimonials
-    const getTrackWidth = () => {
-        return getCardWidth() * 5; // 5 original testimonials
-    };
+        const getTrackWidth = () => getCardWidth() * 5;
 
-    // Reset inactivity timer
-    const resetInactivityTimer = () => {
-        clearTimeout(inactivityTimeout);
-        inactivityTimeout = window.setTimeout(() => {
-            isAutoScrolling = true;
-            velocity = 0;
-        }, INACTIVITY_DELAY);
-    };
+        const resetInactivityTimer = () => {
+            clearTimeout(inactivityTimeout);
+            inactivityTimeout = window.setTimeout(() => {
+                isAutoScrolling = true;
+                velocity = 0;
+            }, INACTIVITY_DELAY);
+        };
 
-    const animate = () => {
-        if (!track) return;
-
-        if (!isDragging) {
-            if (isAutoScrolling) {
-                // Normal auto-scroll speed
-                position += speed;
-            } else {
-                // Apply momentum/deceleration when manually scrolled
-                velocity *= 0.95;
-                position += velocity;
-
-                // Stop momentum when it's very low
-                if (Math.abs(velocity) < 0.1) {
-                    velocity = 0;
+        const animate = () => {
+            if (!isDragging) {
+                if (isAutoScrolling) {
+                    position += speed;
+                } else {
+                    velocity *= 0.95;
+                    position += velocity;
+                    if (Math.abs(velocity) < 0.1) velocity = 0;
                 }
             }
-        }
 
-        // Reset position for seamless loop
-        const resetPoint = getTrackWidth();
-        if (position >= resetPoint) {
-            position = position - resetPoint;
-        } else if (position < 0) {
-            position = position + resetPoint;
-        }
-
-        track.style.transform = `translateX(-${position}px)`;
-        animationId = requestAnimationFrame(animate);
-    };
-
-    // Mouse/Touch start
-    const handleStart = (clientX: number) => {
-        isDragging = true;
-        isAutoScrolling = false;
-        startX = clientX;
-        currentX = clientX;
-        velocity = 0;
-        lastPosition = position;
-        lastTime = Date.now();
-        track.style.cursor = "grabbing";
-
-        // Clear inactivity timer during interaction
-        clearTimeout(inactivityTimeout);
-    };
-
-    // Mouse/Touch move
-    const handleMove = (clientX: number) => {
-        if (!isDragging) return;
-
-        currentX = clientX;
-        const diff = startX - currentX;
-        position = lastPosition + diff;
-
-        // Calculate velocity for momentum
-        const now = Date.now();
-        const timeDiff = now - lastTime;
-        if (timeDiff > 0) {
-            velocity = ((currentX - startX) / timeDiff) * -10;
-        }
-        lastTime = now;
-        startX = currentX;
-        lastPosition = position;
-    };
-
-    // Mouse/Touch end
-    const handleEnd = () => {
-        isDragging = false;
-        track.style.cursor = "grab";
-
-        // Start inactivity timer after interaction ends
-        resetInactivityTimer();
-    };
-
-    // Desktop mouse events
-    track?.addEventListener("mousedown", (e) => {
-        e.preventDefault();
-        handleStart(e.clientX);
-    });
-
-    track?.addEventListener("mousemove", (e) => {
-        handleMove(e.clientX);
-    });
-
-    track?.addEventListener("mouseup", handleEnd);
-    track?.addEventListener("mouseleave", handleEnd);
-
-    // Mobile touch events
-    track?.addEventListener("touchstart", (e) => {
-        handleStart(e.touches[0].clientX);
-    });
-
-    track?.addEventListener("touchmove", (e) => {
-        handleMove(e.touches[0].clientX);
-    });
-
-    track?.addEventListener("touchend", handleEnd);
-
-    // Handle window resize
-    let resizeTimeout: number;
-    window.addEventListener("resize", () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = window.setTimeout(() => {
-            // Recalculate position on resize to prevent breaks
             const resetPoint = getTrackWidth();
             if (position >= resetPoint) {
-                position = position % resetPoint;
+                position -= resetPoint;
+            } else if (position < 0) {
+                position += resetPoint;
             }
-        }, 250);
-    });
 
-    // Start animation
-    animate();
+            track.style.transform = `translateX(-${position}px)`;
+            animationId = requestAnimationFrame(animate);
+        };
 
-    // Cleanup
-    window.addEventListener("beforeunload", () => {
-        cancelAnimationFrame(animationId);
-        clearTimeout(inactivityTimeout);
-    });
+        const handleStart = (clientX: number) => {
+            isDragging = true;
+            isAutoScrolling = false;
+            startX = clientX;
+            currentX = clientX;
+            velocity = 0;
+            lastPosition = position;
+            lastTime = Date.now();
+            clearTimeout(inactivityTimeout);
+        };
+
+        const handleMove = (clientX: number) => {
+            if (!isDragging) return;
+            currentX = clientX;
+            const diff = startX - currentX;
+            position = lastPosition + diff;
+
+            const now = Date.now();
+            const timeDiff = now - lastTime;
+            if (timeDiff > 0) {
+                velocity = ((currentX - startX) / timeDiff) * -10;
+            }
+            lastTime = now;
+            startX = currentX;
+            lastPosition = position;
+        };
+
+        const handleEnd = () => {
+            isDragging = false;
+            resetInactivityTimer();
+        };
+
+        // Desktop mouse events
+        track.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            handleStart(e.clientX);
+        });
+
+        track.addEventListener("mousemove", (e) => {
+            handleMove(e.clientX);
+        });
+
+        track.addEventListener("mouseup", handleEnd);
+        track.addEventListener("mouseleave", handleEnd);
+
+        // Mobile touch events
+        track.addEventListener(
+            "touchstart",
+            (e) => {
+                handleStart(e.touches[0].clientX);
+            },
+            { passive: true },
+        );
+
+        track.addEventListener(
+            "touchmove",
+            (e) => {
+                handleMove(e.touches[0].clientX);
+            },
+            { passive: true },
+        );
+
+        track.addEventListener("touchend", handleEnd, { passive: true });
+
+        // Start animation immediately
+        console.log("Starting testimonial animation");
+        animate();
+
+        // Cleanup
+        window.addEventListener("beforeunload", () => {
+            if (animationId) cancelAnimationFrame(animationId);
+            clearTimeout(inactivityTimeout);
+        });
+    }
 </script>
+
+<style>
+    .testimonial-carousel-track {
+        cursor: grab;
+        user-select: none;
+        touch-action: pan-y;
+    }
+
+    @media (min-width: 768px) {
+        .testimonial-carousel-track:active {
+            cursor: grabbing;
+        }
+    }
+</style>
