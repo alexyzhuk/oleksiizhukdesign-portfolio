@@ -547,4 +547,10 @@ p {
     display: flex;
     gap: 24px;
     will-change: transform;
+    cursor: grab;
+    user-select: none;
+}
+
+.testimonial-carousel-track:active {
+    cursor: grabbing;
 }

@@ -27,11 +27,11 @@ const { isFirst = false, isLast = false, prevCase, nextCase } = Astro.props;
 
         {
             isLast ? (
-                <a href="/#method" class="primary-btn">
+                <a href="/#method" class="light-btn">
                     Method Section →
                 </a>
             ) : nextCase ? (
-                <a href={nextCase.url} class="primary-btn">
+                <a href={nextCase.url} class="light-btn">
                     {nextCase.name} Case →
                 </a>
             ) : (

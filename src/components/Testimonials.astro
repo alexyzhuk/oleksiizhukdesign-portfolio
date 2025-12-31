@@ -69,7 +69,7 @@ const duplicatedTestimonials = [
         >
             {
                 duplicatedTestimonials.map((testimonial, index) => (
-                    <div class="testimonial-card flex flex-col w-4/5 sm:w-lg p-8 sm:p-12 items-start gap-3 sm:gap-6 border border-stroke-weak-dark rounded-4xl bg-bg-plaque shrink-0">
+                    <div class="testimonial-card flex flex-col w-full sm:w-lg p-8 sm:p-12 items-start gap-3 sm:gap-6 border border-stroke-weak-dark rounded-4xl bg-bg-plaque shrink-0">
                         {/* Avatar and Info */}
                         <div class="flex gap-4 sm:gap-6 w-full items-center">
                             <img
@@ -106,8 +106,6 @@ const duplicatedTestimonials = [
 
 <script>
     const track = document.getElementById("testimonial-track") as HTMLElement;
-    const prevBtn = document.getElementById("prev-btn");
-    const nextBtn = document.getElementById("next-btn");
     const container = document.querySelector(
         ".testimonial-carousel-container",
     ) as HTMLElement;
@@ -115,7 +113,19 @@ const duplicatedTestimonials = [
     let position = 0;
     let animationId: number;
     let speed = 0.3; // pixels per frame
-    let targetSpeed = 0.3;
+    let isAutoScrolling = true;
+
+    // Drag/swipe variables
+    let isDragging = false;
+    let startX = 0;
+    let currentX = 0;
+    let velocity = 0;
+    let lastPosition = 0;
+    let lastTime = Date.now();
+
+    // Inactivity timer
+    let inactivityTimeout: number;
+    const INACTIVITY_DELAY = 10000; // 10 seconds
 
     // Get card width + gap based on screen size
     const getCardWidth = () => {
@@ -130,38 +140,112 @@ const duplicatedTestimonials = [
         return getCardWidth() * 5; // 5 original testimonials
     };
 
-    // Smooth interpolation
-    const lerp = (start: number, end: number, factor: number) => {
-        return start + (end - start) * factor;
+    // Reset inactivity timer
+    const resetInactivityTimer = () => {
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = window.setTimeout(() => {
+            isAutoScrolling = true;
+            velocity = 0;
+        }, INACTIVITY_DELAY);
     };
 
     const animate = () => {
         if (!track) return;
 
-        // Smooth speed transition
-        speed = lerp(speed, targetSpeed, 0.1);
+        if (!isDragging) {
+            if (isAutoScrolling) {
+                // Normal auto-scroll speed
+                position += speed;
+            } else {
+                // Apply momentum/deceleration when manually scrolled
+                velocity *= 0.95;
+                position += velocity;
 
-        // Move position
-        position += speed;
+                // Stop momentum when it's very low
+                if (Math.abs(velocity) < 0.1) {
+                    velocity = 0;
+                }
+            }
+        }
 
         // Reset position for seamless loop
         const resetPoint = getTrackWidth();
         if (position >= resetPoint) {
             position = position - resetPoint;
+        } else if (position < 0) {
+            position = position + resetPoint;
         }
 
         track.style.transform = `translateX(-${position}px)`;
         animationId = requestAnimationFrame(animate);
     };
 
-    // Hover handlers
-    container?.addEventListener("mouseenter", () => {
-        targetSpeed = 0.12; // 40% of original speed
+    // Mouse/Touch start
+    const handleStart = (clientX: number) => {
+        isDragging = true;
+        isAutoScrolling = false;
+        startX = clientX;
+        currentX = clientX;
+        velocity = 0;
+        lastPosition = position;
+        lastTime = Date.now();
+        track.style.cursor = "grabbing";
+
+        // Clear inactivity timer during interaction
+        clearTimeout(inactivityTimeout);
+    };
+
+    // Mouse/Touch move
+    const handleMove = (clientX: number) => {
+        if (!isDragging) return;
+
+        currentX = clientX;
+        const diff = startX - currentX;
+        position = lastPosition + diff;
+
+        // Calculate velocity for momentum
+        const now = Date.now();
+        const timeDiff = now - lastTime;
+        if (timeDiff > 0) {
+            velocity = ((currentX - startX) / timeDiff) * -10;
+        }
+        lastTime = now;
+        startX = currentX;
+        lastPosition = position;
+    };
+
+    // Mouse/Touch end
+    const handleEnd = () => {
+        isDragging = false;
+        track.style.cursor = "grab";
+
+        // Start inactivity timer after interaction ends
+        resetInactivityTimer();
+    };
+
+    // Desktop mouse events
+    track?.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        handleStart(e.clientX);
     });
 
-    container?.addEventListener("mouseleave", () => {
-        targetSpeed = 0.3;
+    track?.addEventListener("mousemove", (e) => {
+        handleMove(e.clientX);
     });
+
+    track?.addEventListener("mouseup", handleEnd);
+    track?.addEventListener("mouseleave", handleEnd);
+
+    // Mobile touch events
+    track?.addEventListener("touchstart", (e) => {
+        handleStart(e.touches[0].clientX);
+    });
+
+    track?.addEventListener("touchmove", (e) => {
+        handleMove(e.touches[0].clientX);
+    });
+
+    track?.addEventListener("touchend", handleEnd);
 
     // Handle window resize
     let resizeTimeout: number;
@@ -182,5 +266,6 @@ const duplicatedTestimonials = [
     // Cleanup
     window.addEventListener("beforeunload", () => {
         cancelAnimationFrame(animationId);
+        clearTimeout(inactivityTimeout);
     });
 </script>
