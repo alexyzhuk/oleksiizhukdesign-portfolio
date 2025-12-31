@@ -3,14 +3,14 @@ import BigQuestion from "./BigQuestion.astro";
 
 interface Problem {
     icon: string;
-    label: string;
+    label?: string;
     title: string;
     description: string;
 }
 
 interface Goal {
     icon: string;
-    label: string;
+    label?: string;
     oldTitle: string;
     newTitle: string;
     description: string;
