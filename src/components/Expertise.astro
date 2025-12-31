@@ -1,0 +1,172 @@
+---
+const expertise = [
+    {
+        number: "01",
+        title: "Product Designer",
+        tabColor: "border-blue-light",
+        skills: [
+            "Research",
+            "User Testing",
+            "Usability Testing",
+            "Problem Discovery",
+            "Design Systems",
+            "Accessibility",
+            "Competitive Audit",
+            "Mentorship",
+            "Prototyping",
+            "Product Strategy",
+            "IA",
+            "Interaction Design",
+        ],
+    },
+    {
+        number: "02",
+        title: "Brand Designer",
+        tabColor: "border-yellow-light",
+        skills: [
+            "Brand Kit",
+            "Logo Design",
+            "Tone of Voice",
+            "Brand Identity",
+            "Mockups",
+            "Merch Design",
+            "Outdoor Branding",
+            "Presentation Design",
+            "Typography",
+            "Multi-branding",
+            "E-Business Cards",
+            "Event Branding",
+        ],
+    },
+    {
+        number: "03",
+        title: "Graphic Designer",
+        tabColor: "border-green-light",
+        skills: [
+            "Iconography",
+            "Pictograms",
+            "Illustration",
+            "Presentation Assets",
+            "Book Illustration",
+            "Color Psychology",
+            "Visual Design",
+            "Visual Consistency",
+            "Data Visualization",
+            "Creative Marketing",
+            "Vector Animation",
+            "AI Artwork",
+        ],
+    },
+    {
+        number: "04",
+        title: "Front-End Developer",
+        tabColor: "border-red-light",
+        skills: [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "TypeScript",
+            "PHP",
+            "Astro",
+            "React",
+            "Wordpress",
+            "Webflow",
+            "Framer",
+            "Docker",
+            "Git",
+        ],
+    },
+];
+---
+
+<section id="expertise" class="px-5 sm:px-6 py-12 sm:py-24">
+    <div class="w-full max-w-7xl mx-auto">
+        {/* Section Header */}
+        <h2 class="mb-12 text-4xl sm:text-5xl font-mediu">Hire me as</h2>
+
+        {/* Tab Layout */}
+        <div class="flex flex-col md:flex-row gap-6">
+            {/* Left: Role Tabs */}
+            <div class="flex flex-col gap-0 sm:gap-4 lg:min-w-md">
+                {
+                    expertise.map((category, index) => (
+                        <button
+                            class={`expertise-tab h-fit md:max-h-60 lg:max-h-full py-2 md:py-3 px-4 md:px-6 border-l-2 text-left font-medium tracking-tight text-2xl lg:text-3xl transition-all duration-300 cursor-pointer ${
+                                index === 0
+                                    ? `text-text-primary ${category.tabColor}`
+                                    : "text-text-secondary-inverse border-transparent"
+                            } hover:text-text-primary`}
+                            data-index={index}
+                            data-color={category.tabColor}
+                        >
+                            {category.title}
+                        </button>
+                    ))
+                }
+            </div>
+
+            {/* Right: Skills Grid */}
+            <div class="flex-1">
+                {
+                    expertise.map((category, index) => (
+                        <div
+                            class={`expertise-content ${index === 0 ? "" : "hidden"}`}
+                            data-content-index={index}
+                        >
+                            <div class="p-8 sm:p-12 border border-stroke-weak-dark rounded-4xl bg-bg-plaque">
+                                <ul class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4">
+                                    {category.skills.map((skill) => (
+                                        <li class="text-lg sm:text-xl text-text-primary font-medium tracking-tight flex pb-1 border-b border-dashed border-stroke-medium xs:w-fit">
+                                            {skill}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const tabs = document.querySelectorAll(".expertise-tab");
+    const contents = document.querySelectorAll(".expertise-content");
+
+    tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+            const index = tab.getAttribute("data-index");
+            const color = tab.getAttribute("data-color");
+
+            // Update tab styles
+            tabs.forEach((t) => {
+                t.classList.remove(
+                    "text-text-primary",
+                    "border-blue-light",
+                    "border-yellow-light",
+                    "border-green-light",
+                    "border-red-light",
+                );
+                t.classList.add(
+                    "text-text-secondary-inverse",
+                    "border-transparent",
+                );
+            });
+            tab.classList.remove(
+                "text-text-secondary-inverse",
+                "border-transparent",
+            );
+            tab.classList.add("text-text-primary", color);
+
+            // Update content visibility
+            contents.forEach((content) => {
+                content.classList.add("hidden");
+            });
+            const activeContent = document.querySelector(
+                `[data-content-index="${index}"]`,
+            );
+            activeContent?.classList.remove("hidden");
+        });
+    });
+</script>

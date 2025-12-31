@@ -1,0 +1,35 @@
+---
+interface Props {
+    title?: string;
+    leftContent: string;
+    rightContent?: string;
+    accentColor?: string;
+}
+
+const {
+    title,
+    leftContent,
+    rightContent,
+    accentColor = "text-blue-light",
+} = Astro.props;
+---
+
+<section class="px-6 py-16">
+    <div class="max-w-7xl mx-auto">
+        {title && <h3 class={`${accentColor} mb-12`}>{title}</h3>}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="prose">
+                <p class="text-text-secondary leading-relaxed">{leftContent}</p>
+            </div>
+            {
+                rightContent && (
+                    <div class="prose">
+                        <p class="text-text-secondary leading-relaxed">
+                            {rightContent}
+                        </p>
+                    </div>
+                )
+            }
+        </div>
+    </div>
+</section>

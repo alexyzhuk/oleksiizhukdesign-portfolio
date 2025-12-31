@@ -1,0 +1,27 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer
+    class="flex p-5 sm:p-6 transtion-all duration-500 relative justify-center"
+>
+    <div
+        class="max-w-330 mx-auto w-full flex justify-between items-center gap-5"
+    >
+        <!-- Logo -->
+        <a
+            href="/"
+            class="hidden xs:flex items-center p-4.75 rounded-3xl bg-bg-plaque border border-stroke-weak-dark justify-between shrink-0"
+            aria-label="Home"
+        >
+            <img src="/main-logo.svg" alt="Oleksii Zhuk" class="h-7 sm:h-8" />
+        </a>
+
+        <!-- Copyright -->
+        <p
+            class="w-full xs:w-fit text-sm sm:text-base items-center p-5.75 rounded-3xl bg-bg-plaque border border-stroke-weak-dark text-center text-ellipsis text-nowrap"
+        >
+            © {currentYear} Oleksii Zhuk. All Rights Reserved.
+        </p>
+    </div>
+</footer>

@@ -1,0 +1,186 @@
+---
+const testimonials = [
+    {
+        name: "Irina Shymko",
+        role: "Business Development Director",
+        company: "",
+        image: "/irina-testimonial.png",
+        text: "I worked with Oleksii at datuum.ai. He was involved in product design and marketing and did a great job in both directions. Oleksii proved to be dependable and always supported our product and company. He also introduced a new version of the system UI/UX that greatly improved the user experience, which was important because the system was quite complex. I would recommend Oleksii as a great person to deal with, whose creativity and dedication make a great combination of skills in a person you would work with for years.",
+    },
+    {
+        name: "Oleksandr Popov",
+        role: "Front-end Developer",
+        company: "",
+        image: "/oleksandr-testimonial.png",
+        text: "I worked with Oleksii at datuum.ai. He was the one who figured out how to implement a technically complex product interface while maintaining a simple and accessible user experience. His work attracted the attention of clients from all over the world. Working in a team, I appreciated the creativity, speed, and quality of work that Oleksii did throughout the project. It's also worth mentioning that Oleksii is a friendly, reliable, easy-going person who will always support and give good advice at the right time.",
+    },
+    {
+        name: "Stanislav Zaborkin",
+        role: "Front-end Developer",
+        company: "assetbird",
+        image: "/stanislav-testimonial.png",
+        text: "Oleksii is an exceptional UI/UX designer, consistently delivering high-quality, visually appealing, and user-friendly designs. Oleksii excels in transforming complex requirements into intuitive interfaces, as demonstrated during our work together, which significantly improved user engagement. He is an outstanding team player, always open to feedback and to discuss any task, even the most difficult and challenging. His positive attitude and proactive approach make him a valuable asset.",
+    },
+    {
+        name: "Liuka Lobarieva",
+        role: "COO, Co-Founder",
+        company: "Calibrated",
+        image: "/liuka-testimonial.png",
+        text: "During the last four years, I had the pleasure of working with Oleksii on PR, marketing, and brand tasks at Datuum.ai and Calibrated agency. Oleksii's design approach is based on experience, constant exploration of new trends, and a keen sense of catchy design. I loved brainstorming with Oleksii; his ideas and work were always above expectations. His communication style is always friendly and open, making the work process comfortable and easygoing.",
+    },
+    {
+        name: "Nataliya Nakonechna",
+        role: "Founder",
+        company: "VN Strategies",
+        image: "/nataliya-testimonial.jpg",
+        text: "Oleksii did a great job! The visual identity that he created for EDIF is impressive, it talks and shows what has to be shown. It's a pleasure to work with him and we will be happy to continue our cooperation🤝",
+    },
+];
+
+// Color alterations for roles
+const accentColors = [
+    "text-blue-light",
+    "text-yellow-light",
+    "text-green-light",
+    "text-red-light",
+];
+
+// Duplicate testimonials for seamless loop
+const duplicatedTestimonials = [
+    ...testimonials,
+    ...testimonials,
+    ...testimonials,
+];
+---
+
+<section
+    id="testimonials"
+    class="min-h-fit flex flex-col gap-6 items-center px-5 sm:px-6 py-12 sm:py-24 overflow-hidden w-full"
+>
+    <div class="max-w-7xl mx-auto w-full">
+        <h2 class="mb-6 text-4xl sm:text-5xl font-medium">Kind Words</h2>
+    </div>
+
+    <!-- Testimonial Carousel -->
+    <div class="testimonial-carousel-container">
+        <div
+            id="testimonial-track"
+            class="testimonial-carousel-track flex gap-6 has-cursor-pointer"
+        >
+            {
+                duplicatedTestimonials.map((testimonial, index) => (
+                    <div class="testimonial-card flex flex-col w-4/5 sm:w-lg p-8 sm:p-12 items-start gap-3 sm:gap-6 border border-stroke-weak-dark rounded-4xl bg-bg-plaque shrink-0">
+                        {/* Avatar and Info */}
+                        <div class="flex gap-4 sm:gap-6 w-full items-center">
+                            <img
+                                src={testimonial.image}
+                                alt={testimonial.name}
+                                class="w-16 h-16 sm:w-16 sm:h-16 object-cover rounded-lg overflow-hidden shrink-0"
+                            />
+
+                            <div class="flex flex-col gap-2">
+                                <p class="text-text-primary text-xl sm:text-2xl font-medium">
+                                    {testimonial.name}
+                                </p>
+                                <p
+                                    class={`${accentColors[index % accentColors.length]} mono text-sm sm:text-base text-balance`}
+                                >
+                                    {testimonial.role}
+                                    {testimonial.company
+                                        ? ` @ ${testimonial.company}`
+                                        : ""}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Testimonial Text */}
+                        <p class="text-text-secondary text-sm sm:text-base leading-8 sm:leading-9 text-balance">
+                            {testimonial.text}
+                        </p>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<script>
+    const track = document.getElementById("testimonial-track") as HTMLElement;
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const container = document.querySelector(
+        ".testimonial-carousel-container",
+    ) as HTMLElement;
+
+    let position = 0;
+    let animationId: number;
+    let speed = 0.3; // pixels per frame
+    let targetSpeed = 0.3;
+
+    // Get card width + gap based on screen size
+    const getCardWidth = () => {
+        const card = track.querySelector(".testimonial-card") as HTMLElement;
+        const cardWidth = card.offsetWidth;
+        const gap = 24; // 1.5rem = 24px
+        return cardWidth + gap;
+    };
+
+    // Calculate total width of one set of testimonials
+    const getTrackWidth = () => {
+        return getCardWidth() * 5; // 5 original testimonials
+    };
+
+    // Smooth interpolation
+    const lerp = (start: number, end: number, factor: number) => {
+        return start + (end - start) * factor;
+    };
+
+    const animate = () => {
+        if (!track) return;
+
+        // Smooth speed transition
+        speed = lerp(speed, targetSpeed, 0.1);
+
+        // Move position
+        position += speed;
+
+        // Reset position for seamless loop
+        const resetPoint = getTrackWidth();
+        if (position >= resetPoint) {
+            position = position - resetPoint;
+        }
+
+        track.style.transform = `translateX(-${position}px)`;
+        animationId = requestAnimationFrame(animate);
+    };
+
+    // Hover handlers
+    container?.addEventListener("mouseenter", () => {
+        targetSpeed = 0.12; // 40% of original speed
+    });
+
+    container?.addEventListener("mouseleave", () => {
+        targetSpeed = 0.3;
+    });
+
+    // Handle window resize
+    let resizeTimeout: number;
+    window.addEventListener("resize", () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = window.setTimeout(() => {
+            // Recalculate position on resize to prevent breaks
+            const resetPoint = getTrackWidth();
+            if (position >= resetPoint) {
+                position = position % resetPoint;
+            }
+        }, 250);
+    });
+
+    // Start animation
+    animate();
+
+    // Cleanup
+    window.addEventListener("beforeunload", () => {
+        cancelAnimationFrame(animationId);
+    });
+</script>

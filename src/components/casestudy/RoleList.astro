@@ -1,0 +1,31 @@
+---
+interface Role {
+    title: string;
+    description: string;
+}
+
+interface Props {
+    title?: string;
+    roles: Role[];
+}
+
+const { title, roles } = Astro.props;
+---
+
+<section class="px-6 py-16">
+    <div class="max-w-7xl mx-auto">
+        {title && <h3 class="mb-12">{title}</h3>}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {
+                roles.map((role) => (
+                    <div>
+                        <h4 class="mb-3">{role.title}</h4>
+                        <p class="text-text-secondary text-sm leading-relaxed">
+                            {role.description}
+                        </p>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,16 @@
+---
+interface Props {
+    icon: string;
+    title: string;
+    description: string;
+}
+
+const { icon, title, description } = Astro.props;
+---
+
+<div class="flex flex-col gap-4">
+    <img src={icon} alt={label} class="w-12 h-12" />
+    <h6 class="nav-text">{label}</h6>
+    <h4>{title}</h4>
+    <p class="text-stroke-weak text-base leading-relaxed">{description}</p>
+</div>

@@ -1,0 +1,27 @@
+---
+interface Props {
+    icon: string;
+    label: string;
+    oldTitle: string;
+    newTitle: string;
+    description: string;
+    accentColor?: string;
+}
+
+const {
+    icon,
+    label,
+    oldTitle,
+    newTitle,
+    description,
+    accentColor = "text-blue-light",
+} = Astro.props;
+---
+
+<div class="flex flex-col gap-4 p-8 bg-text-primary/5 rounded-lg">
+    <img src={icon} alt={label} class="w-12 h-12" />
+    <h6 class="nav-text">{label}</h6>
+    <h4 class="text-text-secondary/40 line-through">{oldTitle}</h4>
+    <h4 class={accentColor}>{newTitle}</h4>
+    <p class="text-text-secondary text-base leading-relaxed">{description}</p>
+</div>

@@ -1,0 +1,654 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CaseHero from "../components/casestudy/CaseHero.astro";
+import Table from "../components/casestudy/Table.astro";
+import ImageBlock from "../components/casestudy/ImageBlock.astro";
+import ProblemStatement from "../components/casestudy/ProblemStatement.astro";
+import Gallery from "../components/casestudy/Gallery.astro";
+import SingleStat from "../components/casestudy/SingleStat.astro";
+import DoubleStat from "../components/casestudy/DoubleStat.astro";
+import CaseFooter from "../components/casestudy/CaseFooter.astro";
+import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
+---
+
+<BaseLayout
+    title="Datuum.ai - Democratizing the Data"
+    description="Redesigned data pipeline generation experience"
+    showNav={false}
+>
+    <CaseHero
+        company="datuum"
+        title="Democratizing the Data"
+        subtitle="In 2021 we started building a product with a vision to simplify data integration for everyone. Little did I know I was going to help create an extremely powerful tool the business world has yet to discover."
+        coverImage="/datuum-cover.avif"
+        logo="/datuum.svg"
+        accentColor="text-blue-light"
+    />
+
+    <section class="px-6 py-16 max-w-7xl mx-auto flex flex-col gap-14">
+        <div class="max-w-200 mx-auto">
+            <h2 class="mb-8">Overview</h2>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <p>
+                    Datuum is a hybrid SaaS data management platform that
+                    simplifies data migration, merging, and analytical systems
+                    creation, resulting in an 80% reduction in data-related
+                    process time.
+                </p>
+                <p>
+                    Building a completely new user experience from the founder's
+                    idea to a real product was an interesting challenge.
+                </p>
+            </div>
+        </div>
+        <div class="max-w-200 mx-auto flex flex-col gap-8">
+            <h3>Roles & Responsibilities</h3>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <p>
+                    Before the global redesign, I collaborated with a UI/UX
+                    Designer and another Product Designer to research pain
+                    points in the existing designs and examine the Data
+                    Discovery stage of the main user flow.
+                </p>
+            </div>
+            <Table
+                columns={[{ key: "role" }, { key: "responsibilities" }]}
+                data={[
+                    {
+                        role: "Product Designer",
+                        responsibilities:
+                            "Aligning design decisions with the Product Owner's vision, Stakeholder Meetings, Product Design Strategy",
+                    },
+                    {
+                        role: "Interaction Designer",
+                        responsibilities:
+                            "User Research, User Studies, User Testing, Wireframing UX Patterns",
+                    },
+                    {
+                        role: "Visual Designer",
+                        responsibilities:
+                            "UI Design, Brand Identity Refinement for UI, Graphic Design for PR & Marketing items",
+                    },
+                    {
+                        role: "Prototyping",
+                        responsibilities:
+                            "Prototyping User Flows, Features, Components for validation & user testing",
+                    },
+                    {
+                        role: "Design System Development",
+                        responsibilities:
+                            "Creating the complete design system using Atomic Design principles. Redesign of the whole design system to accommodate the new Brand Identity.",
+                    },
+                ]}
+            />
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <p>
+                    Besides, I worked with four Front-End Devs and consulted
+                    with the Principal Developer, CTO, and Business Development
+                    Director. I also collaborated with the Marketing Specialist
+                    and PR Manager to handle landing websites and marketing
+                    materials.
+                </p>
+            </div>
+            <div class="w-full max-w-200 mx-auto flex flex-col gap-8">
+                <h3>Platform</h3>
+            </div>
+            <Table
+                columns={[{ key: "platform" }, { key: "purpose" }]}
+                data={[
+                    {
+                        platform: "Desktop Web",
+                        purpose:
+                            "The emphasis was on making the UI that would be accessible both on small & large resolution Desktop screens.",
+                    },
+                ]}
+            />
+        </div>
+    </section>
+    <section class="px-6 py-16 max-w-7xl mx-auto flex flex-col gap-14">
+        <div class="max-w-200 mx-auto">
+            <h2 class="mb-8">The Kickoff</h2>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <p>
+                    When I joined the team as a UI/UX designer there was already
+                    a working MVP version of the product and a brand identity
+                    used in the product landing page. During the first couple of
+                    months, I was asked to redesign some of the components to
+                    make them more user-friendly, align the design with the
+                    brand identity, and introduce some features. This UI allowed
+                    us to user-test all the new features and rectify the
+                    development process.
+                </p>
+                <ImageBlock
+                    src="/case-study-datuum/old-version.avif"
+                    alt="MVP Version of the Product"
+                    caption="That's what Datuum looked like, when I joined the startup"
+                />
+                <p>
+                    However, as it happens in startups, things began to change
+                    fast. This is the moment the real challenges arose.
+                </p>
+            </div>
+        </div>
+
+        <ProblemStatement
+            problems={[
+                {
+                    icon: "case-study-datuum/tangled.svg",
+                    title: "Tangled",
+                    description:
+                        "The rapid addition of features led to a cluttered UI designed for development, not user needs. Users desired a more streamlined experience with essential tools easily accessible.",
+                },
+                {
+                    icon: "case-study-datuum/complicated.svg",
+                    title: "Complicated",
+                    description:
+                        "Users were unfamiliar with terminology and unclear navigation within the app. They expected Datuum to mirror the intuitive design and language found in other apps they frequently used.",
+                },
+                {
+                    icon: "case-study-datuum/infinite.svg",
+                    title: "Infinite",
+                    description:
+                        "The rapid addition of features led to a cluttered UI designed for development, not user needs. Users desired a more streamlined experience with essential tools easily accessible.",
+                },
+            ]}
+            goals={[
+                {
+                    icon: "case-study-datuum/relevant.svg",
+                    oldTitle: "Tangled",
+                    newTitle: "Relevant",
+                    description:
+                        "Each screen should focus on a single task, and grouping related features. A streamlined navigation model should enable efficient switching between tasks and projects.",
+                },
+                {
+                    icon: "case-study-datuum/intuitive.svg",
+                    oldTitle: "Complicated",
+                    newTitle: "Intuitive",
+                    description:
+                        "Frequently used tools should adopt design patterns from popular products, which can help reduce the learning curve for new users and make user interface feel more familiar.",
+                },
+                {
+                    icon: "case-study-datuum/definitive.svg",
+                    oldTitle: "Infinite",
+                    newTitle: "Definitive",
+                    description:
+                        "Users should always have visibility into their task progress. For lengthy step-by-step progress bars are more informative than spinning wheels or standard progress bars.",
+                },
+            ]}
+            ><Fragment slot="question">
+                How do we make Datuum <span class="text-blue-light"
+                    >intuitive</span
+                > for <span class="text-yellow-light">anyone</span> around?
+            </Fragment>
+        </ProblemStatement>
+    </section>
+
+    <section class="px-6 py-16 max-w-7xl mx-auto flex flex-col gap-14">
+        <div class="max-w-200 mx-auto">
+            <h2 class="mb-8">Experience</h2>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <p>
+                    Before diving into the specifics, I'd like to highlight that
+                    the true catalyst for our success were team sessions,
+                    demonstrating that regardless of the project's stage, it’s
+                    the combined effort of every team member that sustains
+                    momentum. This journey has transformed Datuum, reinforcing
+                    the power of teamwork in my mindset.
+                </p>
+            </div>
+        </div>
+
+        <div class="max-w-200 mx-auto">
+            <h4 class="mb-4">
+                Picking the Right Moment — Information Architecture (IA)
+            </h4>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <p>
+                    When I began working on the pilot version of our product, my
+                    primary concern was the Information Architecture (IA). Even
+                    after my onboarding, the entire model still seemed overly
+                    complicated. I was unsure whether my confusion was due to a
+                    lack of my domain knowledge or if the model was inherently
+                    complex.
+                </p>
+                <p>
+                    Here’s the initial version ( — ) and the subsequent versions
+                    1 and 2 ( - - ):
+                </p>
+                <ImageBlock
+                    src="/case-study-datuum/old-ia.svg"
+                    alt="Initial Information Architecture of datuum.ai"
+                />
+                <p>
+                    The model mirrored the product's internal architecture,
+                    providing a robust platform for rolling out features at a
+                    fast pace. At the time, our primary focus was on adding
+                    mapping functionality, so I didn't take the liberty to
+                    articulate my problem with the IA.
+                </p>
+                <ImageBlock
+                    src="/case-study-datuum/old-ui-1.avif"
+                    alt="First Gen UI of datuum.ai"
+                />
+                <p>
+                    As time went by, we introduced numerous features and
+                    conducted user testing with various datasets to understand
+                    how users might utilize them in different scenarios. I
+                    noticed that the platform was losing its usability, and the
+                    standard onboarding process for new participants began to
+                    take too much time.
+                </p>
+            </div>
+        </div>
+
+        <div class="max-w-200 mx-auto">
+            <h4 class="mb-4">The Turnaround</h4>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <p>
+                    When the development team was ready to introduce a
+                    project-oriented architecture and product management
+                    initiated the brand redesign simultaneously, I felt it was
+                    an ideal opportunity to refine the information architecture
+                    (IA) and optimize user flows for each user persona.
+                </p>
+                <p>
+                    To address this, I began by reviewing my notes from our
+                    client sessions, organizing them according to the various
+                    stages of the user flow. This allowed me to identify pain
+                    points and opportunities for enhancement specific to each
+                    persona. I then consulted with management to present my
+                    proposed changes, soliciting their feedback to ensure
+                    alignment with their vision for the product. This
+                    collaborative approach ensured that the design strategy was
+                    cohesive and well-informed, laying a solid foundation for
+                    future iterations.
+                </p>
+                <p>
+                    Below is the finalized IA I developed, designed to support
+                    the new product architecture and enhance the overall user
+                    experience.
+                </p>
+                <ImageBlock
+                    src="/case-study-datuum/new-ia.svg"
+                    alt="Redesigned Information Architecture of datuum.ai"
+                />
+                <p>
+                    At the higher workspace level, the structure is simple:
+                    teams and projects tabs allow multiple groups of members to
+                    be assigned to either common or separate projects — a
+                    significant feature for enterprise-level clients.
+                </p>
+                <p>
+                    Adapting to the new architecture, I aimed to use the
+                    progressive disclosure technique for each user journey,
+                    making the entire process feel light and intuitive. Hence,
+                    the IA mainly follows a sequential pattern for pipeline
+                    components — source, target, and semantic layer, introduced
+                    in a new model. Better still, users can choose which
+                    component to configure first — a key feature retained from
+                    the previous version. Finally, making each project represent
+                    a single pipeline brought a lot of clarity and simplicity to
+                    users.
+                </p>
+            </div>
+        </div>
+
+        <div class="max-w-200 mx-auto">
+            <h4 class="mb-4">Design with Users — Dashboard</h4>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <p>
+                    Since our pilot release, the Overview page was at the TBD
+                    stage for a significant period, with only a mockup I
+                    initially created for the first version of the design
+                    system. While revising the user journey map during the
+                    product architecture update, I realized that a comprehensive
+                    Project Overview page could significantly improve the user
+                    experience. This improvement could also address our ongoing
+                    challenge with user autonomy.
+                </p>
+                <p>
+                    When discussing our global project vision, an image popped
+                    into my mind — a series of building blocks that are
+                    connected together to create a data pipeline. This
+                    structure, unlike traditional dashboards with static charts,
+                    would allow users to inspect and interact with the data flow
+                    from any angle. I imagined users seeing the entire journey
+                    of their data, from its source to its final destination,
+                    intuitively and dynamically.
+                </p>
+                <ImageBlock
+                    src="/case-study-datuum/datuum-sketch.avif"
+                    alt="Sketch of the datuum's dashboard"
+                    caption="When I want to get ideas out quickly, I sketch freehand and then transfer them to Figma after the brainstorming sessions"
+                />
+                <p>
+                    The idea took shape through numerous sketches and
+                    brainstorming sessions. I thought about how users would need
+                    to catch up after a break to resume their task or sign in to
+                    adjust the pipeline schedule. This vision guided me to
+                    design an informative and engaging visualization, ensuring
+                    every piece of information was accessible at a glance.
+                </p>
+            </div>
+        </div>
+
+        <div class="max-w-200 mx-auto">
+            <h4 class="mb-4">User needs are not user 'wants' — User Flows</h4>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <p>
+                    If you've conducted user interviews, you know users can
+                    request anything. However, as a user experience designer,
+                    it's my job to uncover their true needs by addressing their
+                    feelings and motivations at each step of the user journey. I
+                    had an opportunity to test myself when optimizing the first
+                    part of the main user flow — the discovery stage.
+                </p>
+                <p>
+                    At the start, the discovery stage involved a tedious process
+                    of connecting and analyzing source data. Some actions were
+                    sequential, while others were triggered by specific buttons
+                    when needed. With more people testing this, we noticed that
+                    even the simplest tasks seemed somewhat confusing or
+                    misleading. Although it was faster than manual tasks, the
+                    process was still quite lengthy.
+                </p>
+                <p>
+                    To address this, I began by analyzing how and when users
+                    interacted with each step of the user flow. User sessions
+                    revealed that some users were confused by the terminology,
+                    while others found certain steps unnecessary. Additionally,
+                    users often struggled to estimate the time automatic tasks
+                    would take to complete.
+                </p>
+                <p>
+                    I turned these notes into an affinity diagram and consulted
+                    our principal developer to understand what was happening at
+                    each stage in the background. I mapped out the entire
+                    discovery flow, including the actions performed with the
+                    extracted data that were invisible to the user. With this
+                    comprehensive view, it was time to optimize the process.
+                </p>
+                <ImageBlock
+                    src="/case-study-datuum/discovery-flow.avif"
+                    alt="Sketch of the datuum's dashboard"
+                    caption="As you can see, the optimized version of the user flow is nearly half the length of the initial one without sacrificing functionality"
+                />
+                <p>
+                    Looking into the diagram, I realized that some
+                    user-initiated steps could be launched in the background
+                    without affecting the end result. Additionally, modular
+                    windows with progress bars and no ETA didn’t clearly show
+                    what was happening or how long it would take, so it made
+                    sense to replace them with something more elegant and
+                    useful.
+                </p>
+                <p>
+                    The hypothesis was to remove everything that didn’t require
+                    user action from the main user flow. Only tasks where users
+                    needed to interact with the UI were kept, while all other
+                    tasks were performed in the background without modal windows
+                    blocking the interface. This made the flow more linear and
+                    simple to understand: "You've done this, let's do that now."
+                </p>
+                <p>
+                    However, power users wanted to monitor background processes
+                    and take control on some occasions. To address this, we
+                    enhanced the existing task manager with composite tasks and
+                    additional UI controls, enabling advanced users to manage
+                    the workflow comprehensively without disrupting the
+                    streamlined experience for non-technical users.
+                </p>
+                <ImageBlock
+                    src="/case-study-datuum/task-manager.avif"
+                    alt="Sketch of the datuum's dashboard"
+                    caption="A task manager accessed from the top bar is a neat and efficient way to keep users updated on background processes"
+                />
+                <p>
+                    This case demonstrates the effectiveness of the progressive
+                    disclosure principle. We simplified a complex flow into a
+                    clear sequence of steps while maintaining advanced
+                    functionality, which can be managed via a separate UI
+                    component.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="px-6 py-16 max-w-7xl mx-auto flex flex-col gap-14">
+        <div class="max-w-200 mx-auto">
+            <h2 class="mb-8">Design System</h2>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <p>
+                    I used two design systems for this project. The first was
+                    based on Google Material You, because it was a good platform
+                    with robust and reliable components for all the features we
+                    needed to implement quickly.
+                </p>
+                <p>
+                    However, as we delved into development, we discovered that
+                    Material You's emphasis on cross-platform consistency posed
+                    challenges. While this uniformity is beneficial in some
+                    contexts, it limited our ability to utilize certain features
+                    to their full potential. Moreover, the design language of
+                    Material You didn't always mesh seamlessly with our custom
+                    components, necessitating several rounds of iteration to
+                    achieve a cohesive visual experience.
+                </p>
+                <ImageBlock
+                    src="/case-study-datuum/old-ui-2.avif"
+                    alt="Old UI of Datuum"
+                    caption="First iteration of the UI was hugely inspired by Material UI"
+                />
+            </div>
+        </div>
+        <div class="max-w-200 mx-auto">
+            <h3 class="mb-8">The Redesign</h3>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <p>
+                    To address these limitations and meet the requirements of
+                    our new product update – namely, an enterprise-level UX with
+                    minimalist yet practical components and reusable design
+                    patterns – I embarked on developing a second, custom design
+                    system.
+                </p>
+                <p>
+                    Inspired by the sharp-cornered aesthetic of our new brand
+                    identity, I found the IBM Carbon Design System to be a good
+                    reference point. This iteration focused on resolving the
+                    previous system's shortcomings and establishing layouts that
+                    could accommodate future features. After a few rounds of
+                    refinement, I developed a set of modular components tailored
+                    to our specific needs.
+                </p>
+                <Gallery
+                    slides={[
+                        {
+                            image: "case-study-datuum/overview-datuum.avif",
+                            alt: "Overview",
+                            label: "Overview",
+                        },
+                        {
+                            image: "case-study-datuum/icons-datuum.avif",
+                            alt: "Icons",
+                            label: "Icons",
+                        },
+                        {
+                            image: "case-study-datuum/pictograms-datuum.avif",
+                            alt: "Pictograms",
+                            label: "Pictograms",
+                        },
+                        {
+                            image: "case-study-datuum/screenshot-datuum.png",
+                            alt: "Screenshot",
+                            label: "Screenshot",
+                        },
+                    ]}
+                />
+            </div>
+        </div>
+    </section>
+
+    <section class="px-6 py-16 max-w-7xl mx-auto flex flex-col gap-14">
+        <div class="max-w-200 mx-auto">
+            <h2 class="mb-8">User Testing Results</h2>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <h3 class="mb-4">Time on Task</h3>
+                <SingleStat
+                    statValue={-37}
+                    stat="time on task"
+                    value="70 mins less"
+                    label="on average"
+                    blockColor="bg-blue-light"
+                />
+                <p>
+                    User testing results demonstrated a 37% decrease in average
+                    time on task, equivalent to approximately 70 minutes.
+                    Notably, users smoothly navigated the discovery stage of
+                    data pipeline generation, reporting no significant
+                    difficulties. However, further analysis suggests potential
+                    for improvement in the later data mapping stage,
+                    highlighting opportunities for optimization.
+                </p>
+            </div>
+        </div>
+        <div class="max-w-200 mx-auto">
+            <h2 class="mb-8">User Testing Results</h2>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <h3 class="mb-4">Task Success Rate</h3>
+                <div class="flex flex-row gap-8">
+                    <div class="flex grow w-full">
+                        <p>
+                            We saw a solid 14% jump in task success rates, and
+                            users reported feeling way more confident. They
+                            really liked being able to keep track of their
+                            progress using the project overview, and they gave
+                            the task manager a big thumbs up for the ability to
+                            monitor automated tasks, previously impossible to
+                            estimate.
+                        </p>
+                    </div>
+
+                    <div class="flex grow w-full">
+                        <DoubleStat
+                            topStat={{
+                                icon: "person",
+                                quantity: "31",
+                                stat: 61,
+                                blockColor: "bg-text-secondary-inverse",
+                            }}
+                            bottomStat={{
+                                icon: "person",
+                                quantity: "35",
+                                stat: 75,
+                                progress: "+14%",
+                                blockColor: "bg-green-light",
+                            }}
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="px-6 py-16 mx-auto flex flex-col">
+        <div class="max-w-200 w-full mx-auto pb-16">
+            <h2 class="mb-8">Finished Product</h2>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <p>
+                    After more than 2 years of development, I'm proud to present
+                    the finalized design.
+                </p>
+            </div>
+        </div>
+        <ImageBlock
+            src="/case-study-datuum/datuum-showcase-1.avif"
+            alt="Dashboard | Datuum"
+            fullWidth={true}
+            noPadding={true}
+        />
+
+        <ImageBlock
+            src="/case-study-datuum/datuum-showcase-2.avif"
+            alt="Mapping | Datuum"
+            fullWidth={true}
+            noPadding={true}
+        />
+
+        <ImageBlock
+            src="/case-study-datuum/datuum-showcase-3.avif"
+            alt="Ontology | Datuum"
+            fullWidth={true}
+            noPadding={true}
+        />
+    </section>
+
+    <section class="px-6 py-16 max-w-7xl mx-auto flex flex-col gap-14">
+        <div class="max-w-200 w-full mx-auto">
+            <h2 class="mb-8">Press</h2>
+            <div
+                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <h4>Datuum: Automate Data Onboarding with AI</h4>
+                <p>
+                    Here's a short video I made to showcase Datuum's new
+                    capabilities.
+                </p>
+                <VideoEmbed
+                    url="https://youtu.be/NUyRgEppwBw?si=mhvXiw0oeObe354C"
+                    noPadding={true}
+                />
+            </div>
+            <div
+                class="mt-16 flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            >
+                <h4>
+                    The AI-Driven Autopilot for Data Integration and Management
+                </h4>
+                <p>
+                    “datuum.ai’s hybrid SaaS data management platform marks a
+                    significant step forward in the world of data Integration
+                    and management.” - US Venture News
+                </p>
+                <a
+                    href="https://usventure.news/datuum-ai-the-ai-driven-autopilot-for-data-integration-and-management/"
+                    class="outline-btn w-fit"
+                >
+                    usventure.news
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <CaseFooter
+        isFirst={true}
+        nextCase={{ name: "Osvita XXI", url: "/case-study-osvita" }}
+    />
+</BaseLayout>

@@ -1,0 +1,42 @@
+---
+interface Props {
+    isFirst?: boolean;
+    isLast?: boolean;
+    prevCase?: { name: string; url: string };
+    nextCase?: { name: string; url: string };
+}
+
+const { isFirst = false, isLast = false, prevCase, nextCase } = Astro.props;
+---
+
+<div class="px-6 py-16">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        {
+            isFirst ? (
+                <a href="/#selected-work" class="outline-btn">
+                    ← Back to Home Page
+                </a>
+            ) : prevCase ? (
+                <a href={prevCase.url} class="outline-btn">
+                    ← {prevCase.name} Case
+                </a>
+            ) : (
+                <div />
+            )
+        }
+
+        {
+            isLast ? (
+                <a href="/#method" class="primary-btn">
+                    Method Section →
+                </a>
+            ) : nextCase ? (
+                <a href={nextCase.url} class="primary-btn">
+                    {nextCase.name} Case →
+                </a>
+            ) : (
+                <div />
+            )
+        }
+    </div>
+</div>

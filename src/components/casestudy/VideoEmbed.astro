@@ -1,0 +1,119 @@
+---
+interface Props {
+    url: string;
+    caption?: string;
+    noPadding?: boolean;
+}
+const { url, caption, noPadding = false } = Astro.props;
+const padding = noPadding ? "" : "py-8";
+
+function parseVideoUrl(url: string) {
+    const youtubeRegex =
+        /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const youtubeMatch = url.match(youtubeRegex);
+
+    if (youtubeMatch) {
+        return {
+            platform: "youtube",
+            id: youtubeMatch[1],
+            embedUrl: `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1&modestbranding=1&rel=0`,
+            thumbnail: `https://img.youtube.com/vi/${youtubeMatch[1]}/maxresdefault.jpg`,
+        };
+    }
+
+    const vimeoRegex =
+        /(?:vimeo\.com\/)(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?)/;
+    const vimeoMatch = url.match(vimeoRegex);
+
+    if (vimeoMatch) {
+        return {
+            platform: "vimeo",
+            id: vimeoMatch[3],
+            embedUrl: `https://player.vimeo.com/video/${vimeoMatch[3]}?autoplay=1&color=ffffff&title=0&byline=0&portrait=0`,
+            thumbnail: `https://vumbnail.com/${vimeoMatch[3]}.jpg`,
+        };
+    }
+
+    return null;
+}
+
+const videoData = parseVideoUrl(url);
+if (!videoData) {
+    throw new Error(
+        `Invalid video URL: ${url}. Must be a YouTube or Vimeo URL.`,
+    );
+}
+
+const uniqueId = `video-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class={`${padding} w-full has-cursor-pointer`}>
+    <div
+        class="relative w-full aspect-video overflow-hidden bg-black cursor-pointer group"
+        data-video-id={uniqueId}
+    >
+        <!-- Thumbnail -->
+        <img
+            src={videoData.thumbnail}
+            alt="Video thumbnail"
+            class="absolute inset-0 w-full h-full object-cover"
+            data-thumbnail={uniqueId}
+        />
+
+        <!-- YouTube-style Play Button -->
+        <div
+            class="absolute inset-0 flex items-center justify-center"
+            data-overlay={uniqueId}
+        >
+            <svg
+                width="68"
+                height="48"
+                viewBox="0 0 68 48"
+                class="opacity-80 group-hover:opacity-100 transition"
+            >
+                <path
+                    d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z"
+                    fill="#212121"
+                    fill-opacity="0.8"></path>
+                <path d="M 45,24 27,14 27,34" fill="#fff"></path>
+            </svg>
+        </div>
+
+        <!-- Iframe placeholder -->
+        <div data-iframe-container={uniqueId}></div>
+    </div>
+    {
+        caption && (
+            <p class="mx-auto text-text-secondary italic text-base mt-4 text-center max-w-4/5">
+                {caption}
+            </p>
+        )
+    }
+</div>
+
+<script define:vars={{ uniqueId, embedUrl: videoData.embedUrl }}>
+    const container = document.querySelector(`[data-video-id="${uniqueId}"]`);
+    const thumbnail = document.querySelector(`[data-thumbnail="${uniqueId}"]`);
+    const overlay = document.querySelector(`[data-overlay="${uniqueId}"]`);
+    const iframeContainer = document.querySelector(
+        `[data-iframe-container="${uniqueId}"]`,
+    );
+
+    container?.addEventListener("click", () => {
+        const iframe = document.createElement("iframe");
+        iframe.src = embedUrl;
+        iframe.title = "Video player";
+        iframe.frameBorder = "0";
+        iframe.allow =
+            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        iframe.className = "absolute inset-0 w-full h-full";
+
+        if (iframeContainer) {
+            iframeContainer.appendChild(iframe);
+        }
+
+        if (thumbnail) thumbnail.style.display = "none";
+        if (overlay) overlay.style.display = "none";
+    });
+</script>

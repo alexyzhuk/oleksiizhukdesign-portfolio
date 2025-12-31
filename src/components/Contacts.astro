@@ -1,0 +1,200 @@
+---
+const resumeDownloadLink =
+    "https://drive.google.com/uc?export=download&id=1GNwAVzGcJNmev5ZjnjEOq1El-AAZUMxS";
+const resumeViewLink =
+    "https://drive.google.com/file/d/1GNwAVzGcJNmev5ZjnjEOq1El-AAZUMxS/view?usp=sharing";
+const linkedinLink = "https://www.linkedin.com/in/oleksii-zhuk/";
+const email = "alexy.zhuk@gmail.com";
+const calendlyLink = "https://calendly.com/alexy-zhuk/30min";
+---
+
+<section id="contacts" class="min-h-fit px-5 sm:px-6 py-12 sm:py-24">
+    <div class="flex flex-col w-full items-center justify-center">
+        <!-- Heading -->
+        <div class="max-w-7xl mx-auto w-full flex flex-col gap-4 sm:gap-12">
+            <h2
+                class="text-4xl sm:text-5xl leading-snug font-medium text-balance"
+            >
+                Let's make things real.<br /><span class="text-green-light"
+                    >Together.</span
+                >
+            </h2>
+            <div
+                class="max-w-7xl w-full flex flex-col lg:flex-row items-start justify-between gap-12"
+            >
+                <div
+                    class="flex flex-col items-start justify-start gap-4 sm:gap-12 w-full lg:w-fit lg:min-w-100"
+                >
+                    <!-- Subheading -->
+                    <p class="text-lg text-balance max-w-xs leading-7">
+                        If you'd like to meet and discuss your idea, pick a
+                        convenient time slot.
+                    </p>
+
+                    <!-- CTA Button -->
+                    <a
+                        href={calendlyLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="light-btn"
+                    >
+                        Book a Meeting
+                    </a>
+                </div>
+
+                <!-- Contact Links -->
+                <div
+                    class="inline-grid w-full gap-8 lg:gap-12 grid-rows-3 md:grid-rows-2 grid-cols-1 md:grid-cols-2"
+                >
+                    <!-- Resume -->
+                    <div class="flex flex-col items-start w-full">
+                        <p class="label-text mono">RÉSUMÉ</p>
+                        <div
+                            class="flex gap-3 justify-between items-center w-full pt-1 pb-2 border-b border-dashed border-stroke-medium"
+                        >
+                            <a
+                                href={resumeViewLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="flex text-yellow-light text-base xs:text-lg leading-8 hover:underline transition"
+                                aria-label="View resume"
+                            >
+                                drive.google.com
+                            </a>
+                            <a
+                                href={resumeDownloadLink}
+                                download
+                                class="w-8 h-8 p-2 flex items-center rounded-xl justify-center bg-transparent hover:bg-text-primary/20 transition"
+                                aria-label="Download resume"
+                            >
+                                <img
+                                    src="/download.svg"
+                                    alt="Download"
+                                    class="w-4 h-4"
+                                />
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="flex flex-col items-start w-full grow">
+                        <p class="label-text mono">EMAIL</p>
+                        <div
+                            class="flex gap-3 justify-between items-center w-full pt-1 pb-2 border-b border-dashed border-stroke-medium"
+                        >
+                            <a
+                                href={`mailto:${email}`}
+                                class="flex text-red-light text-base xs:text-lg leading-8 hover:underline
+                            transition"
+                                aria-label="Send email"
+                            >
+                                alexy.zhuk@gmail.com
+                            </a>
+                            <button
+                                id="copy-email-btn"
+                                class="flex items-center rounded-xl justify-center overflow-hidden hover:bg-text-primary/20 transition-all ease-linear duration-500 h-8"
+                                aria-label="Copy email"
+                                data-email={email}
+                            >
+                                <span
+                                    class="copy-icon-wrapper w-8 h-8 p-2 flex items-center justify-center transition-all ease-linear duration-500"
+                                >
+                                    <img
+                                        src="/copy.svg"
+                                        alt="Copy"
+                                        class="w-4 h-4"
+                                    />
+                                </span>
+                                <span
+                                    class="success-content items-center justify-center gap-1.5 flex text-green-light text-xs max-w-0 opacity-0 transition-all ease-linear duration-500 whitespace-nowrap overflow-hidden"
+                                >
+                                    <svg
+                                        width="12"
+                                        height="9"
+                                        viewBox="0 0 12 9"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M12 0.88857L4.37882 9L0 4.71712L0.850718 3.79066L4.3421 7.20554L11.1121 0L12 0.88857Z"
+                                            fill="currentColor"></path>
+                                    </svg>
+                                    Email Copied
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- LinkedIn -->
+                    <div class="flex flex-col items-start w-full">
+                        <p class="label-text mono">LINKEDIN</p>
+                        <div
+                            class="flex gap-3 items-center w-full pt-1 pb-2 border-b border-dashed border-stroke-medium"
+                        >
+                            <a
+                                href={linkedinLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="flex text-blue-light text-base xs:text-lg leading-8 hover:underline transition"
+                                aria-label="LinkedIn profile"
+                            >
+                                oleksii-zhuk
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const copyBtn = document.getElementById("copy-email-btn");
+    const copyIconWrapper = copyBtn?.querySelector(".copy-icon-wrapper");
+    const successContent = copyBtn?.querySelector(".success-content");
+    let resetTimeout: number;
+
+    copyBtn?.addEventListener("click", async () => {
+        const email = copyBtn.getAttribute("data-email");
+
+        if (email && copyIconWrapper && successContent) {
+            try {
+                await navigator.clipboard.writeText(email);
+
+                // Clear any existing timeout
+                clearTimeout(resetTimeout);
+
+                // Transform to success state
+                copyIconWrapper.classList.add("max-w-0", "hidden");
+                copyIconWrapper.classList.remove("w-8");
+
+                successContent.classList.remove("max-w-0", "hidden");
+                successContent.classList.add("max-w-xs", "opacity-100", "px-3");
+
+                copyBtn.classList.remove("hover:bg-text-primary/20");
+                copyBtn.classList.add("bg-green-light/15");
+
+                // Reset after 3 seconds
+                resetTimeout = window.setTimeout(() => {
+                    // Start reverse animations
+                    successContent.classList.remove(
+                        "max-w-xs",
+                        "opacity-100",
+                        "px-3",
+                    );
+                    successContent.classList.add("max-w-0", "hidden");
+
+                    copyIconWrapper.classList.remove("max-w-0", "hidden");
+                    copyIconWrapper.classList.add("w-8");
+
+                    copyBtn.classList.remove("bg-green-light/15");
+                    copyBtn.classList.add("hover:bg-text-primary/20");
+                }, 3000);
+            } catch (err) {
+                console.error("Failed to copy email:", err);
+            }
+        }
+    });
+</script>

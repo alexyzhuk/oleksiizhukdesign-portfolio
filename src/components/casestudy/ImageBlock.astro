@@ -1,0 +1,104 @@
+---
+interface Props {
+    src: string;
+    alt: string;
+    caption?: string;
+    fullWidth?: boolean;
+    noPadding?: boolean;
+}
+const { src, alt, caption, fullWidth = false, noPadding = false } = Astro.props;
+const maxWidth = fullWidth ? "" : "max-w-7xl mx-auto";
+const padding = noPadding ? "" : "py-8";
+const uniqueId = `image-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class={`${padding} ${maxWidth} has-cursor-pointer`}>
+    <img
+        src={src}
+        alt={alt}
+        class="w-full cursor-zoom-in transition"
+        id={uniqueId}
+    />
+    {
+        caption && (
+            <p class="mx-auto text-text-secondary italic text-base mt-4 text-center text-balance">
+                {caption}
+            </p>
+        )
+    }
+</div>
+
+<!-- Fullscreen Modal -->
+<div
+    id={`modal-${uniqueId}`}
+    class="fixed inset-0 bg-bg-dark/95 z-9999 hidden items-center justify-center p-8"
+>
+    <button
+        class="absolute top-6 right-6 w-12 h-12 flex items-center justify-center text-text-primary hover:bg-text-primary/10 rounded-full transition"
+        aria-label="Close"
+    >
+        <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+        >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+    </button>
+
+    <img
+        src={src}
+        alt={alt}
+        class="max-w-full max-h-full object-contain cursor-zoom-out"
+    />
+</div>
+
+<script define:vars={{ uniqueId }}>
+    const image = document.getElementById(uniqueId);
+    const modal = document.getElementById(`modal-${uniqueId}`);
+    const closeBtn = modal?.querySelector("button");
+    const modalImage = modal?.querySelector("img");
+
+    // Open modal
+    image?.addEventListener("click", () => {
+        modal?.classList.remove("hidden");
+        modal?.classList.add("flex");
+        document.body.style.overflow = "hidden";
+    });
+
+    // Close modal - close button
+    closeBtn?.addEventListener("click", () => {
+        modal?.classList.add("hidden");
+        modal?.classList.remove("flex");
+        document.body.style.overflow = "";
+    });
+
+    // Close modal - click outside image
+    modal?.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+            document.body.style.overflow = "";
+        }
+    });
+
+    // Close modal - click on image
+    modalImage?.addEventListener("click", () => {
+        modal?.classList.add("hidden");
+        modal?.classList.remove("flex");
+        document.body.style.overflow = "";
+    });
+
+    // Close modal - escape key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal?.classList.contains("flex")) {
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+            document.body.style.overflow = "";
+        }
+    });
+</script>

@@ -1,0 +1,294 @@
+---
+const tools = [
+    {
+        name: "Figma",
+        description:
+            "My multi-tool for getting things done. I use it for design and beyond.",
+        icon: "/figma.svg",
+    },
+    {
+        name: "Google Meet",
+        description: "Instant communications & conferencing for agenda.",
+        icon: "/googlemeet.svg",
+    },
+    {
+        name: "Tally",
+        description:
+            "Modern style and simplistic setup make it a perfect assets for user research.",
+        icon: "/tally.svg",
+    },
+    {
+        name: "Claude",
+        description: "Personal assistant that takes care of tedious tasks.",
+        icon: "/claude.svg",
+    },
+    {
+        name: "Astro",
+        description:
+            "Great framework for building lightning-fast websites and apps.",
+        icon: "/astro.svg",
+    },
+    {
+        name: "GitHub",
+        description:
+            "Primary service for task and project management. Pet projects repository for collaboration.",
+        icon: "/github.svg",
+    },
+    {
+        name: "Framer",
+        description:
+            "Dynamic website builder to build anything from landing pages to large websites.",
+        icon: "/framer.svg",
+    },
+    {
+        name: "Wordpress",
+        description:
+            "I redesign and update old websites, if a client doesn't want to switch platforms.",
+        icon: "/wordpress.svg",
+    },
+    {
+        name: "Zed",
+        description:
+            "Yes, I code! This is the code editor of my choice for Front-End Development.",
+        icon: "/zed.png",
+    },
+    {
+        name: "Affinity",
+        description:
+            "Photos, images, vectors, printables — this is the workbench for any task at hand.",
+        icon: "/affinity.svg",
+    },
+    {
+        name: "Final Cut Pro",
+        description: "All things video for social media, presentations etc.",
+        icon: "/finalcutpro.png",
+    },
+    {
+        name: "Logic Pro",
+        description:
+            "I create unique sound effects for UI and videos to enhance product image.",
+        icon: "/logicpro.png",
+    },
+    {
+        name: "Nucleo",
+        description:
+            "Primary tool for icon set version management and icon font generation.",
+        icon: "/nucleo.svg",
+    },
+];
+
+const duplicatedTools = [...tools, ...tools, ...tools];
+const calendlyLink = "https://calendly.com/alexy-zhuk/30min";
+---
+
+<section
+    class="min-h-fit sm:min-h-screen flex flex-col items-center gap-8 justify-center p-6 -mt-24 sm:-mt-32 pt-32 relative z-10"
+>
+    <div class="max-w-7xl h-full flex flex-col gap-4 justify-center grow">
+        <p class="mono text-stroke-weak text-xl sm:text-2xl font-normal mb-4">
+            Hi! I'm Oleksii Zhuk, a Product Designer & Developer.
+        </p>
+
+        <h1 class="mb-8 w-full sm:max-w-3/4 text-balance md:text-wrap">
+            I <span class="italic text-blue-light">dive deep</span> into the root
+            of a problem and create solutions
+            <span class="italic text-yellow-light">not just for users</span>,
+            but <span class="italic text-green-light">with them</span>.
+        </h1>
+
+        <div class="flex gap-2 items-center">
+            <a
+                href={calendlyLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="light-btn"
+            >
+                Book a Meeting
+            </a>
+            <a
+                href="https://www.linkedin.com/in/oleksii-zhuk/"
+                class="hidden sm:flex
+            h-fit p-4 rounded-2xl hover:bg-bg-light/10 transition-background duration-300"
+            >
+                <img src="/linkedin-logo.svg" />
+            </a>
+        </div>
+    </div>
+    <!-- Tools Carousel -->
+    <div class="w-full">
+        <div class="max-w-7xl mx-auto">
+            <p class="my-4 mono text-xl font-light">Tools I Use Daily</p>
+        </div>
+
+        <div class="carousel-container">
+            <div class="carousel-track" id="carousel-track">
+                {
+                    duplicatedTools.map((tool) => (
+                        <div class="tool-item">
+                            <img
+                                src={tool.icon}
+                                alt={tool.name}
+                                class="tool-icon"
+                                data-tool-name={tool.name}
+                                data-tool-description={tool.description}
+                            />
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+
+        <!-- Custom Tooltip -->
+        <div
+            id="tool-tooltip"
+            class="fixed w-56 text-balance z-10000 pt-3 px-4 pb-4 bg-bg-dark border border-white/20 rounded-lg shadow-lg pointer-events-none max-w-75 opacity-0 transition-opacity duration-500 invisible"
+        >
+            <p class="text-base font-semibold mb-2" id="tooltip-name"></p>
+            <p class="text-sm text-stroke-weak" id="tooltip-description"></p>
+        </div>
+    </div>
+
+    <script>
+        const track = document.getElementById("carousel-track") as HTMLElement;
+        const carouselContainer = document.querySelector(
+            ".carousel-container",
+        ) as HTMLElement;
+        const tooltip = document.getElementById("tool-tooltip");
+        const tooltipName = document.getElementById("tooltip-name");
+        const tooltipDescription = document.getElementById(
+            "tooltip-description",
+        );
+        const toolIcons = document.querySelectorAll(".tool-icon");
+
+        let hideTimeout: number | null = null;
+        let currentHoveredIcon: Element | null = null;
+
+        // Carousel animation state
+        let position = 0;
+        let baseSpeed = 0.5;
+        let currentSpeed = baseSpeed;
+        let targetSpeed = baseSpeed;
+        let isHovering = false;
+        let animationFrame: number;
+        let mouseX = 0;
+        let mouseY = 0;
+
+        // Get track width for looping
+        const getTrackWidth = () => {
+            if (!track) return 0;
+            return track.scrollWidth / 3;
+        };
+
+        // Smooth speed interpolation
+        const lerp = (start: number, end: number, factor: number) => {
+            return start + (end - start) * factor;
+        };
+
+        // Check which icon is under cursor
+        const checkIconUnderCursor = () => {
+            const element = document.elementFromPoint(mouseX, mouseY);
+            const icon = element?.closest(".tool-icon") as HTMLElement;
+
+            if (icon && icon !== currentHoveredIcon) {
+                currentHoveredIcon = icon;
+                showTooltip(icon);
+            } else if (!icon && currentHoveredIcon) {
+                currentHoveredIcon = null;
+                hideTooltip();
+            }
+        };
+
+        // Show tooltip
+        const showTooltip = (icon: HTMLElement) => {
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+                hideTimeout = null;
+            }
+
+            const name = icon.getAttribute("data-tool-name");
+            const description = icon.getAttribute("data-tool-description");
+
+            if (
+                tooltipName &&
+                tooltipDescription &&
+                name &&
+                description &&
+                tooltip
+            ) {
+                tooltipName.textContent = name;
+                tooltipDescription.textContent = description;
+                tooltip.classList.remove("invisible");
+                // Wait for next frame to trigger transition
+                requestAnimationFrame(() => {
+                    tooltip?.classList.remove("opacity-0");
+                    tooltip?.classList.add("opacity-100");
+                });
+            }
+        };
+
+        // Hide tooltip
+        const hideTooltip = () => {
+            tooltip?.classList.remove("opacity-100");
+            tooltip?.classList.add("opacity-0");
+
+            hideTimeout = window.setTimeout(() => {
+                tooltip?.classList.add("invisible");
+            }, 500); // Match transition duration
+        };
+
+        // Animation loop
+        const animate = () => {
+            if (!track) return;
+
+            currentSpeed = lerp(currentSpeed, targetSpeed, 0.05);
+            position -= currentSpeed;
+
+            const trackWidth = getTrackWidth();
+            if (Math.abs(position) >= trackWidth) {
+                position = 0;
+            }
+
+            track.style.transform = `translateX(${position}px)`;
+
+            // Check which icon is under cursor while animating
+            if (isHovering) {
+                checkIconUnderCursor();
+            }
+
+            animationFrame = requestAnimationFrame(animate);
+        };
+
+        // Start animation
+        animate();
+
+        // Track mouse position
+        document.addEventListener("mousemove", (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Update tooltip position
+            if (tooltip && currentHoveredIcon) {
+                tooltip.style.left = e.clientX + 20 + "px";
+                tooltip.style.top = e.clientY + 20 + "px";
+            }
+        });
+
+        // Handle hover slowdown
+        carouselContainer?.addEventListener("mouseenter", () => {
+            isHovering = true;
+            targetSpeed = baseSpeed * 0.2;
+        });
+
+        carouselContainer?.addEventListener("mouseleave", () => {
+            isHovering = false;
+            targetSpeed = baseSpeed;
+            currentHoveredIcon = null;
+            hideTooltip();
+        });
+
+        // Cleanup on page unload
+        window.addEventListener("beforeunload", () => {
+            cancelAnimationFrame(animationFrame);
+        });
+    </script>
+</section>

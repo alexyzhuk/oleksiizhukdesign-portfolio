@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import SelectedWork from "../components/SelectedWork.astro";
+import Method from "../components/Method.astro";
+import Expertise from "../components/Expertise.astro";
+import Testimonials from "../components/Testimonials.astro";
+import Contacts from "../components/Contacts.astro";
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Oleksii Zhuk · Product Designer</title>
+    </head>
+    <body>
+        <BaseLayout title="Oleksii Zhuk · Product Designer">
+            <Hero />
+            <SelectedWork />
+            <Method />
+            <Expertise />
+            <Testimonials />
+            <Contacts />
+        </BaseLayout>
+    </body>
+</html>

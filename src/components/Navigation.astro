@@ -1,0 +1,170 @@
+---
+// Navigation is the same on all pages, no props needed
+---
+
+<nav
+    id="navigation"
+    class="top-0 left-0 right-0 z-1000 p-5 sm:p-6 transtion-all duration-500 relative"
+>
+    <div
+        class="max-w-330 mx-auto flex pl-4 pr-2 py-2 rounded-3xl bg-bg-plaque border border-stroke-weak-dark justify-between items-center"
+    >
+        <a
+            href="/"
+            class="flex text-text-primary h-10 w-10 sm:h-12 sm:w-12 items-center justify-center shrink-0 z-50 logo-btn"
+        >
+            <img src="/main-logo.svg" alt="Oleksii Zhuk" class="h-7 sm:h-8" />
+        </a>
+
+        <div class="hidden sm:flex gap-1">
+            <a
+                href="/#selected-work"
+                class="nav-item nav-text nav-work text-text-primary"
+            >
+                <span>/</span> work
+            </a>
+            <a
+                href="/about"
+                class="nav-item nav-text nav-about text-text-primary"
+            >
+                <span>/</span> about
+            </a>
+            <!--
+            <a
+                href="/blog"
+                class="nav-item nav-text nav-blog text-text-primary"
+            >
+                <span>/</span> blog
+            </a>-->
+            <a
+                href="/#contacts"
+                class="nav-item nav-text nav-contacts text-text-primary"
+            >
+                <span>/</span> contacts
+            </a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button
+            id="mobile-menu-button"
+            class="sm:hidden relative z-50 px-4 py-5"
+            aria-label="Toggle menu"
+        >
+            <div class="w-6 h-5 flex flex-col justify-between">
+                <span
+                    class="hamburger-line block w-full h-0.5 bg-text-primary transition-all duration-500 origin-center"
+                ></span>
+                <span
+                    class="hamburger-line block w-full h-0.5 bg-text-primary transition-all duration-300"
+                ></span>
+                <span
+                    class="hamburger-line block w-full h-0.5 bg-text-primary transition-all duration-500 origin-center"
+                ></span>
+            </div>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div
+        id="mobile-menu"
+        class="absolute opacity-0 top-30 right-5 z-1001 w-48 rounded-4xl border border-stroke-weak-dark sm:hidden max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+    >
+        <div class="flex flex-col pt-6 px-6 pb-4">
+            <a
+                href="/#selected-work"
+                class="nav-text mobile-nav-item nav-work text-text-primary py-4"
+            >
+                <span>/</span> work
+            </a>
+
+            <a
+                href="/about"
+                class="nav-text mobile-nav-item nav-about text-text-primary py-4 text-2xl"
+            >
+                <span>/</span> about
+            </a>
+
+            <!--
+            <a
+                href="/blog"
+                class="nav-text mobile-nav-item nav-blog text-text-primary py-4 text-2xl
+            uppercase tracking-wide"
+            >
+                <span>/</span> blog
+            </a>-->
+
+            <a
+                href="/#contacts"
+                class="nav-text mobile-nav-item nav-contacts text-text-primary py-4 text-2xl"
+            >
+                <span>/</span> contacts
+            </a>
+        </div>
+    </div>
+</nav>
+
+<script>
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const hamburgerIcon = mobileMenuButton?.querySelector(".hamburger-icon");
+    const closeIcon = mobileMenuButton?.querySelector(".close-icon");
+    const mobileNavItems = document.querySelectorAll(".mobile-nav-item");
+    const navigation = document.getElementById("navigation");
+
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        const lines = mobileMenuButton?.querySelectorAll(".hamburger-line");
+
+        if (isMenuOpen) {
+            // Open menu - expand navbar
+            mobileMenu?.classList.remove("max-h-0");
+            mobileMenu?.classList.add("opacity-100", "max-h-fit", "bg-bg-dark");
+            document.body.style.overflow = "hidden";
+
+            // Animate hamburger to X
+            if (lines) {
+                lines[0].style.transform =
+                    "rotate(45deg) translateY(6px) translateX(7px)";
+                lines[1].style.opacity = "0";
+                lines[2].style.transform =
+                    "rotate(-45deg) translateY(-6px) translateX(7px)";
+            }
+        } else {
+            // Close menu - collapse navbar
+            mobileMenu?.classList.add("max-h-0");
+            mobileMenu?.classList.remove(
+                "opacity-100",
+                "max-h-fit",
+                "bg-bg-dark",
+            );
+            document.body.style.overflow = "";
+
+            // Animate X back to hamburger
+            if (lines) {
+                lines[0].style.transform = "none";
+                lines[1].style.opacity = "1";
+                lines[2].style.transform = "none";
+            }
+        }
+    }
+
+    // Toggle menu on button click
+    mobileMenuButton?.addEventListener("click", toggleMenu);
+
+    // Close menu when clicking nav items
+    mobileNavItems.forEach((item) => {
+        item.addEventListener("click", () => {
+            if (isMenuOpen) {
+                toggleMenu();
+            }
+        });
+    });
+
+    // Close menu on escape key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && isMenuOpen) {
+            toggleMenu();
+        }
+    });
+</script>

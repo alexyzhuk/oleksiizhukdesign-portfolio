@@ -1,0 +1,32 @@
+---
+interface Stat {
+    value: string;
+    label: string;
+}
+
+interface Props {
+    title?: string;
+    stats: Stat[];
+    accentColor?: string;
+}
+
+const { title, stats, accentColor = "text-green-light" } = Astro.props;
+---
+
+<section class="px-5 sm:px-6 py-12 sm:py-24 bg-text-primary/5">
+    <div class="max-w-7xl mx-auto">
+        {title && <h3 class="mb-12 text-center">{title}</h3>}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {
+                stats.map((stat) => (
+                    <div class="text-center">
+                        <p class={`text-5xl font-bold ${accentColor} mb-2`}>
+                            {stat.value}
+                        </p>
+                        <p class="text-text-secondary">{stat.label}</p>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>

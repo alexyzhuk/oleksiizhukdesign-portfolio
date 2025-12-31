@@ -1,0 +1,550 @@
+@import "tailwindcss";
+
+@theme {
+    /* Text Colors */
+    --color-text-primary: #f9fafb;
+    --color-text-secondary: #c9d5e3;
+    --color-text-primary-inverse: #101419;
+    --color-text-secondary-inverse: #566476;
+
+    /* Backgrounds */
+    --color-bg-dark: #101419;
+    --color-bg-light: #f9fafb;
+    --color-bg-plaque: rgba(7, 8, 10, 0.2);
+
+    /* Borders/Strokes */
+    --color-stroke-strong: #7b8da3;
+    --color-stroke-weak: #e5eaf0;
+    --color-stroke-weak-dark: #222e3d;
+    --color-stroke-medium: #28384d;
+
+    /* Accent Colors */
+    --color-blue: #37577f;
+    --color-yellow: #877a45;
+    --color-green: #2e6f4e;
+    --color-red: #8e3d43;
+    --color-blue-light: #4788d7;
+    --color-yellow-light: #bcaa62;
+    --color-green-light: #359766;
+    --color-red-light: #c4454d;
+
+    --breakpoint-xs: 480px;
+}
+
+section {
+    position: relative;
+}
+
+body {
+    font-family: "Geist Sans", system-ui, sans-serif;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-dark);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../public/texture-dark.svg");
+    background-size: 72px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+    body::before {
+        background-size: 8%;
+    }
+}
+
+@media (max-width: 639px) {
+    body::before {
+        background-size: 16%;
+    }
+}
+
+body > * {
+    position: relative;
+}
+
+@keyframes noiseMove {
+    0% {
+        background-position: 0% 0%;
+    }
+    33% {
+        background-position: 50% 50%;
+    }
+    66% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+/* Hide default cursor on all interactive elements */
+body,
+a,
+button,
+input,
+textarea,
+select,
+label,
+.gallery-modal,
+.tool-icon,
+.tool-item,
+[role="button"] {
+    cursor: none !important;
+}
+
+* {
+    cursor: none !important;
+}
+
+/* Typography Styles */
+
+/* H1 */
+h1,
+.h1 {
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -0.04em;
+    font-weight: 500;
+}
+
+@media (min-width: 391px) {
+    h1,
+    .h1 {
+        font-size: 40px;
+        line-height: 48px;
+    }
+}
+
+@media (min-width: 720px) {
+    h1,
+    .h1 {
+        font-size: 56px;
+        line-height: 64px;
+    }
+}
+
+/* H2 */
+h2,
+h3,
+h4 {
+    @apply font-medium tracking-tighter;
+}
+
+p {
+    @apply tracking-tight;
+}
+
+.label-text {
+    @apply text-base lowercase;
+}
+
+@media (max-width: 480px) {
+    .label-text {
+        @apply text-sm;
+    }
+}
+
+.mono {
+    font-family: "Geist Mono", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Navigation Text */
+
+.nav-text {
+    @apply text-text-primary text-lg font-medium tracking-tight;
+    leading-trim: both;
+    text-edge: cap;
+}
+
+.nav-text span {
+    @apply opacity-50 font-light text-xl transition-all duration-300;
+}
+
+@media (max-width: 639px) {
+    .nav-text {
+        font-size: 24px;
+        align-items: center;
+    }
+
+    .nav-work span {
+        opacity: 1;
+        color: var(--color-blue-light);
+        font-size: 28px;
+    }
+
+    .nav-about span {
+        opacity: 1;
+        color: var(--color-yellow-light);
+        font-size: 28px;
+    }
+
+    .nav-blog span {
+        opacity: 1;
+        color: var(--color-red-light);
+        font-size: 28px;
+    }
+
+    .nav-contacts span {
+        opacity: 1;
+        color: var(--color-green-light);
+        font-size: 28px;
+    }
+}
+
+.nav-work:hover span {
+    opacity: 1;
+    color: var(--color-blue-light);
+}
+
+.nav-about:hover span {
+    opacity: 1;
+    color: var(--color-yellow-light);
+}
+
+.nav-blog:hover span {
+    opacity: 1;
+    color: var(--color-red-light);
+}
+
+.nav-contacts:hover span {
+    opacity: 1;
+    color: var(--color-green-light);
+}
+
+.card-label {
+    letter-spacing: 0.12em;
+    font-weight: 600;
+}
+
+/* Component Styles */
+
+.nav-item {
+    @apply flex pl-4.5 pr-5 py-3 gap-1 items-center border border-transparent rounded-2xl transition-all duration-300;
+}
+
+.nav-item:hover {
+    @apply border-stroke-medium;
+}
+
+.scroller-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: 4px;
+    padding: 32px;
+    transition: all 0.3s cubic-bezier(0.5, 1, 0.89, 1);
+    height: 128px;
+    width: 104%;
+    opacity: 0.64;
+}
+
+.scroller-btn img {
+    margin-bottom: 12px;
+    transition: all 300ms cubic-bezier(0.5, 1, 0.89, 1);
+    opacity: 0.64;
+}
+
+.scroller-btn:hover {
+    opacity: 1;
+}
+
+.scroller-btn:hover img {
+    opacity: 1;
+    margin-bottom: 4px;
+}
+
+.scroller-btn:active {
+    background: rgba(249, 250, 251, 0.04);
+}
+
+/* Iteration Button */
+
+.iteration-btn {
+    display: flex;
+    width: fit-content;
+    border: 2px solid var(--color-white);
+    transition: all 0.5s cubic-bezier(0.5, 1, 0.89, 1);
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.03em;
+}
+
+.iteration-btn:hover {
+    background-color: var(--color-white);
+    color: var(--color-text-primary-inverse);
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 10px;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 10%,
+        black 90%,
+        transparent
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 10%,
+        black 90%,
+        transparent
+    );
+}
+
+.carousel-track {
+    display: flex;
+    gap: 32px;
+    will-change: transform;
+}
+
+.tool-item {
+    width: 112px;
+    height: 112px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    transform-origin: center center;
+    will-change: transform;
+    transition: transform 300ms cubic-bezier(0.44, 0, 0.56, 1);
+}
+
+.tool-item:hover {
+    transform: scale(1.15);
+}
+
+.tool-icon {
+    width: 72%;
+    height: 72%;
+    object-fit: contain;
+    transition: all 300ms cubic-bezier(0.44, 0, 0.56, 1);
+}
+
+.logo-btn:hover img {
+    @apply w-9 h-9 transition-all duration-500;
+}
+
+.light-btn {
+    @apply text-xl text-center font-medium tracking-tight border border-stroke-medium px-6.5 py-4.5 w-fit rounded-3xl transition-all duration-300;
+}
+
+@media (max-width: 640px) {
+    .light-btn {
+        @apply w-full;
+    }
+}
+
+.light-btn:hover {
+    @apply border-bg-light bg-bg-light text-text-primary-inverse shadow-[0_0_32px_0_rgba(249,250,251,0.6)]  shadow-bg-light/30;
+}
+
+.cs-btn {
+    @apply flex pl-8 pr-5 py-0 text-xl font-medium tracking-tight rounded-4xl border border-bg-light/60 bg-bg-light/5 text-text-primary hover:bg-bg-light hover:text-text-primary-inverse items-center justify-center gap-4 w-full transition-all duration-300;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.cs-arrow {
+    @apply transition-all duration-300;
+}
+
+.cs-arrow svg {
+    fill: currentColor;
+}
+
+.project-card:hover .cs-btn {
+    max-height: 200px;
+    opacity: 1;
+    @apply py-4;
+}
+
+.content-section {
+    @apply gap-0 transition-all duration-300;
+}
+
+.project-card:hover .content-section {
+    @apply gap-6;
+}
+
+/* Mobile: Always show button */
+@media (max-width: 767px) {
+    .cs-btn {
+        max-height: 200px;
+        opacity: 1;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .content-section {
+        gap: 1.5rem;
+    }
+}
+
+.scope-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 10%,
+        black 90%,
+        transparent
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 10%,
+        black 90%,
+        transparent
+    );
+}
+
+.scope-carousel-track {
+    display: flex;
+    gap: 8px;
+    will-change: transform;
+}
+
+.scope-item {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.scope-separator {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.mobile-nav-item {
+    @apply flex justify-end gap-1;
+}
+
+.method-card {
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Method Card Styles */
+
+.method-card {
+    position: relative;
+    background: rgba(7, 8, 10, 0.4);
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.method-card:hover {
+    background: rgba(7, 8, 10, 0.4);
+}
+
+/* Icon - State 1: centered, white */
+.method-icon {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    width: 128px;
+    height: 128px;
+    filter: brightness(0) invert(1);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Icon - State 2: top-right, original color */
+.method-card:hover .method-icon,
+.method-card.active .method-icon {
+    top: 48px;
+    right: 48px;
+    transform: translate(0, 0);
+    filter: none;
+}
+
+@media (max-width: 768px) {
+    .method-card:hover .method-icon,
+    .method-card.active .method-icon {
+        top: 32px;
+        right: 32px;
+    }
+}
+
+/* Text container */
+.method-text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Label - appears from top with fade */
+.method-label {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.method-card:hover .method-label,
+.method-card.active .method-label {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Description - appears from bottom with fade */
+.method-text {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+}
+
+.method-card:hover .method-text,
+.method-card.active .method-text {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.testimonial-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 10px;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 10%,
+        black 90%,
+        transparent
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 10%,
+        black 90%,
+        transparent
+    );
+}
+
+.testimonial-carousel-track {
+    display: flex;
+    gap: 24px;
+    will-change: transform;
+}

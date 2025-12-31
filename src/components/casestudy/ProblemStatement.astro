@@ -1,0 +1,92 @@
+---
+import BigQuestion from "./BigQuestion.astro";
+
+interface Problem {
+    icon: string;
+    label: string;
+    title: string;
+    description: string;
+}
+
+interface Goal {
+    icon: string;
+    label: string;
+    oldTitle: string;
+    newTitle: string;
+    description: string;
+}
+
+interface Props {
+    problems: Problem[];
+    goals: Goal[];
+    problemsTitle?: string;
+    goalsTitle?: string;
+    accentColor?: string;
+}
+
+const {
+    problems,
+    goals,
+    problemsTitle = "Problems",
+    goalsTitle = "Goals",
+    accentColor = "text-blue-light",
+} = Astro.props;
+---
+
+<div class="flex flex-col">
+    <div class="max-w-7xl">
+        <div class="flex flex-col max-w-200 mx-auto gap-10">
+            <!-- Problems / Challenge -->
+            <div class="flex flex-col">
+                <h3 class={`mb-8`}>{problemsTitle}</h3>
+                <div class="flex flex-col gap-8">
+                    {
+                        problems.map((problem) => (
+                            <div class="flex flex-col gap-4">
+                                <img
+                                    src={problem.icon}
+                                    alt={problem.title}
+                                    class="w-12 h-12"
+                                />
+                                <h4>{problem.title}</h4>
+                                <p class="text-stroke-weak text-base leading-loose text-balance">
+                                    {problem.description}
+                                </p>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <!-- Big Question -->
+            <BigQuestion>
+                <slot name="question" />
+            </BigQuestion>
+
+            <!-- Goals / Solution -->
+            <div class="flex flex-col">
+                <h3 class={`mb-8`}>{goalsTitle}</h3>
+                <div class="flex flex-col gap-8">
+                    {
+                        goals.map((goal) => (
+                            <div class="flex flex-col gap-4">
+                                <img
+                                    src={goal.icon}
+                                    alt={goal.newTitle}
+                                    class="w-12 h-12"
+                                />
+                                <p class="text-xl text-stroke-strong/70 line-through">
+                                    {goal.oldTitle}
+                                </p>
+                                <h4>{goal.newTitle}</h4>
+                                <p class="text-stroke-weak text-base leading-loose text-balance">
+                                    {goal.description}
+                                </p>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

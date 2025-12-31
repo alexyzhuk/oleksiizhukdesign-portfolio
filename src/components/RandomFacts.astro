@@ -1,0 +1,37 @@
+---
+import BulletPoint from "./BulletPoint.astro";
+---
+
+<section class="px-5 sm:px-6 py-12 sm:py-24 gap-14">
+    <div
+        class="flex flex-row gap-16 max-w-7xl mx-auto items-center justify-between"
+    >
+        <div>
+            <h2 class="text-3xl sm:text-4xl font-medium mb-8">
+                Random facts about me
+            </h2>
+            <div class="flex flex-col gap-4 leading leading-loose">
+                <div class="flex flex-col gap-4 text-balance">
+                    <BulletPoint
+                        icon="arrow-right-alt"
+                        gap="gap-6"
+                        itemGap="gap-6"
+                        bullets={[
+                            "I'm Ukrainian & I work with the whole world",
+                            "I geek on everything that interests me",
+                            "Riding bike is my recovery and meditation",
+                            "I listen to a lot of music and play guitar",
+                            "I love reading books, but I don't read them often",
+                            "I enjoy cooking for family and friends",
+                        ]}
+                    />
+                </div>
+            </div>
+        </div>
+        <img
+            src="about/hobby-pic.jpg"
+            class="h-104 flex rounded-4xl border border-stroke-weak-dark overflow-hidden"
+            alt="Oleksii Zhuk"
+        />
+    </div>
+</section>

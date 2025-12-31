@@ -1,0 +1,34 @@
+---
+interface Card {
+    label: string;
+    title: string;
+    description: string;
+}
+
+interface Props {
+    title?: string;
+    cards: Card[];
+    accentColor?: string;
+}
+
+const { title, cards, accentColor = "text-blue-light" } = Astro.props;
+---
+
+<section class="px-6 py-16 bg-text-primary/5">
+    <div class="max-w-7xl mx-auto">
+        {title && <h3 class={`${accentColor} mb-12 text-center`}>{title}</h3>}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {
+                cards.map((card) => (
+                    <div class="bg-bg-dark p-8 rounded-lg">
+                        <h6 class="text-text-secondary mb-3">{card.label}</h6>
+                        <h4 class={`${accentColor} mb-4`}>{card.title}</h4>
+                        <p class="text-text-secondary text-sm leading-relaxed">
+                            {card.description}
+                        </p>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>

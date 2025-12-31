@@ -1,0 +1,187 @@
+---
+interface ProgressStatData {
+    icon: string;
+    quantity: string;
+    stat: number;
+    progress?: string;
+    blockColor: string;
+}
+
+interface ComparisonStatData {
+    icon: string;
+    label: string;
+    quantity: number;
+    blockColor: string;
+}
+
+interface Props {
+    variant: 'progress' | 'comparison';
+    topStat: ProgressStatData | ComparisonStatData;
+    bottomStat: ProgressStatData | ComparisonStatData;
+}
+
+const { variant, topStat, bottomStat } = Astro.props;
+
+const colorMap: Record<string, string> = {
+    "bg-blue-light": "var(--color-blue-light)",
+    "bg-yellow-light": "var(--color-yellow-light)",
+    "bg-green-light": "var(--color-green-light)",
+    "bg-red-light": "var(--color-red-light)",
+    "bg-text-secondary-inverse": "var(--color-text-secondary-inverse)",
+};
+
+const formatNumber = (num: number) => num.toLocaleString('en').replace(/,/g, ' ');
+
+// Process for progress variant
+const processProgressStat = (stat: ProgressStatData) => {
+    const statNum = Number(stat.stat);
+    const overlayWidth = statNum < 0 ? Math.abs(statNum) : statNum;
+    const displayValue = statNum < 0 ? `${statNum}%` : `+${statNum}%`;
+    const bgColor = colorMap[stat.blockColor] || stat.blockColor;
+    return { overlayWidth, displayValue, bgColor };
+};
+
+// Process for comparison variant
+const processComparisonStats = (top: ComparisonStatData, bottom: ComparisonStatData) => {
+    const topBarWidth = (top.quantity / bottom.quantity) * 100;
+    const topBgColor = colorMap[top.blockColor] || top.blockColor;
+    const bottomBgColor = colorMap[bottom.blockColor] || bottom.blockColor;
+    return { topBarWidth, topBgColor, bottomBgColor };
+};
+
+const progressTop = variant === 'progress' ? processProgressStat(topStat as ProgressStatData) : null;
+const progressBottom = variant === 'progress' ? processProgressStat(bottomStat as ProgressStatData) : null;
+const comparison = variant === 'comparison' ? processComparisonStats(topStat as ComparisonStatData, bottomStat as ComparisonStatData) : null;
+---
+
+{variant === 'progress' && progressTop && progressBottom && (
+    <div class="flex flex-col w-full gap-6">
+        <!-- Top Stat Row - Progress Variant -->
+        <div class="flex flex-col items-center gap-2">
+            <div class="flex w-full justify-between">
+                <div class="flex items-center gap-2">
+                    <img
+                        src={`case-study-datuum/${(topStat as ProgressStatData).icon}.svg`}
+                        alt={(topStat as ProgressStatData).icon}
+                        class="w-8 h-8"
+                    />
+                    <p class="text-xl font-bold text-text-primary">
+                        {(topStat as ProgressStatData).quantity}
+                    </p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="flex items-center justify-center w-8 h-8">
+                        <img src="check.svg" alt="checkmark" class="w-5 h-5" />
+                    </div>
+                    <p class="text-xl font-bold text-text-primary">
+                        {(topStat as ProgressStatData).stat}%
+                    </p>
+                </div>
+            </div>
+            <div class="relative w-full h-12 flex">
+                <div
+                    class="flex justify-end items-center"
+                    style={`background-color: ${progressTop.bgColor}; width: ${progressTop.overlayWidth}%`}
+                >
+                </div>
+                <div class="relative bg-bg-light/20 flex grow items-center justify-end px-8">
+                    <p class="text-4xl font-bold text-text-primary">
+                        {(topStat as ProgressStatData).progress}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Stat Row - Progress Variant -->
+        <div class="flex flex-col gap-2">
+            <div class="relative w-full h-12 flex">
+                <div
+                    class="flex justify-end items-center"
+                    style={`background-color: ${progressBottom.bgColor}; width: ${progressBottom.overlayWidth}%`}
+                >
+                    <p class="text-2xl font-bold text-text-primary px-2">
+                        {(bottomStat as ProgressStatData).progress}
+                    </p>
+                </div>
+                <div class="relative bg-bg-light/20 flex grow items-center justify-end px-8">
+                </div>
+            </div>
+            <div class="flex w-full justify-between">
+                <div class="flex items-center gap-2">
+                    <img
+                        src={`case-study-datuum/${(bottomStat as ProgressStatData).icon}.svg`}
+                        alt={(bottomStat as ProgressStatData).icon}
+                        class="w-8 h-8"
+                    />
+                    <p class="text-xl font-bold text-text-primary">
+                        {(bottomStat as ProgressStatData).quantity}
+                    </p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="flex items-center justify-center w-8 h-8">
+                        <img src="check.svg" alt="checkmark" class="w-5 h-5" />
+                    </div>
+                    <p class="text-xl font-bold text-text-primary">
+                        {(bottomStat as ProgressStatData).stat}%
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+)}
+
+{variant === 'comparison' && comparison && (
+    <div class="flex flex-col w-full gap-6">
+        <!-- Top Stat Row - Comparison Variant -->
+        <div class="flex flex-col gap-2">
+            <div class="flex w-full justify-between items-center">
+                <p class="text-xl font-bold text-text-primary">
+                    {(topStat as ComparisonStatData).label}
+                </p>
+                <div class="flex items-center gap-2">
+                    <img
+                        src={`case-study-datuum/${(topStat as ComparisonStatData).icon}.svg`}
+                        alt={(topStat as ComparisonStatData).icon}
+                        class="w-8 h-8"
+                    />
+                    <p class="text-xl font-bold text-text-primary">
+                        {formatNumber((topStat as ComparisonStatData).quantity)}
+                    </p>
+                </div>
+            </div>
+            <div class="relative w-full h-12 bg-bg-light/20">
+                <div
+                    class="h-full"
+                    style={`background-color: ${comparison.topBgColor}; width: ${comparison.topBarWidth}%`}
+                >
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Stat Row - Comparison Variant -->
+        <div class="flex flex-col gap-2">
+            <div class="relative w-full h-12">
+                <div
+                    class="h-full"
+                    style={`background-color: ${comparison.bottomBgColor}; width: 100%`}
+                >
+                </div>
+            </div>
+            <div class="flex w-full justify-between items-center">
+                <p class="text-xl font-bold text-text-primary">
+                    {(bottomStat as ComparisonStatData).label}
+                </p>
+                <div class="flex items-center gap-2">
+                    <img
+                        src={`case-study-datuum/${(bottomStat as ComparisonStatData).icon}.svg`}
+                        alt={(bottomStat as ComparisonStatData).icon}
+                        class="w-8 h-8"
+                    />
+                    <p class="text-xl font-bold text-text-primary">
+                        {formatNumber((bottomStat as ComparisonStatData).quantity)}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+)}

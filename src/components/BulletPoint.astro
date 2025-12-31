@@ -1,0 +1,32 @@
+---
+interface Props {
+    icon: string;
+    bullets: string[];
+    iconPath?: string;
+    iconSize?: string;
+    gap?: string;
+    itemGap?: string;
+}
+
+const {
+    icon,
+    bullets,
+    iconPath = "",
+    iconSize = "w-6 h-6",
+    gap = "gap-3",
+    itemGap = "gap-3",
+} = Astro.props;
+
+const iconSrc = iconPath ? `${iconPath}/${icon}.svg` : `/${icon}.svg`;
+---
+
+<ul class={`flex flex-col ${gap}`}>
+    {
+        bullets.map((bullet) => (
+            <li class={`flex items-center justify-start ${itemGap}`}>
+                <img src={iconSrc} alt={icon} class={`${iconSize} shrink-0`} />
+                <p class="text-text-primary text-xl">{bullet}</p>
+            </li>
+        ))
+    }
+</ul>

@@ -1,0 +1,200 @@
+---
+interface Slide {
+    image: string;
+    alt: string;
+    label: string;
+}
+interface Props {
+    slides: Slide[];
+}
+const { slides } = Astro.props;
+const uniqueId = `gallery-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class="py-8" data-gallery-id={uniqueId}>
+    <div class="max-w-6xl mx-auto">
+        <div class="relative">
+            <!-- Buttons -->
+            <div class="flex justify-center mt-8">
+                {
+                    slides.map((slide, index) => (
+                        <button
+                            class="flex w-full justify-center gallery-btn px-6 py-3 border-b-2 border-transparent hover:border-text-primary hover:bg-text-primary/5 transition"
+                            data-gallery-id={uniqueId}
+                            data-index={index}
+                        >
+                            {slide.label}
+                        </button>
+                    ))
+                }
+            </div>
+            <!-- Slides -->
+            <div
+                class="gallery-container overflow-hidden"
+                data-gallery-id={uniqueId}
+            >
+                <div
+                    class="gallery-track flex transition-transform duration-500 ease-out"
+                    data-gallery-id={uniqueId}
+                >
+                    {
+                        slides.map((slide, index) => (
+                            <div class="w-full shrink-0 has-cursor-pointer"">
+                                <img
+                                    src={slide.image}
+                                    alt={slide.alt}
+                                    class="w-full object-cover cursor-zoom-in hover:opacity-90 transition"
+                                    data-gallery-id={uniqueId}
+                                    data-slide-index={index}
+                                />
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fullscreen Modal -->
+<div
+    class="fixed inset-0 bg-bg-dark/95 z-9999 hidden items-center justify-center p-8 gallery-modal"
+    data-modal-id={uniqueId}
+>
+    <button
+        class="modal-close absolute top-6 right-6 w-12 h-12 flex items-center justify-center text-text-primary hover:bg-text-primary/10 rounded-full transition"
+        data-gallery-id={uniqueId}
+        aria-label="Close"
+    >
+        <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+        >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+    </button>
+
+    <img
+        class="modal-image max-w-full max-h-full object-contain cursor-zoom-out"
+        data-gallery-id={uniqueId}
+        src=""
+        alt=""
+    />
+</div>
+
+<script>
+    function initGalleries() {
+        const galleries = document.querySelectorAll("[data-gallery-id]");
+        const processedGalleries = new Set();
+
+        galleries.forEach((element) => {
+            const galleryId = element.getAttribute("data-gallery-id");
+            if (!galleryId || processedGalleries.has(galleryId)) return;
+            processedGalleries.add(galleryId);
+
+            const track = document.querySelector(
+                `.gallery-track[data-gallery-id="${galleryId}"]`,
+            ) as HTMLElement;
+            const buttons = document.querySelectorAll(
+                `.gallery-btn[data-gallery-id="${galleryId}"]`,
+            );
+            const images = document.querySelectorAll(
+                `img[data-gallery-id="${galleryId}"]`,
+            );
+            const modal = document.querySelector(
+                `.gallery-modal[data-modal-id="${galleryId}"]`,
+            );
+            const modalImage = modal?.querySelector(
+                ".modal-image",
+            ) as HTMLImageElement;
+            const closeBtn = modal?.querySelector(".modal-close");
+
+            const accentColors = [
+                "var(--color-blue-light)",
+                "var(--color-yellow-light)",
+                "var(--color-green-light)",
+                "var(--color-red-light)",
+            ];
+            let currentIndex = 0;
+
+            const updateGallery = (index: number) => {
+                currentIndex = index;
+                if (track) {
+                    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                }
+                buttons.forEach((btn, i) => {
+                    const button = btn as HTMLElement;
+                    if (i === currentIndex) {
+                        const color = accentColors[i % accentColors.length];
+                        button.style.borderBottomColor = color;
+                        button.classList.add("bg-text-primary/10");
+                    } else {
+                        button.style.borderBottomColor = "";
+                        button.classList.remove("bg-text-primary/10");
+                    }
+                });
+            };
+
+            buttons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const index = parseInt(
+                        btn.getAttribute("data-index") || "0",
+                    );
+                    updateGallery(index);
+                });
+            });
+
+            // Fullscreen functionality
+            const openModal = (img: HTMLImageElement) => {
+                if (modalImage && modal) {
+                    modalImage.src = img.src;
+                    modalImage.alt = img.alt;
+                    modal.classList.remove("hidden");
+                    modal.classList.add("flex");
+                    document.body.style.overflow = "hidden";
+                }
+            };
+
+            const closeModal = () => {
+                modal?.classList.add("hidden");
+                modal?.classList.remove("flex");
+                document.body.style.overflow = "";
+            };
+
+            images.forEach((img) => {
+                img.addEventListener("click", () => {
+                    openModal(img as HTMLImageElement);
+                });
+            });
+
+            closeBtn?.addEventListener("click", closeModal);
+
+            modal?.addEventListener("click", (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            modalImage?.addEventListener("click", closeModal);
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && modal?.classList.contains("flex")) {
+                    closeModal();
+                }
+            });
+
+            updateGallery(0);
+        });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initGalleries);
+    } else {
+        initGalleries();
+    }
+</script>

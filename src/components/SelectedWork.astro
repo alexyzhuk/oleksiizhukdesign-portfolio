@@ -1,0 +1,236 @@
+---
+const projects = [
+    {
+        company: "datuum.ai",
+        title: "Democratizing the Data",
+        description:
+            "In 2021 we started building a product with a vision to simplify data integration for everyone. Little did I know I was going to help create an extremely powerful tool the business world has yet to discover.",
+        scope: [
+            "Big Data",
+            "AI",
+            "Startup",
+            "B2B SaaS",
+            "Web App",
+            "Product Design",
+            "UI/UX",
+        ],
+        years: "2022-2024",
+        image: "/datuum-cover.avif",
+        link: "/case-study-datuum",
+        stats: [
+            { value: "+14%", label: "task success rate" },
+            { value: "-37%", label: "time on task" },
+        ],
+    },
+    {
+        company: "Osvita XXI",
+        title: "Education for Life",
+        description:
+            "In 2023 Osvita XXI asked me to create a website to support their grant application, providing a comprehensive and accessible platform to showcase their project and its potential impact.",
+        scope: ["Web Design", "UI/UX Design", "Branding"],
+        years: "2023",
+        image: "/osvita-cover.avif",
+        link: "/case-study-osvita",
+        stats: [
+            { value: "10x", label: "daily active users" },
+            { value: "+40%", label: "mobile visits" },
+        ],
+    },
+];
+---
+
+<section
+    id="selected-work"
+    class="min-h-screen px-5 sm:px-6 py-12 sm:py-24 z-10"
+>
+    <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <h2 class="mb-6 text-4xl sm:text-5xl font-medium">Portfolio</h2>
+        <p
+            class="mb-16 text-lg text-balance leading-10 text-text-secondary max-w-[64ch]"
+        >
+            After more than 10 years of work I've completed 40+ projects. Below
+            I've listed the most prominent work that helped products grow and
+            progress defying challenges that came along the way.
+        </p>
+        <!-- Project Cards -->
+        <div class="flex flex-col gap-24">
+            {
+                projects.map((project, index) => {
+                    const minDuplicates = project.scope.length < 5 ? 6 : 3;
+                    const duplicatedScope = Array(minDuplicates)
+                        .fill(project.scope)
+                        .flat();
+
+                    return (
+                        <a
+                            href={project.link}
+                            class="project-card flex flex-col max-w-7xl group gap-6 transition-all duration-300"
+                        >
+                            <div class="flex flex-col-reverse sm:flex-row gap-6">
+                                {/* Content Side */}
+                                <div class="content-section flex flex-col w-full sm:min-w-1/2 md:min-w-xl tracking-tight">
+                                    <div class="flex flex-col p-8 sm:p-12 gap-4 items-start text-balance grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque">
+                                        <div class="flex flex-col justify-center gap-4 w-full grow">
+                                            <h3 class="text-4xl">
+                                                {project.title}
+                                            </h3>
+                                            <p class="case-description text-base text-text-secondary leading-8">
+                                                {project.description}
+                                            </p>
+                                        </div>
+                                        <div class="flex flex-col gap-6 w-full">
+                                            <div class="flex items-start text-lg leading-8 text-text-primary gap-2 w-full">
+                                                <div class="flex flex-col items-start gap-1 text-xl w-full">
+                                                    <span class="lowercase mono text-base text-blue-light">
+                                                        Company
+                                                    </span>
+                                                    {project.company}
+                                                </div>
+                                                <div class="flex flex-col items-start gap-1 text-xl w-full">
+                                                    <span class="lowercase mono text-base text-red-light">
+                                                        Years
+                                                    </span>
+                                                    {project.years}
+                                                </div>
+                                            </div>
+                                            {project.stats && (
+                                                <div class="flex items-start text-4xl leading-8 text-text-primary gap-2 w-full">
+                                                    <div class="flex flex-col items-start font-medium gap-1 text-3xl w-full">
+                                                        {project.stats[0].value}
+                                                        <span class="lowercase mono font-normal text-base text-green-light">
+                                                            {
+                                                                project.stats[0]
+                                                                    .label
+                                                            }
+                                                        </span>
+                                                    </div>
+                                                    <div class="flex flex-col items-start font-medium gap-1 text-3xl w-full">
+                                                        {project.stats[1].value}
+                                                        <span class="lowercase mono font-normal text-base text-yellow-light">
+                                                            {
+                                                                project.stats[1]
+                                                                    .label
+                                                            }
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <button class="cs-btn">
+                                        View Case Study
+                                        <div class="flex items-center justify-center w-8 h-8">
+                                            <svg
+                                                class="cs-arrow w-6"
+                                                viewBox="0 0 28 14"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M20.7771 14L19.201 12.5388L23.839 8.0449L9.02452e-07 8.0449V5.9551L23.839 5.9551L19.201 1.46122L20.7771 -3.15721e-07L28 7L20.7771 14Z"
+                                                    fill="currentColor"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </div>
+                                {/* Image Side */}
+                                <div class="flex rounded-4xl border border-stroke-weak-dark overflow-hidden">
+                                    <img
+                                        src={project.image}
+                                        alt={project.title}
+                                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    />
+                                </div>
+                            </div>
+                            <div
+                                aria-label="Project Scope"
+                                class="scope-carousel-container"
+                            >
+                                <div
+                                    class="scope-carousel-track justify-center-center items-center"
+                                    data-duplicates={minDuplicates}
+                                >
+                                    {duplicatedScope.map((item, idx) => (
+                                        <>
+                                            <span class="scope-item text-base font-normal text-text-secondary px-5 py-2.5 rounded-full border border-stroke-weak-dark">
+                                                {item}
+                                            </span>
+                                            {/* Add separator after each complete set */}
+                                            {(idx + 1) %
+                                                project.scope.length ===
+                                                0 &&
+                                                idx !==
+                                                    duplicatedScope.length -
+                                                        1 && (
+                                                    <div class="scope-separator shrink-0 text-xl text-text-secondary flex pt-2 px-2 h-5 justify-center-center items-center mono">
+                                                        *
+                                                    </div>
+                                                )}
+                                        </>
+                                    ))}
+                                </div>
+                            </div>
+                        </a>
+                    );
+                })
+            }
+        </div>
+    </div>
+</section>
+
+<script>
+    const scopeTracks = document.querySelectorAll(".scope-carousel-track");
+
+    scopeTracks.forEach((track) => {
+        const container = track.parentElement;
+        if (!container) return;
+
+        const duplicates = parseInt(
+            (track as HTMLElement).getAttribute("data-duplicates") || "3",
+        );
+
+        let position = 0;
+        let baseSpeed = 0.3;
+        let currentSpeed = baseSpeed;
+        let targetSpeed = baseSpeed;
+        let animationFrame: number;
+
+        const getTrackWidth = () => {
+            return (track as HTMLElement).scrollWidth / duplicates;
+        };
+
+        const lerp = (start: number, end: number, factor: number) => {
+            return start + (end - start) * factor;
+        };
+
+        const animate = () => {
+            currentSpeed = lerp(currentSpeed, targetSpeed, 0.05);
+            position -= currentSpeed;
+
+            const trackWidth = getTrackWidth();
+            if (Math.abs(position) >= trackWidth) {
+                position = 0;
+            }
+
+            (track as HTMLElement).style.transform =
+                `translateX(${position}px)`;
+            animationFrame = requestAnimationFrame(animate);
+        };
+
+        animate();
+
+        container.addEventListener("mouseenter", () => {
+            targetSpeed = baseSpeed * 0.4;
+        });
+
+        container.addEventListener("mouseleave", () => {
+            targetSpeed = baseSpeed;
+        });
+
+        window.addEventListener("beforeunload", () => {
+            cancelAnimationFrame(animationFrame);
+        });
+    });
+</script>
