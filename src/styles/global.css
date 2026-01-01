@@ -551,15 +551,11 @@ p {
 
 /* Testimonial Carousel Styles */
 
-.testimonial-scroll-container {
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
-    scroll-behavior: auto;
+.testimonial-mobile-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-.testimonial-scroll-container::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+.testimonial-mobile-scroll::-webkit-scrollbar {
+    display: none;
 }

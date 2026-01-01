@@ -62,7 +62,10 @@ const duplicatedTestimonials = [
     </div>
 
     <!-- Testimonial Carousel -->
-    <div class="testimonial-carousel-container">
+    <div
+        id="testimonial-container"
+        class="testimonial-carousel-container testimonial-mobile-scroll"
+    >
         <div
             id="testimonial-track"
             class="testimonial-carousel-track flex gap-6"
@@ -105,25 +108,15 @@ const duplicatedTestimonials = [
 </section>
 
 <script>
+    const container = document.getElementById("testimonial-container");
     const track = document.getElementById("testimonial-track");
 
-    if (!track) {
-        console.error("Testimonial track not found");
+    if (!container || !track) {
+        console.error("Testimonial elements not found");
     } else {
-        let position = 0;
-        let animationId: number;
-        let speed = 0.3;
+        const isMobile = window.innerWidth < 768;
         let isAutoScrolling = true;
-
-        // Touch/Drag variables
-        let isDragging = false;
-        let startX = 0;
-        let currentX = 0;
-        let velocity = 0;
-        let lastPosition = 0;
-        let lastTime = Date.now();
-
-        // Inactivity timer
+        let animationId: number;
         let inactivityTimeout: number;
         const INACTIVITY_DELAY = 10000;
 
@@ -135,105 +128,136 @@ const duplicatedTestimonials = [
             return card.offsetWidth + 24;
         };
 
-        const getTrackWidth = () => getCardWidth() * 5;
+        const getResetPoint = () => getCardWidth() * 5;
 
         const resetInactivityTimer = () => {
             clearTimeout(inactivityTimeout);
             inactivityTimeout = window.setTimeout(() => {
                 isAutoScrolling = true;
-                velocity = 0;
             }, INACTIVITY_DELAY);
         };
 
-        const animate = () => {
-            if (!isDragging) {
-                if (isAutoScrolling) {
-                    position += speed;
-                } else {
-                    velocity *= 0.95;
-                    position += velocity;
-                    if (Math.abs(velocity) < 0.1) velocity = 0;
+        // ========== MOBILE VERSION ==========
+        if (isMobile) {
+            let lastScrollPos = 0;
+            let userScrolling = false;
+
+            const animateMobile = () => {
+                if (isAutoScrolling && !userScrolling) {
+                    // Increment scroll position
+                    container.scrollLeft += 1;
+
+                    // Reset for seamless loop
+                    const resetPoint = getResetPoint();
+                    if (container.scrollLeft >= resetPoint) {
+                        container.scrollLeft =
+                            container.scrollLeft - resetPoint;
+                        lastScrollPos = container.scrollLeft;
+                    }
                 }
-            }
 
-            const resetPoint = getTrackWidth();
-            if (position >= resetPoint) {
-                position -= resetPoint;
-            } else if (position < 0) {
-                position += resetPoint;
-            }
+                animationId = requestAnimationFrame(animateMobile);
+            };
 
-            track.style.transform = `translateX(-${position}px)`;
-            animationId = requestAnimationFrame(animate);
-        };
+            // Detect user swipe
+            let scrollTimer: number;
+            container.addEventListener("scroll", () => {
+                const delta = Math.abs(container.scrollLeft - lastScrollPos);
 
-        const handleStart = (clientX: number) => {
-            isDragging = true;
-            isAutoScrolling = false;
-            startX = clientX;
-            currentX = clientX;
-            velocity = 0;
-            lastPosition = position;
-            lastTime = Date.now();
-            clearTimeout(inactivityTimeout);
-        };
+                // If scroll moved more than auto-scroll would move, user is swiping
+                if (delta > 2) {
+                    userScrolling = true;
+                    isAutoScrolling = false;
+                    clearTimeout(inactivityTimeout);
+                }
 
-        const handleMove = (clientX: number) => {
-            if (!isDragging) return;
-            currentX = clientX;
-            const diff = startX - currentX;
-            position = lastPosition + diff;
+                lastScrollPos = container.scrollLeft;
 
-            const now = Date.now();
-            const timeDiff = now - lastTime;
-            if (timeDiff > 0) {
-                velocity = ((currentX - startX) / timeDiff) * -10;
-            }
-            lastTime = now;
-            startX = currentX;
-            lastPosition = position;
-        };
+                // Reset user scrolling flag after they stop
+                clearTimeout(scrollTimer);
+                scrollTimer = window.setTimeout(() => {
+                    userScrolling = false;
+                    resetInactivityTimer();
+                }, 150);
+            });
 
-        const handleEnd = () => {
-            isDragging = false;
-            resetInactivityTimer();
-        };
+            animateMobile();
+        }
+        // ========== DESKTOP VERSION ==========
+        else {
+            let position = 0;
+            let isDragging = false;
+            let startX = 0;
+            let velocity = 0;
+            let lastPosition = 0;
+            let lastTime = Date.now();
 
-        // Desktop mouse events
-        track.addEventListener("mousedown", (e) => {
-            e.preventDefault();
-            handleStart(e.clientX);
-        });
+            const animateDesktop = () => {
+                if (!isDragging) {
+                    if (isAutoScrolling) {
+                        position += 0.3;
+                    } else {
+                        velocity *= 0.95;
+                        position += velocity;
+                        if (Math.abs(velocity) < 0.1) velocity = 0;
+                    }
+                }
 
-        track.addEventListener("mousemove", (e) => {
-            handleMove(e.clientX);
-        });
+                const resetPoint = getResetPoint();
+                if (position >= resetPoint) {
+                    position -= resetPoint;
+                } else if (position < 0) {
+                    position += resetPoint;
+                }
 
-        track.addEventListener("mouseup", handleEnd);
-        track.addEventListener("mouseleave", handleEnd);
+                track.style.transform = `translateX(-${position}px)`;
+                animationId = requestAnimationFrame(animateDesktop);
+            };
 
-        // Mobile touch events
-        track.addEventListener(
-            "touchstart",
-            (e) => {
-                handleStart(e.touches[0].clientX);
-            },
-            { passive: true },
-        );
+            const handleStart = (clientX: number) => {
+                isDragging = true;
+                isAutoScrolling = false;
+                startX = clientX;
+                velocity = 0;
+                lastPosition = position;
+                lastTime = Date.now();
+                track.style.cursor = "grabbing";
+                clearTimeout(inactivityTimeout);
+            };
 
-        track.addEventListener(
-            "touchmove",
-            (e) => {
-                handleMove(e.touches[0].clientX);
-            },
-            { passive: true },
-        );
+            const handleMove = (clientX: number) => {
+                if (!isDragging) return;
+                const diff = startX - clientX;
+                position = lastPosition + diff;
 
-        track.addEventListener("touchend", handleEnd, { passive: true });
+                const now = Date.now();
+                const timeDiff = now - lastTime;
+                if (timeDiff > 0) {
+                    velocity = ((clientX - startX) / timeDiff) * -10;
+                }
+                lastTime = now;
+                startX = clientX;
+                lastPosition = position;
+            };
 
-        // Start animation immediately
-        console.log("Starting testimonial animation");
-        animate();
+            const handleEnd = () => {
+                isDragging = false;
+                track.style.cursor = "grab";
+                resetInactivityTimer();
+            };
+
+            track.addEventListener("mousedown", (e) => {
+                e.preventDefault();
+                handleStart(e.clientX);
+            });
+
+            track.addEventListener("mousemove", (e) => handleMove(e.clientX));
+            track.addEventListener("mouseup", handleEnd);
+            track.addEventListener("mouseleave", handleEnd);
+
+            track.style.cursor = "grab";
+            animateDesktop();
+        }
 
         // Cleanup
         window.addEventListener("beforeunload", () => {
@@ -244,13 +268,22 @@ const duplicatedTestimonials = [
 </script>
 
 <style>
-    .testimonial-carousel-track {
-        cursor: grab;
-        user-select: none;
-        touch-action: pan-y;
+    /* Mobile: Native scroll */
+    @media (max-width: 767px) {
+        .testimonial-mobile-scroll {
+            overflow-x: scroll;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: auto;
+        }
     }
 
+    /* Desktop: Drag */
     @media (min-width: 768px) {
+        .testimonial-carousel-track {
+            cursor: grab;
+            user-select: none;
+        }
+
         .testimonial-carousel-track:active {
             cursor: grabbing;
         }
