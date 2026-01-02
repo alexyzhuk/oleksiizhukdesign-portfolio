@@ -190,44 +190,164 @@ const projects = [
         const duplicates = parseInt(
             (track as HTMLElement).getAttribute("data-duplicates") || "3",
         );
+        const isMobile = window.innerWidth < 768;
 
         let position = 0;
-        let baseSpeed = 0.3;
-        let currentSpeed = baseSpeed;
-        let targetSpeed = baseSpeed;
         let animationFrame: number;
 
-        const getTrackWidth = () => {
-            return (track as HTMLElement).scrollWidth / duplicates;
+        const getItemCount = () => {
+            return (
+                (track as HTMLElement).querySelectorAll(".scope-item").length /
+                duplicates
+            );
         };
 
         const lerp = (start: number, end: number, factor: number) => {
             return start + (end - start) * factor;
         };
 
-        const animate = () => {
-            currentSpeed = lerp(currentSpeed, targetSpeed, 0.05);
-            position -= currentSpeed;
+        // ========== MOBILE VERSION ==========
+        if (isMobile) {
+            // Ensure container is scrollable
+            container.style.display = "block";
+            container.style.overflowX = "scroll";
+            container.style.webkitOverflowScrolling = "touch";
 
-            const trackWidth = getTrackWidth();
-            if (Math.abs(position) >= trackWidth) {
-                position = 0;
-            }
+            (track as HTMLElement).style.display = "flex";
+            (track as HTMLElement).style.width = "max-content";
 
-            (track as HTMLElement).style.transform =
-                `translateX(${position}px)`;
-            animationFrame = requestAnimationFrame(animate);
-        };
+            let lastScrollPos = 0;
+            let userScrolling = false;
+            let isAutoScrolling = true;
+            let accumulatedScroll = 0; // ← NEW: Accumulator for fractional values
+            const scrollSpeed = 0.3; // ← NEW: Set your desired speed here
 
-        animate();
+            const getResetPoint = () => {
+                const itemCount = getItemCount();
+                const items = Array.from(
+                    (track as HTMLElement).querySelectorAll(".scope-item"),
+                );
+                const separators = Array.from(
+                    (track as HTMLElement).querySelectorAll(".scope-separator"),
+                );
 
-        container.addEventListener("mouseenter", () => {
-            targetSpeed = baseSpeed * 0.4;
-        });
+                let width = 0;
+                for (let i = 0; i < itemCount; i++) {
+                    const item = items[i] as HTMLElement;
+                    width += item.offsetWidth + 8;
+                }
 
-        container.addEventListener("mouseleave", () => {
-            targetSpeed = baseSpeed;
-        });
+                // Add one separator width
+                if (separators.length > 0) {
+                    const sep = separators[0] as HTMLElement;
+                    width += sep.offsetWidth + 8;
+                }
+
+                return width;
+            };
+
+            const animateMobile = () => {
+                if (isAutoScrolling && !userScrolling) {
+                    // Accumulate fractional scroll values
+                    accumulatedScroll += scrollSpeed;
+
+                    // Only apply when we have at least 1 pixel to scroll
+                    if (accumulatedScroll >= 1) {
+                        const scrollAmount = Math.floor(accumulatedScroll);
+                        container.scrollLeft += scrollAmount;
+                        accumulatedScroll -= scrollAmount; // Keep the remainder
+                    }
+
+                    const resetPoint = getResetPoint();
+
+                    if (resetPoint > 0 && container.scrollLeft >= resetPoint) {
+                        container.scrollLeft =
+                            container.scrollLeft - resetPoint;
+                        lastScrollPos = container.scrollLeft;
+                    }
+                }
+
+                animationFrame = requestAnimationFrame(animateMobile);
+            };
+
+            let scrollTimer: number;
+            container.addEventListener("scroll", () => {
+                const delta = Math.abs(container.scrollLeft - lastScrollPos);
+
+                if (delta > 2) {
+                    userScrolling = true;
+                    isAutoScrolling = false;
+                    accumulatedScroll = 0; // ← Reset accumulator when user scrolls
+                }
+
+                lastScrollPos = container.scrollLeft;
+
+                clearTimeout(scrollTimer);
+                scrollTimer = window.setTimeout(() => {
+                    userScrolling = false;
+                    isAutoScrolling = true;
+                }, 10000);
+            });
+
+            // Ensure content is loaded before starting
+            setTimeout(() => {
+                console.log("Starting scope carousel animation");
+                animateMobile();
+            }, 200);
+        }
+        // ========== DESKTOP VERSION ==========
+        else {
+            let baseSpeed = 0.3;
+            let currentSpeed = baseSpeed;
+            let targetSpeed = baseSpeed;
+
+            const getTrackWidth = () => {
+                const itemCount = getItemCount();
+                const items = Array.from(
+                    (track as HTMLElement).querySelectorAll(".scope-item"),
+                );
+                const separators = Array.from(
+                    (track as HTMLElement).querySelectorAll(".scope-separator"),
+                );
+
+                let width = 0;
+                for (let i = 0; i < itemCount; i++) {
+                    const item = items[i] as HTMLElement;
+                    width += item.offsetWidth + 8;
+                }
+
+                if (separators.length > 0) {
+                    const sep = separators[0] as HTMLElement;
+                    width += sep.offsetWidth + 8;
+                }
+
+                return width;
+            };
+
+            const animateDesktop = () => {
+                currentSpeed = lerp(currentSpeed, targetSpeed, 0.05);
+                position -= currentSpeed;
+
+                const trackWidth = getTrackWidth();
+                if (trackWidth > 0 && Math.abs(position) >= trackWidth) {
+                    position = 0;
+                }
+
+                (track as HTMLElement).style.transform =
+                    `translateX(${position}px)`;
+                animationFrame = requestAnimationFrame(animateDesktop);
+            };
+
+            container.addEventListener("mouseenter", () => {
+                targetSpeed = baseSpeed * 0.4;
+            });
+
+            container.addEventListener("mouseleave", () => {
+                targetSpeed = baseSpeed;
+            });
+
+            animateDesktop();
+        }
 
         window.addEventListener("beforeunload", () => {
             cancelAnimationFrame(animationFrame);

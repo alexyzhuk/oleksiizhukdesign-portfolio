@@ -1,4 +1,12 @@
+/* ============================================================================
+   IMPORTS
+   ========================================================================= */
+
 @import "tailwindcss";
+
+/* ============================================================================
+   CSS CUSTOM PROPERTIES (THEME)
+   ========================================================================= */
 
 @theme {
     /* Text Colors */
@@ -28,12 +36,13 @@
     --color-green-light: #359766;
     --color-red-light: #c4454d;
 
+    /* Breakpoints */
     --breakpoint-xs: 480px;
 }
 
-section {
-    position: relative;
-}
+/* ============================================================================
+   BASE STYLES
+   ========================================================================= */
 
 body {
     font-family: "Geist Sans", system-ui, sans-serif;
@@ -56,38 +65,19 @@ body::before {
     z-index: 0;
 }
 
-@media (min-width: 640px) and (max-width: 1024px) {
-    body::before {
-        background-size: 8%;
-    }
-}
-
-@media (max-width: 639px) {
-    body::before {
-        background-size: 16%;
-    }
-}
-
 body > * {
     position: relative;
 }
 
-@keyframes noiseMove {
-    0% {
-        background-position: 0% 0%;
-    }
-    33% {
-        background-position: 50% 50%;
-    }
-    66% {
-        background-position: 100% 100%;
-    }
-    100% {
-        background-position: 0% 0%;
-    }
+section {
+    position: relative;
 }
 
-/* Hide default cursor on all interactive elements */
+/* ============================================================================
+   CURSOR STYLES
+   ========================================================================= */
+
+/* Hide custom cursor globally */
 body,
 a,
 button,
@@ -98,69 +88,66 @@ label,
 .gallery-modal,
 .tool-icon,
 .tool-item,
-[role="button"] {
-    cursor: none !important;
-}
-
+[role="button"],
 * {
     cursor: none !important;
 }
 
-/* Typography Styles */
+/* Re-enable default cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    body,
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    label,
+    .gallery-modal,
+    .tool-icon,
+    .tool-item,
+    [role="button"],
+    * {
+        cursor: auto !important;
+    }
+}
 
-/* H1 */
+/* ============================================================================
+   TYPOGRAPHY
+   ========================================================================= */
+
+/* Headings */
 h1,
-.h1 {
-    font-size: 36px;
-    line-height: 44px;
-    letter-spacing: -0.04em;
-    font-weight: 500;
-}
-
-@media (min-width: 391px) {
-    h1,
-    .h1 {
-        font-size: 40px;
-        line-height: 48px;
-    }
-}
-
-@media (min-width: 720px) {
-    h1,
-    .h1 {
-        font-size: 56px;
-        line-height: 64px;
-    }
-}
-
-/* H2 */
 h2,
 h3,
 h4 {
     @apply font-medium tracking-tighter;
 }
 
+/* Paragraphs */
 p {
     @apply tracking-tight;
 }
 
-.label-text {
-    @apply text-base lowercase;
-}
-
-@media (max-width: 480px) {
-    .label-text {
-        @apply text-sm;
-    }
-}
-
+/* Monospace */
 .mono {
     font-family: "Geist Mono", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Navigation Text */
+/* Labels */
+.label-text {
+    @apply text-base lowercase;
+}
+
+.card-label {
+    letter-spacing: 0.12em;
+    font-weight: 600;
+}
+
+/* ============================================================================
+   NAVIGATION
+   ========================================================================= */
 
 .nav-text {
     @apply text-text-primary text-lg font-medium tracking-tight;
@@ -172,37 +159,15 @@ p {
     @apply opacity-50 font-light text-xl transition-all duration-300;
 }
 
-@media (max-width: 639px) {
-    .nav-text {
-        font-size: 24px;
-        align-items: center;
-    }
-
-    .nav-work span {
-        opacity: 1;
-        color: var(--color-blue-light);
-        font-size: 28px;
-    }
-
-    .nav-about span {
-        opacity: 1;
-        color: var(--color-yellow-light);
-        font-size: 28px;
-    }
-
-    .nav-blog span {
-        opacity: 1;
-        color: var(--color-red-light);
-        font-size: 28px;
-    }
-
-    .nav-contacts span {
-        opacity: 1;
-        color: var(--color-green-light);
-        font-size: 28px;
-    }
+.nav-item {
+    @apply flex pl-4.5 pr-5 py-3 gap-1 items-center border border-transparent rounded-2xl transition-all duration-300;
 }
 
+.nav-item:hover {
+    @apply border-stroke-medium;
+}
+
+/* Navigation hover states */
 .nav-work:hover span {
     opacity: 1;
     color: var(--color-blue-light);
@@ -223,19 +188,37 @@ p {
     color: var(--color-green-light);
 }
 
-.card-label {
-    letter-spacing: 0.12em;
-    font-weight: 600;
+.mobile-nav-item {
+    @apply flex justify-end gap-1;
 }
 
-/* Component Styles */
+/* ============================================================================
+   BUTTONS
+   ========================================================================= */
 
-.nav-item {
-    @apply flex pl-4.5 pr-5 py-3 gap-1 items-center border border-transparent rounded-2xl transition-all duration-300;
+.light-btn {
+    @apply text-xl text-center font-medium tracking-tight border border-stroke-medium px-6.5 py-4.5 w-fit rounded-3xl transition-all duration-300;
 }
 
-.nav-item:hover {
-    @apply border-stroke-medium;
+.light-btn:hover {
+    @apply border-bg-light bg-bg-light text-text-primary-inverse shadow-[0_0_32px_0_rgba(249,250,251,0.6)] shadow-bg-light/30;
+}
+
+.iteration-btn {
+    display: flex;
+    width: fit-content;
+    border: 2px solid var(--color-white);
+    transition: all 0.5s cubic-bezier(0.5, 1, 0.89, 1);
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.03em;
+}
+
+.iteration-btn:hover {
+    background-color: var(--color-white);
+    color: var(--color-text-primary-inverse);
 }
 
 .scroller-btn {
@@ -270,25 +253,48 @@ p {
     background: rgba(249, 250, 251, 0.04);
 }
 
-/* Iteration Button */
-
-.iteration-btn {
-    display: flex;
-    width: fit-content;
-    border: 2px solid var(--color-white);
-    transition: all 0.5s cubic-bezier(0.5, 1, 0.89, 1);
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    line-height: 32px;
-    letter-spacing: -0.03em;
+.logo-btn:hover img {
+    @apply w-9 h-9 transition-all duration-500;
 }
 
-.iteration-btn:hover {
-    background-color: var(--color-white);
-    color: var(--color-text-primary-inverse);
+/* ============================================================================
+   PROJECT CARDS
+   ========================================================================= */
+
+.cs-btn {
+    @apply flex pl-8 pr-5 py-0 text-xl font-medium tracking-tight rounded-4xl border border-bg-light/60 bg-bg-light/0 text-text-primary hover:bg-bg-light hover:text-text-primary-inverse items-center justify-center gap-4 w-full transition-all duration-300;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
 }
 
+.cs-arrow {
+    @apply transition-all duration-300;
+}
+
+.cs-arrow svg {
+    fill: currentColor;
+}
+
+.project-card:hover .cs-btn {
+    max-height: 200px;
+    opacity: 1;
+    @apply py-4;
+}
+
+.content-section {
+    @apply gap-0 transition-all duration-300;
+}
+
+.project-card:hover .content-section {
+    @apply gap-6;
+}
+
+/* ============================================================================
+   CAROUSELS
+   ========================================================================= */
+
+/* Tools Carousel */
 .carousel-container {
     position: relative;
     width: 100%;
@@ -340,67 +346,7 @@ p {
     transition: all 300ms cubic-bezier(0.44, 0, 0.56, 1);
 }
 
-.logo-btn:hover img {
-    @apply w-9 h-9 transition-all duration-500;
-}
-
-.light-btn {
-    @apply text-xl text-center font-medium tracking-tight border border-stroke-medium px-6.5 py-4.5 w-fit rounded-3xl transition-all duration-300;
-}
-
-@media (max-width: 640px) {
-    .light-btn {
-        @apply w-full;
-    }
-}
-
-.light-btn:hover {
-    @apply border-bg-light bg-bg-light text-text-primary-inverse shadow-[0_0_32px_0_rgba(249,250,251,0.6)]  shadow-bg-light/30;
-}
-
-.cs-btn {
-    @apply flex pl-8 pr-5 py-0 text-xl font-medium tracking-tight rounded-4xl border border-bg-light/60 bg-bg-light/5 text-text-primary hover:bg-bg-light hover:text-text-primary-inverse items-center justify-center gap-4 w-full transition-all duration-300;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-}
-
-.cs-arrow {
-    @apply transition-all duration-300;
-}
-
-.cs-arrow svg {
-    fill: currentColor;
-}
-
-.project-card:hover .cs-btn {
-    max-height: 200px;
-    opacity: 1;
-    @apply py-4;
-}
-
-.content-section {
-    @apply gap-0 transition-all duration-300;
-}
-
-.project-card:hover .content-section {
-    @apply gap-6;
-}
-
-/* Mobile: Always show button */
-@media (max-width: 767px) {
-    .cs-btn {
-        max-height: 200px;
-        opacity: 1;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-    }
-
-    .content-section {
-        gap: 1.5rem;
-    }
-}
-
+/* Scope Carousel */
 .scope-carousel-container {
     position: relative;
     width: 100%;
@@ -438,90 +384,7 @@ p {
     align-items: center;
 }
 
-.mobile-nav-item {
-    @apply flex justify-end gap-1;
-}
-
-.method-card {
-    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Method Card Styles */
-
-.method-card {
-    position: relative;
-    background: rgba(7, 8, 10, 0.4);
-    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.method-card:hover {
-    background: rgba(7, 8, 10, 0.4);
-}
-
-/* Icon - State 1: centered, white */
-.method-icon {
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
-    width: 128px;
-    height: 128px;
-    filter: brightness(0) invert(1);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Icon - State 2: top-right, original color */
-.method-card:hover .method-icon,
-.method-card.active .method-icon {
-    top: 48px;
-    right: 48px;
-    transform: translate(0, 0);
-    filter: none;
-}
-
-@media (max-width: 768px) {
-    .method-card:hover .method-icon,
-    .method-card.active .method-icon {
-        top: 32px;
-        right: 32px;
-    }
-}
-
-/* Text container */
-.method-text-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    position: relative;
-    z-index: 1;
-}
-
-/* Label - appears from top with fade */
-.method-label {
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.method-card:hover .method-label,
-.method-card.active .method-label {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Description - appears from bottom with fade */
-.method-text {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
-}
-
-.method-card:hover .method-text,
-.method-card.active .method-text {
-    opacity: 1;
-    transform: translateY(0);
-}
-
+/* Testimonials Carousel */
 .testimonial-carousel-container {
     position: relative;
     width: 100%;
@@ -549,8 +412,6 @@ p {
     will-change: transform;
 }
 
-/* Testimonial Carousel Styles */
-
 .testimonial-mobile-scroll {
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -558,4 +419,209 @@ p {
 
 .testimonial-mobile-scroll::-webkit-scrollbar {
     display: none;
+}
+
+/* ============================================================================
+   METHOD CARDS
+   ========================================================================= */
+
+.method-card {
+    position: relative;
+    background: rgba(7, 8, 10, 0.4);
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.method-card:hover {
+    background: rgba(7, 8, 10, 0.4);
+}
+
+.method-icon {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    width: 128px;
+    height: 128px;
+    filter: brightness(0) invert(1);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.method-card:hover .method-icon,
+.method-card.active .method-icon {
+    top: 48px;
+    right: 48px;
+    transform: translate(0, 0);
+    filter: none;
+}
+
+.method-text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.method-label {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.method-card:hover .method-label,
+.method-card.active .method-label {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.method-text {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+}
+
+.method-card:hover .method-text,
+.method-card.active .method-text {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================================================
+   ANIMATIONS
+   ========================================================================= */
+
+@keyframes noiseMove {
+    0% {
+        background-position: 0% 0%;
+    }
+    33% {
+        background-position: 50% 50%;
+    }
+    66% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+/* ============================================================================
+   RESPONSIVE STYLES
+   ========================================================================= */
+
+/* Extra Small Devices (< 480px) */
+@media (max-width: 480px) {
+    .label-text {
+        @apply text-sm;
+    }
+}
+
+/* Small Devices (< 640px) */
+@media (max-width: 639px) {
+    body::before {
+        background-size: 16%;
+    }
+
+    .nav-text {
+        font-size: 24px;
+        align-items: center;
+    }
+
+    .nav-work span {
+        opacity: 1;
+        color: var(--color-blue-light);
+        font-size: 28px;
+    }
+
+    .nav-about span {
+        opacity: 1;
+        color: var(--color-yellow-light);
+        font-size: 28px;
+    }
+
+    .nav-blog span {
+        opacity: 1;
+        color: var(--color-red-light);
+        font-size: 28px;
+    }
+
+    .nav-contacts span {
+        opacity: 1;
+        color: var(--color-green-light);
+        font-size: 28px;
+    }
+
+    .light-btn {
+        @apply w-full text-lg;
+    }
+
+    .cs-btn {
+        @apply text-lg;
+    }
+}
+
+/* Medium Tablets (640px - 1024px) */
+@media (min-width: 640px) and (max-width: 1024px) {
+    body::before {
+        background-size: 8%;
+    }
+}
+
+/* Mobile-specific (< 768px) */
+@media (max-width: 767px) {
+    /* Project Cards */
+    .cs-btn {
+        max-height: 200px;
+        opacity: 1;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .content-section {
+        gap: 1.5rem;
+    }
+
+    /* Method Cards */
+    .method-card:hover .method-icon,
+    .method-card.active .method-icon {
+        top: 32px;
+        right: 32px;
+    }
+
+    /* Carousels - Enable native scroll with hidden scrollbars */
+    /* NOTE: Testimonials carousel excluded - has its own implementation */
+    .carousel-container,
+    .scope-carousel-container {
+        display: block !important;
+        overflow-x: scroll !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+    }
+
+    .carousel-track,
+    .scope-carousel-track {
+        display: flex !important;
+        width: max-content !important;
+    }
+
+    /* Hide scrollbars for Webkit browsers (Chrome, Safari) */
+    .carousel-container::-webkit-scrollbar,
+    .scope-carousel-container::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* Hide scrollbars on all screen sizes for carousels */
+.carousel-container,
+.scope-carousel-container,
+.testimonial-carousel-container {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.carousel-container::-webkit-scrollbar,
+.scope-carousel-container::-webkit-scrollbar,
+.testimonial-carousel-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }

@@ -1,402 +1,476 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import CaseHero from "../components/casestudy/CaseHero.astro";
+import CaseStudyLayout from "../components/casestudy/CaseStudyLayout.astro";
 import Table from "../components/casestudy/Table.astro";
 import ImageBlock from "../components/casestudy/ImageBlock.astro";
 import ProblemStatement from "../components/casestudy/ProblemStatement.astro";
 import Gallery from "../components/casestudy/Gallery.astro";
-import SingleStat from "../components/casestudy/SingleStat.astro";
 import DoubleStat from "../components/casestudy/DoubleStat.astro";
 import CaseFooter from "../components/casestudy/CaseFooter.astro";
-import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
 ---
 
 <BaseLayout
     title="Osvita XXI - Education for Life"
     description="Complete brand redesign and sitemap fit for grant application."
-    showNav={false}
 >
-    <CaseHero
-        company="datuum"
+    <CaseStudyLayout
+        company="Osvita XXI"
+        companyColor="bg-[#2251FF]"
         title="Education for Life"
         subtitle="In 2023 Osvita XXI asked me to create a website to support their grant application, providing a comprehensive and accessible platform to showcase their project and its potential impact."
         coverImage="/osvita-cover.avif"
-        logo="/datuum.svg"
+        logo="/osvitaxxi.svg"
         accentColor="text-blue-light"
-    />
-
-    <section class="px-6 py-16 max-w-7xl mx-auto flex flex-col gap-14">
-        <div class="max-w-200 mx-auto">
-            <h2 class="mb-8">Overview</h2>
-            <div
-                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-            >
-                <div class="flex gap-8">
-                    <p>
-                        In October 2023, an ex-colleague from Intellect of
-                        Ukraine reached out, to ask if i could design a website
-                        for their partner to apply for a grant. Given the
-                        extensive content required, information architecture was
-                        a top priority. They specifically requested to build the
-                        website on top of their existing WordPress blog, a
-                        crucial requirement for the grant being that the site be
-                        at least two years old.
-                    </p>
-                    <div class="flex w-xs shrink-0">
-                        <ImageBlock
-                            src="/case-study-osvita/osvita-logos.avif"
-                            alt="Osvita XXI old and redesigned logos"
-                            caption="Original logo (top) and a new logo I designed (bottom)"
-                            noPadding={true}
-                        />
-                    </div>
-                </div>
-                <p>
-                    The website needed Ukrainian and English versions,
-                    incorporating numerous images, videos, and diagrams.
-                    Additionally, the organization lacked a cohesive brand
-                    identity, having only an outdated logo. This meant I also
-                    needed to develop a brand kit to establish a visual
-                    languagefor the website.
-                </p>
-                <p>
-                    Fortunately, some content was still in development, granting
-                    me time to research and map out a comprehensive site
-                    structure. With a tight six-week deadline, I took on the
-                    development myself to ensure timely completion.
-                </p>
-            </div>
-        </div>
-        <div class="max-w-200 mx-auto flex flex-col gap-8">
-            <h3>Roles & Responsibilities</h3>
-            <Table
-                columns={[{ key: "role" }, { key: "responsibilities" }]}
-                data={[
-                    {
-                        role: "Web Designer",
-                        responsibilities:
-                            "Designing a responsive & accessible website with a complex IA",
-                    },
-                    {
-                        role: "Front-End Development",
-                        responsibilities:
-                            "Wordpress Development, HTML, CSS, Javascript for interactive elements and custom components",
-                    },
-                    {
-                        role: "Interaction Designer",
-                        responsibilities:
-                            "User Research, UX Patterns, User Testing, A/B Testing",
-                    },
-                    {
-                        role: "Branding",
-                        responsibilities:
-                            "Creating a comprehensive brand kit, brand assets, and visual language",
-                    },
-                    {
-                        role: "Graphic Designer",
-                        responsibilities:
-                            "Icons, Pictograms, Vector Graphics, Diagrams, Infographics.",
-                    },
-                ]}
+        about="Osvita XXI is a Ukrainian educational organization dedicated to supporting teachers and modernizing education through innovative coaching programs and digital learning solutions."
+        industry="Education, EdTech, Non-profit"
+        duration="2023 (6 weeks)"
+        website="https://osvitaxxi.org.ua"
+        sections={[
+            { id: "overview", title: "Overview" },
+            { id: "kickoff", title: "The Kickoff" },
+            { id: "development", title: "The Development" },
+            { id: "results", title: "Launch Results" },
+            { id: "finished-product", title: "Finished Product" },
+        ]}
+    >
+        <div class="flex flex-col gap-6">
+            <img
+                src="/osvita-cover.avif"
+                class="flex rounded-4xl border border-stroke-weak-dark overflow-hidden"
             />
-            <div class="w-full max-w-200 mx-auto flex flex-col gap-8">
-                <h3>Platform</h3>
-            </div>
-            <Table
-                columns={[{ key: "platform" }, { key: "purpose" }]}
-                data={[
-                    {
-                        platform: "Desktop Web",
-                        purpose:
-                            "Create a responsive website with interactive elements.",
-                    },
-                    {
-                        platform: "Mobile (Responsive) Web",
-                        purpose:
-                            "Since the website content included lots of diagrams and infographics, it required additional focus on those elements to maintain readability on narrow screens.",
-                    },
-                ]}
-            />
-        </div>
-    </section>
 
-    <section class="px-6 py-16 max-w-7xl mx-auto flex flex-col gap-14">
-        <div class="max-w-200 mx-auto">
-            <h2 class="mb-8">The Kickoff</h2>
-            <div
-                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            <!-- OVERVIEW SECTION -->
+            <section
+                id="overview"
+                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
             >
-                <div class="flex gap-8">
-                    <div class="flex flex-col gap-4">
-                        <p>
-                            I began my research by thoroughly understanding the
-                            website's target audience. Through client interviews
-                            and a competitive analysis of similar grant
-                            application websites, we identified two primary
-                            visitor types: teachers and government
-                            representatives/officials. To ensure a seamless
-                            experience for both groups, we prioritized placing
-                            key labels within the high-level navigation.
-                            However, strict website requirements mandated a
-                            specific list of navigation items, limiting my
-                            ability to optimize this area.
-                        </p>
-                        <p>
-                            Consequently, I conducted a content audit of the
-                            existing website, identifying improvement areas and
-                            consolidation opportunities. This analysis and the
-                            target audience research guided my approach to
-                            develop a new brand kit.
-                        </p>
+                <div class="max-w-200 mx-auto">
+                    <h2 class="mb-8 text-3xl sm:text-4xl">Overview</h2>
+                    <div
+                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+                    >
+                        <div class="flex flex-col lg:flex-row gap-8">
+                            <div class="flex flex-col gap-4 flex-1">
+                                <p>
+                                    In October 2023, an ex-colleague from
+                                    Intellect of Ukraine reached out, to ask if
+                                    i could design a website for their partner
+                                    to apply for a grant. Given the extensive
+                                    content required, information architecture
+                                    was a top priority. They specifically
+                                    requested to build the website on top of
+                                    their existing WordPress blog, a crucial
+                                    requirement for the grant being that the
+                                    site be at least two years old.
+                                </p>
+                                <p>
+                                    The website needed Ukrainian and English
+                                    versions, incorporating numerous images,
+                                    videos, and diagrams. Additionally, the
+                                    organization lacked a cohesive brand
+                                    identity, having only an outdated logo. This
+                                    meant I also needed to develop a brand kit
+                                    to establish a visual language for the
+                                    website.
+                                </p>
+                                <p>
+                                    Fortunately, some content was still in
+                                    development, granting me time to research
+                                    and map out a comprehensive site structure.
+                                    With a tight six-week deadline, I took on
+                                    the development myself to ensure timely
+                                    completion.
+                                </p>
+                            </div>
+                            <div class="flex w-full lg:w-xs shrink-0">
+                                <ImageBlock
+                                    src="/case-study-osvita/osvita-logos.avif"
+                                    alt="Osvita XXI old and redesigned logos"
+                                    caption="Original logo (top) and a new logo I designed (bottom)"
+                                    noPadding={true}
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex w-2xs shrink-0">
-                        <ImageBlock
-                            src="/case-study-osvita/osvita-inspo.webp"
-                            alt="Screenshot of an Instagram story from an art gallery by @wonder_graphic_design"
-                            caption="Social media can be used as a source of inspiration for visuals"
-                            noPadding={true}
+                </div>
+
+                <div class="max-w-200 mx-auto flex flex-col gap-4">
+                    <h3 class="text-xl sm:text-2xl">
+                        Roles & Responsibilities
+                    </h3>
+                    <Table
+                        columns={[{ key: "role" }, { key: "responsibilities" }]}
+                        data={[
+                            {
+                                role: "Web Designer",
+                                responsibilities:
+                                    "Designing a responsive & accessible website with a complex IA",
+                            },
+                            {
+                                role: "Front-End Development",
+                                responsibilities:
+                                    "Wordpress Development, HTML, CSS, Javascript for interactive elements and custom components",
+                            },
+                            {
+                                role: "Interaction Designer",
+                                responsibilities:
+                                    "User Research, UX Patterns, User Testing, A/B Testing",
+                            },
+                            {
+                                role: "Branding",
+                                responsibilities:
+                                    "Creating a comprehensive brand kit, brand assets, and visual language",
+                            },
+                            {
+                                role: "Graphic Designer",
+                                responsibilities:
+                                    "Icons, Pictograms, Vector Graphics, Diagrams, Infographics.",
+                            },
+                        ]}
+                    />
+                </div>
+
+                <div class="max-w-200 mx-auto flex flex-col gap-4">
+                    <h3 class="text-xl sm:text-2xl">Platform</h3>
+                    <Table
+                        columns={[{ key: "platform" }, { key: "purpose" }]}
+                        data={[
+                            {
+                                platform: "Desktop Web",
+                                purpose:
+                                    "Create a responsive website with interactive elements.",
+                            },
+                            {
+                                platform: "Mobile (Responsive) Web",
+                                purpose:
+                                    "Since the website content included lots of diagrams and infographics, it required additional focus on those elements to maintain readability on narrow screens.",
+                            },
+                        ]}
+                    />
+                </div>
+            </section>
+
+            <!-- KICKOFF SECTION -->
+            <section
+                id="kickoff"
+                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
+            >
+                <div class="max-w-200 mx-auto">
+                    <h2 class="mb-8 text-3xl sm:text-4xl">The Kickoff</h2>
+                    <div
+                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+                    >
+                        <div class="flex flex-col lg:flex-row gap-8">
+                            <div class="flex flex-col gap-4 flex-1">
+                                <p>
+                                    I began my research by thoroughly
+                                    understanding the website's target audience.
+                                    Through client interviews and a competitive
+                                    analysis of similar grant application
+                                    websites, we identified two primary visitor
+                                    types: teachers and government
+                                    representatives/officials. To ensure a
+                                    seamless experience for both groups, we
+                                    prioritized placing key labels within the
+                                    high-level navigation. However, strict
+                                    website requirements mandated a specific
+                                    list of navigation items, limiting my
+                                    ability to optimize this area.
+                                </p>
+                                <p>
+                                    Consequently, I conducted a content audit of
+                                    the existing website, identifying
+                                    improvement areas and consolidation
+                                    opportunities. This analysis and the target
+                                    audience research guided my approach to
+                                    develop a new brand kit.
+                                </p>
+                            </div>
+                            <div class="flex w-full lg:w-2xs shrink-0">
+                                <ImageBlock
+                                    src="/case-study-osvita/osvita-inspo.webp"
+                                    alt="Screenshot of an Instagram story from an art gallery by @wonder_graphic_design"
+                                    caption="Social media can be used as a source of inspiration for visuals"
+                                    noPadding={true}
+                                />
+                            </div>
+                        </div>
+                        <p>
+                            After a few hours of research and checking out other
+                            educational websites, a random Instagram post caught
+                            my eye. It was a video from an art gallery with this
+                            awesome color combination that I thought would be
+                            perfect to freshen up the old website's
+                            blue-yellow-black look. For typography, I chose the
+                            IBM Plex Sans and Serif font families. Their stable
+                            design and support for both Cyrillic and Latin
+                            characters made them a reliable choice.
+                            Additionally, their modern look and feel
+                            complemented the organization's desired tone of
+                            voice – open, confident, and intelligent.
+                        </p>
+                        <Gallery
+                            slides={[
+                                {
+                                    image: "/case-study-osvita/osvita-fonts-colors.avif",
+                                    alt: "Fonts and Colors",
+                                    label: "Fonts & Colors",
+                                },
+                                {
+                                    image: "/case-study-osvita/osvita-pictograms.avif",
+                                    alt: "Pictograms",
+                                    label: "Pictograms",
+                                },
+                                {
+                                    image: "/case-study-osvita/osvita-imagery.avif",
+                                    alt: "Imagery",
+                                    label: "Imagery",
+                                },
+                                {
+                                    image: "/case-study-osvita/osvita-map.avif",
+                                    alt: "Interactive Map",
+                                    label: "Interactive Map",
+                                },
+                            ]}
                         />
                     </div>
                 </div>
-                <p>
-                    After a few hours of research and checking out other
-                    educational websites, a random Instagram post caught my eye.
-                    It was a video from an art gallery with this awesome color
-                    combination that I thought would be perfect to freshen up
-                    the old website's blue-yellow-black look. For typography, I
-                    chose the IBM Plex Sans and Serif font families. Their
-                    stable design and support for both Cyrillic and Latin
-                    characters made them a reliable choice. Additionally, their
-                    modern look and feel complemented the organization's desired
-                    tone of voice – open, confident, and intelligent.
-                </p>
-                <Gallery
-                    slides={[
-                        {
-                            image: "/case-study-osvita/osvita-fonts-colors.avif",
-                            alt: "Fonts and Colors",
-                            label: "Fonts & Colors",
-                        },
-                        {
-                            image: "/case-study-osvita/osvita-pictograms.avif",
-                            alt: "Pictograms",
-                            label: "Pictograms",
-                        },
-                        {
-                            image: "/case-study-osvita/osvita-imagery.avif",
-                            alt: "Imagery",
-                            label: "Imagery",
-                        },
-                        {
-                            image: "/case-study-osvita/osvita-map.avif",
-                            alt: "Interactive Map",
-                            label: "Interactive Map",
-                        },
-                    ]}
-                />
-            </div>
-        </div>
 
-        <ProblemStatement
-            problems={[
-                {
-                    icon: "/case-study-osvita/complex-agenda.svg",
-                    title: "Complex agenda",
-                    description:
-                        "The organization primarily focuses on providing coaching courses for Ukrainian teachers. Due to the drastic changes in education caused by the ongoing war, the Osvita XXI leverages the experience gained during the COVID-19 pandemic to support and enhance remote learning in Ukraine.",
-                },
-                {
-                    icon: "/case-study-osvita/loads-data.svg",
-                    title: "Loads of data",
-                    description:
-                        "Data from reports and research, often presented as dense blocks of text, needed to be formated to be easily digested and analyzed. It was very  important to design a solution that could break down complex information into visually engaging and accessible components.",
-                },
-                {
-                    icon: "/case-study-osvita/awareness.svg",
-                    title: "Awareness",
-                    description:
-                        "By the end of 2023, the world was becoming desensitized to negative news from Ukraine. The website needed to leave a lasting impression, inspiring visitors them to support the organization's initiatives. The imagery was warily curated to evoke hope and resilience rather than shock or despair.",
-                },
-            ]}
-            goals={[
-                {
-                    icon: "/case-study-osvita/convey-message.svg",
-                    newTitle: "Convey message",
-                    description:
-                        "The homepage should immediately engage visitors with a compelling presentation of the problem, gradually revealing key information to spark curiosity and encourage further exploration of the website.",
-                },
-                {
-                    icon: "/case-study-osvita/captivate.svg",
-                    newTitle: "Captivate",
-                    description:
-                        "The UI design should prioritize intuitive components that guide users. Lengthy text sections should be strategically divided into smaller, digestible chunks, interspersed with relevant images, diagrams, and infographics.",
-                },
-                {
-                    icon: "/case-study-osvita/create-impact.svg",
-                    newTitle: "Create impact",
-                    description:
-                        "The website should shift away from solely focusing on the negative impacts of the war. Instead, it should focus on resilience and community strength, showcasing the positive impact of the organization's work.",
-                },
-            ]}
-            problemsTitle="Challenge"
-            ><Fragment slot="question">
-                How can we evoke <span class="text-blue-light">resilience</span> in
-                people outside Ukraine?
-            </Fragment>
-        </ProblemStatement>
-    </section>
+                <div class="max-w-200 mx-auto w-full">
+                    <ProblemStatement
+                        problems={[
+                            {
+                                icon: "/case-study-osvita/complex-agenda.svg",
+                                title: "Complex agenda",
+                                description:
+                                    "The organization primarily focuses on providing coaching courses for Ukrainian teachers. Due to the drastic changes in education caused by the ongoing war, the Osvita XXI leverages the experience gained during the COVID-19 pandemic to support and enhance remote learning in Ukraine.",
+                            },
+                            {
+                                icon: "/case-study-osvita/loads-data.svg",
+                                title: "Loads of data",
+                                description:
+                                    "Data from reports and research, often presented as dense blocks of text, needed to be formated to be easily digested and analyzed. It was very  important to design a solution that could break down complex information into visually engaging and accessible components.",
+                            },
+                            {
+                                icon: "/case-study-osvita/awareness.svg",
+                                title: "Awareness",
+                                description:
+                                    "By the end of 2023, the world was becoming desensitized to negative news from Ukraine. The website needed to leave a lasting impression, inspiring visitors them to support the organization's initiatives. The imagery was warily curated to evoke hope and resilience rather than shock or despair.",
+                            },
+                        ]}
+                        goals={[
+                            {
+                                icon: "/case-study-osvita/convey-message.svg",
+                                newTitle: "Convey message",
+                                description:
+                                    "The homepage should immediately engage visitors with a compelling presentation of the problem, gradually revealing key information to spark curiosity and encourage further exploration of the website.",
+                            },
+                            {
+                                icon: "/case-study-osvita/captivate.svg",
+                                newTitle: "Captivate",
+                                description:
+                                    "The UI design should prioritize intuitive components that guide users. Lengthy text sections should be strategically divided into smaller, digestible chunks, interspersed with relevant images, diagrams, and infographics.",
+                            },
+                            {
+                                icon: "/case-study-osvita/create-impact.svg",
+                                newTitle: "Create impact",
+                                description:
+                                    "The website should shift away from solely focusing on the negative impacts of the war. Instead, it should focus on resilience and community strength, showcasing the positive impact of the organization's work.",
+                            },
+                        ]}
+                        problemsTitle="Challenge"
+                    >
+                        <Fragment slot="question">
+                            How can we evoke <span class="text-blue-light"
+                                >resilience</span
+                            > in people outside Ukraine?
+                        </Fragment>
+                    </ProblemStatement>
+                </div>
+            </section>
 
-    <section class="px-6 py-16 max-w-7xl mx-auto flex flex-col gap-14">
-        <div class="max-w-200 mx-auto">
-            <h2 class="mb-8">The Development</h2>
-            <div
-                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            <!-- DEVELOPMENT SECTION -->
+            <section
+                id="development"
+                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
             >
-                <div class="flex gap-8">
-                    <p>
-                        After finalizing the information architecture, we
-                        started the sitemap creation process, which underwent
-                        meticulous optimization to align with grant requirements
-                        and content priorities. Iterations involved careful
-                        consideration of page hierarchy, ensuring logical
-                        grouping of related content. The result was a
-                        well-structured, intuitive navigation system that guides
-                        users seamlessly through the website's wealth of
-                        information.
-                    </p>
-                    <div class="flex w-xs shrink-0">
-                        <ImageBlock
-                            src="/case-study-osvita/osvita-sitemap.webp"
-                            alt="Finalized Sitemap for osvitaxxi.org.ua"
-                            caption="Finalized Sitemap for osvitaxxi.org.ua"
-                            noPadding={true}
-                        />
+                <div class="max-w-200 mx-auto">
+                    <h2 class="mb-8 text-3xl sm:text-4xl">The Development</h2>
+                    <div
+                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+                    >
+                        <div class="flex flex-col lg:flex-row gap-8">
+                            <div class="flex flex-col gap-4 flex-1">
+                                <p>
+                                    After finalizing the information
+                                    architecture, we started the sitemap
+                                    creation process, which underwent meticulous
+                                    optimization to align with grant
+                                    requirements and content priorities.
+                                    Iterations involved careful consideration of
+                                    page hierarchy, ensuring logical grouping of
+                                    related content. The result was a
+                                    well-structured, intuitive navigation system
+                                    that guides users seamlessly through the
+                                    website's wealth of information.
+                                </p>
+                                <p>
+                                    To streamline navigation and ensure a
+                                    user-friendly experience, I limited the top
+                                    navigation bar to two levels. Interactive
+                                    graphics or page scrolling facilitate deeper
+                                    exploration of content, providing a balanced
+                                    approach between depth of information and
+                                    ease of access. The result was a
+                                    well-structured and intuitive navigation
+                                    system.
+                                </p>
+                            </div>
+                            <div class="flex w-full lg:w-xs shrink-0">
+                                <ImageBlock
+                                    src="/case-study-osvita/osvita-sitemap.webp"
+                                    alt="Finalized Sitemap for osvitaxxi.org.ua"
+                                    caption="Finalized Sitemap for osvitaxxi.org.ua"
+                                    noPadding={true}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <p>
-                    To streamline navigation and ensure a user-friendly
-                    experience, I limited the top navigation bar to two levels.
-                    Interactive graphics or page scrolling facilitate deeper
-                    exploration of content, providing a balanced approach
-                    between depth of information and ease of access. The result
-                    was a well-structured and intuitive navigation system.
-                </p>
-            </div>
-        </div>
-        <div class="max-w-200 mx-auto flex flex-col gap-8">
-            <h3>Website Builder</h3>
-            <div
-                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-            >
-                <p>
-                    When faced with constructing dozens of pages within a tight
-                    timeframe, a robust integrated website builder was
-                    essential. Elementor emerged as the ideal solution due to
-                    its extensive library of pre-built components, a large user
-                    community for troubleshooting, and the flexibility to
-                    integrate custom code snippets seamlessly. This combination
-                    enabled rapid page development, minimized risk, and provided
-                    ample support resources.
-                </p>
-                <p>
-                    The ability to embed code blocks directly into the layout
-                    allowed me to craft several interactive vector graphics that
-                    enhanced the website's visual appeal and user engagement.
-                    Furthermore, this feature enabled the smooth integration of
-                    custom-designed diagrams and charts throughout the site,
-                    ensuring a cohesive and informative presentation of complex
-                    data.
-                </p>
-            </div>
-        </div>
-    </section>
 
-    <section class="px-6 py-16 max-w-7xl mx-auto flex flex-col gap-14">
-        <div class="max-w-200 mx-auto">
-            <h2 class="mb-8">Launch Results</h2>
-
-            <div class="max-w-200 mx-auto flex flex-col gap-8">
-                <h3 class="mb-4">Task Success Rate</h3>
-                <div
-                    class="flex flex-row gap-8 leading leading-loose text-stroke-weak items-center"
-                >
-                    <div class="flex grow w-full">
+                <div class="max-w-200 mx-auto flex flex-col gap-4">
+                    <h3 class="text-xl sm:text-2xl">Website Builder</h3>
+                    <div
+                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+                    >
                         <p>
-                            Over the initial five months following the website's
-                            launch, the average daily unique user count reached
-                            1,315. This organic growth occurred without any
-                            dedicated advertising efforts, as the grant
-                            committees continue to review the website. Due to a
-                            non-disclosure agreement, I cannot share further
-                            specific metrics at this time, but the initial
-                            traffic indicates a promising level of interest and
-                            engagement with the redesigned site.
+                            When faced with constructing dozens of pages within
+                            a tight timeframe, a robust integrated website
+                            builder was essential. Elementor emerged as the
+                            ideal solution due to its extensive library of
+                            pre-built components, a large user community for
+                            troubleshooting, and the flexibility to integrate
+                            custom code snippets seamlessly. This combination
+                            enabled rapid page development, minimized risk, and
+                            provided ample support resources.
+                        </p>
+                        <p>
+                            The ability to embed code blocks directly into the
+                            layout allowed me to craft several interactive
+                            vector graphics that enhanced the website's visual
+                            appeal and user engagement. Furthermore, this
+                            feature enabled the smooth integration of
+                            custom-designed diagrams and charts throughout the
+                            site, ensuring a cohesive and informative
+                            presentation of complex data.
                         </p>
                     </div>
+                </div>
+            </section>
 
-                    <div class="flex grow w-full">
-                        <DoubleStat
-                            variant="comparison"
-                            topStat={{
-                                icon: "person",
-                                label: "Old website",
-                                quantity: 120,
-                                blockColor: "bg-text-secondary-inverse",
-                            }}
-                            bottomStat={{
-                                icon: "person",
-                                label: "New website",
-                                quantity: 1315,
-                                blockColor: "bg-blue-light",
-                            }}
-                        />
+            <!-- RESULTS SECTION -->
+            <section
+                id="results"
+                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
+            >
+                <div class="max-w-200 mx-auto">
+                    <h2 class="mb-8 text-3xl sm:text-4xl">Launch Results</h2>
+                    <div
+                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+                    >
+                        <h3 class="text-xl sm:text-2xl">Daily Active Users</h3>
+                        <div class="flex flex-col lg:flex-row gap-8">
+                            <div class="flex grow w-full">
+                                <p class="text-stroke-weak leading-loose">
+                                    Over the initial five months following the
+                                    website's launch, the average daily unique
+                                    user count reached 1,315. This organic
+                                    growth occurred without any dedicated
+                                    advertising efforts, as the grant committees
+                                    continue to review the website. Due to a
+                                    non-disclosure agreement, I cannot share
+                                    further specific metrics at this time, but
+                                    the initial traffic indicates a promising
+                                    level of interest and engagement with the
+                                    redesigned site.
+                                </p>
+                            </div>
+
+                            <div class="flex grow w-full">
+                                <DoubleStat
+                                    variant="comparison"
+                                    topStat={{
+                                        icon: "person",
+                                        label: "Old website",
+                                        quantity: "120",
+                                        blockColor: "bg-text-secondary-inverse",
+                                    }}
+                                    bottomStat={{
+                                        icon: "person",
+                                        label: "New website",
+                                        quantity: "1315",
+                                        blockColor: "bg-blue-light",
+                                    }}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <section class="px-6 py-16 mx-auto flex flex-col">
-        <div class="max-w-200 w-full mx-auto pb-16">
-            <h2 class="mb-8">Finished Product</h2>
-            <div
-                class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+            <!-- FINISHED PRODUCT SECTION -->
+            <section
+                id="finished-product"
+                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
             >
-                <p>
-                    The website, launched in late November, is actively
-                    maintained by the organization and is poised to become an
-                    indispensable resource for teachers both within Ukraine and
-                    internationally.
-                </p>
-                <a href="https://osvitaxxi.org.ua" class="outline-btn w-fit"
-                    >View Live Website
-                </a>
-            </div>
+                <div class="max-w-200 w-full mx-auto">
+                    <h2 class="mb-8 text-3xl sm:text-4xl">Finished Product</h2>
+                    <div
+                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
+                    >
+                        <p>
+                            The website, launched in late November, is actively
+                            maintained by the organization and is poised to
+                            become an indispensable resource for teachers both
+                            within Ukraine and internationally.
+                        </p>
+                        <a
+                            href="https://osvitaxxi.org.ua"
+                            class="outline-btn w-fit"
+                        >
+                            View Live Website
+                        </a>
+                    </div>
+                </div>
+
+                <div class="w-full flex flex-col gap-4">
+                    <ImageBlock
+                        src="/case-study-osvita/osvita-showcase-1.webp"
+                        alt="Osvita XXI Homepage"
+                        fullWidth={true}
+                        noPadding={true}
+                    />
+
+                    <ImageBlock
+                        src="/case-study-osvita/osvita-showcase-2.webp"
+                        alt="Osvita XXI Content Pages"
+                        fullWidth={true}
+                        noPadding={true}
+                    />
+
+                    <ImageBlock
+                        src="/case-study-osvita/osvita-showcase-3.webp"
+                        alt="Osvita XXI Interactive Elements"
+                        fullWidth={true}
+                        noPadding={true}
+                    />
+                </div>
+            </section>
         </div>
-        <ImageBlock
-            src="/case-study-osvita/osvita-showcase-1.webp"
-            alt="Osvita XXI"
-            fullWidth={true}
-            noPadding={true}
-        />
 
-        <ImageBlock
-            src="/case-study-osvita/osvita-showcase-2.webp"
-            alt="Osvita XXI"
-            fullWidth={true}
-            noPadding={true}
+        <CaseFooter
+            isLast={true}
+            prevCase={{ name: "datuum.ai", url: "/case-study-datuum" }}
         />
-
-        <ImageBlock
-            src="/case-study-osvita/osvita-showcase-3.webp"
-            alt="Osvita XXI"
-            fullWidth={true}
-            noPadding={true}
-        />
-    </section>
-
-    <CaseFooter
-        isLast={true}
-        prevCase={{ name: "datuum.ai", url: "/case-study-datuum" }}
-    />
+    </CaseStudyLayout>
 </BaseLayout>

@@ -84,14 +84,16 @@ const calendlyLink = "https://calendly.com/alexy-zhuk/30min";
 <section
     class="min-h-fit sm:min-h-screen flex flex-col items-center gap-8 justify-center p-6 -mt-24 sm:-mt-32 pt-32 relative z-10"
 >
-    <div class="max-w-7xl h-full flex flex-col gap-4 justify-center grow">
+    <div class="max-w-7xl h-full flex flex-col gap-6 justify-center grow">
         <p
-            class="mono text-stroke-weak text-lg sm:text-xl font-normal mb-4 text-balance"
+            class="mono text-stroke-weak text-lg sm:text-2xl font-normal text-balance"
         >
             Hi! I'm Oleksii Zhuk, a Product Designer & Developer.
         </p>
 
-        <h1 class="mb-8 w-full sm:max-w-3/4 text-balance md:text-wrap">
+        <h1
+            class="text-5xl sm:text-7xl leading-[1.1] w-full sm:max-w-[25ch] text-balance md:text-wrap"
+        >
             I <span class="italic text-blue-light">dive deep</span> into the root
             of a problem and create solutions
             <span class="italic text-yellow-light">not just for users</span>,
@@ -103,7 +105,7 @@ const calendlyLink = "https://calendly.com/alexy-zhuk/30min";
                 href={calendlyLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="light-btn"
+                class="light-btn mt-2"
             >
                 Book a Meeting
             </a>
@@ -153,99 +155,136 @@ const calendlyLink = "https://calendly.com/alexy-zhuk/30min";
             <p class="text-sm text-stroke-weak" id="tooltip-description"></p>
         </div>
     </div>
+</section>
 
-    <script>
-        const track = document.getElementById("carousel-track") as HTMLElement;
-        const carouselContainer = document.querySelector(
-            ".carousel-container",
-        ) as HTMLElement;
-        const tooltip = document.getElementById("tool-tooltip");
-        const tooltipName = document.getElementById("tooltip-name");
-        const tooltipDescription = document.getElementById(
-            "tooltip-description",
-        );
-        const toolIcons = document.querySelectorAll(".tool-icon");
+<script>
+    const track = document.getElementById("carousel-track") as HTMLElement;
+    const carouselContainer = document.querySelector(
+        ".carousel-container",
+    ) as HTMLElement;
+    const tooltip = document.getElementById("tool-tooltip");
+    const tooltipName = document.getElementById("tooltip-name");
+    const tooltipDescription = document.getElementById("tooltip-description");
 
-        let hideTimeout: number | null = null;
-        let currentHoveredIcon: Element | null = null;
+    const isMobile = window.innerWidth < 768;
+    let position = 0;
+    let animationFrame: number;
+    let mouseX = 0;
+    let mouseY = 0;
+    let currentHoveredIcon: Element | null = null;
+    let hideTimeout: number | null = null;
 
-        // Carousel animation state
-        let position = 0;
+    const getTrackWidth = () => {
+        if (!track) return 0;
+        return track.scrollWidth / 3;
+    };
+
+    const lerp = (start: number, end: number, factor: number) => {
+        return start + (end - start) * factor;
+    };
+
+    // Check which icon is under cursor
+    const checkIconUnderCursor = () => {
+        const element = document.elementFromPoint(mouseX, mouseY);
+        const icon = element?.closest(".tool-icon") as HTMLElement;
+
+        if (icon && icon !== currentHoveredIcon) {
+            currentHoveredIcon = icon;
+            showTooltip(icon);
+        } else if (!icon && currentHoveredIcon) {
+            currentHoveredIcon = null;
+            hideTooltip();
+        }
+    };
+
+    const showTooltip = (icon: HTMLElement) => {
+        if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
+        }
+
+        const name = icon.getAttribute("data-tool-name");
+        const description = icon.getAttribute("data-tool-description");
+
+        if (
+            tooltipName &&
+            tooltipDescription &&
+            name &&
+            description &&
+            tooltip
+        ) {
+            tooltipName.textContent = name;
+            tooltipDescription.textContent = description;
+            tooltip.classList.remove("invisible");
+            requestAnimationFrame(() => {
+                tooltip?.classList.remove("opacity-0");
+                tooltip?.classList.add("opacity-100");
+            });
+        }
+    };
+
+    const hideTooltip = () => {
+        tooltip?.classList.remove("opacity-100");
+        tooltip?.classList.add("opacity-0");
+
+        hideTimeout = window.setTimeout(() => {
+            tooltip?.classList.add("invisible");
+        }, 500);
+    };
+
+    // ========== MOBILE VERSION ==========
+    if (isMobile && carouselContainer) {
+        carouselContainer.style.overflowX = "scroll";
+        carouselContainer.style.webkitOverflowScrolling = "touch";
+
+        let lastScrollPos = 0;
+        let userScrolling = false;
+        let isAutoScrolling = true;
+
+        const animateMobile = () => {
+            if (isAutoScrolling && !userScrolling) {
+                carouselContainer.scrollLeft += 1;
+
+                const resetPoint = getTrackWidth();
+                if (carouselContainer.scrollLeft >= resetPoint) {
+                    carouselContainer.scrollLeft -= resetPoint;
+                    lastScrollPos = carouselContainer.scrollLeft;
+                }
+            }
+
+            animationFrame = requestAnimationFrame(animateMobile);
+        };
+
+        let scrollTimer: number;
+        carouselContainer.addEventListener("scroll", () => {
+            const delta = Math.abs(
+                carouselContainer.scrollLeft - lastScrollPos,
+            );
+
+            if (delta > 2) {
+                userScrolling = true;
+                isAutoScrolling = false;
+            }
+
+            lastScrollPos = carouselContainer.scrollLeft;
+
+            clearTimeout(scrollTimer);
+            scrollTimer = window.setTimeout(() => {
+                userScrolling = false;
+                isAutoScrolling = true;
+            }, 10000); // Resume after 10 seconds
+        });
+
+        animateMobile();
+    }
+    // ========== DESKTOP VERSION ==========
+    else if (!isMobile && track) {
         let baseSpeed = 0.5;
         let currentSpeed = baseSpeed;
         let targetSpeed = baseSpeed;
         let isHovering = false;
-        let animationFrame: number;
-        let mouseX = 0;
-        let mouseY = 0;
 
-        // Get track width for looping
-        const getTrackWidth = () => {
-            if (!track) return 0;
-            return track.scrollWidth / 3;
-        };
-
-        // Smooth speed interpolation
-        const lerp = (start: number, end: number, factor: number) => {
-            return start + (end - start) * factor;
-        };
-
-        // Check which icon is under cursor
-        const checkIconUnderCursor = () => {
-            const element = document.elementFromPoint(mouseX, mouseY);
-            const icon = element?.closest(".tool-icon") as HTMLElement;
-
-            if (icon && icon !== currentHoveredIcon) {
-                currentHoveredIcon = icon;
-                showTooltip(icon);
-            } else if (!icon && currentHoveredIcon) {
-                currentHoveredIcon = null;
-                hideTooltip();
-            }
-        };
-
-        // Show tooltip
-        const showTooltip = (icon: HTMLElement) => {
-            if (hideTimeout) {
-                clearTimeout(hideTimeout);
-                hideTimeout = null;
-            }
-
-            const name = icon.getAttribute("data-tool-name");
-            const description = icon.getAttribute("data-tool-description");
-
-            if (
-                tooltipName &&
-                tooltipDescription &&
-                name &&
-                description &&
-                tooltip
-            ) {
-                tooltipName.textContent = name;
-                tooltipDescription.textContent = description;
-                tooltip.classList.remove("invisible");
-                // Wait for next frame to trigger transition
-                requestAnimationFrame(() => {
-                    tooltip?.classList.remove("opacity-0");
-                    tooltip?.classList.add("opacity-100");
-                });
-            }
-        };
-
-        // Hide tooltip
-        const hideTooltip = () => {
-            tooltip?.classList.remove("opacity-100");
-            tooltip?.classList.add("opacity-0");
-
-            hideTimeout = window.setTimeout(() => {
-                tooltip?.classList.add("invisible");
-            }, 500); // Match transition duration
-        };
-
-        // Animation loop
-        const animate = () => {
-            if (!track) return;
-
+        const animateDesktop = () => {
             currentSpeed = lerp(currentSpeed, targetSpeed, 0.05);
             position -= currentSpeed;
 
@@ -256,30 +295,23 @@ const calendlyLink = "https://calendly.com/alexy-zhuk/30min";
 
             track.style.transform = `translateX(${position}px)`;
 
-            // Check which icon is under cursor while animating
             if (isHovering) {
                 checkIconUnderCursor();
             }
 
-            animationFrame = requestAnimationFrame(animate);
+            animationFrame = requestAnimationFrame(animateDesktop);
         };
 
-        // Start animation
-        animate();
-
-        // Track mouse position
         document.addEventListener("mousemove", (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
 
-            // Update tooltip position
             if (tooltip && currentHoveredIcon) {
                 tooltip.style.left = e.clientX + 20 + "px";
                 tooltip.style.top = e.clientY + 20 + "px";
             }
         });
 
-        // Handle hover slowdown
         carouselContainer?.addEventListener("mouseenter", () => {
             isHovering = true;
             targetSpeed = baseSpeed * 0.2;
@@ -292,9 +324,10 @@ const calendlyLink = "https://calendly.com/alexy-zhuk/30min";
             hideTooltip();
         });
 
-        // Cleanup on page unload
-        window.addEventListener("beforeunload", () => {
-            cancelAnimationFrame(animationFrame);
-        });
-    </script>
-</section>
+        animateDesktop();
+    }
+
+    window.addEventListener("beforeunload", () => {
+        cancelAnimationFrame(animationFrame);
+    });
+</script>

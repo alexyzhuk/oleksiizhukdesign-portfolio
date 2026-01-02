@@ -11,15 +11,17 @@ const { slides } = Astro.props;
 const uniqueId = `gallery-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
-<div class="py-8" data-gallery-id={uniqueId}>
+<div data-gallery-id={uniqueId}>
     <div class="max-w-6xl mx-auto">
         <div class="relative">
             <!-- Buttons -->
-            <div class="flex justify-center mt-8">
+            <div
+                class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 justify-center"
+            >
                 {
                     slides.map((slide, index) => (
                         <button
-                            class="flex w-full justify-center gallery-btn px-6 py-3 border-b-2 border-transparent hover:border-text-primary hover:bg-text-primary/5 transition"
+                            class="flex w-full justify-start sm:justify-center gallery-btn tracking-tight px-6 py-3 rounded-full  border-stroke-weak-dark bg-bg-plaque border  hover:border-text-primary hover:bg-text-primary/5 transition"
                             data-gallery-id={uniqueId}
                             data-index={index}
                         >
@@ -30,7 +32,7 @@ const uniqueId = `gallery-${Math.random().toString(36).substr(2, 9)}`;
             </div>
             <!-- Slides -->
             <div
-                class="gallery-container overflow-hidden"
+                class="gallery-container rounded-xl overflow-hidden"
                 data-gallery-id={uniqueId}
             >
                 <div
@@ -39,7 +41,7 @@ const uniqueId = `gallery-${Math.random().toString(36).substr(2, 9)}`;
                 >
                     {
                         slides.map((slide, index) => (
-                            <div class="w-full shrink-0 has-cursor-pointer"">
+                            <div class="w-full shrink-0 has-cursor-pointer">
                                 <img
                                     src={slide.image}
                                     alt={slide.alt}
@@ -131,10 +133,10 @@ const uniqueId = `gallery-${Math.random().toString(36).substr(2, 9)}`;
                     const button = btn as HTMLElement;
                     if (i === currentIndex) {
                         const color = accentColors[i % accentColors.length];
-                        button.style.borderBottomColor = color;
+                        button.style.borderColor = color;
                         button.classList.add("bg-text-primary/10");
                     } else {
-                        button.style.borderBottomColor = "";
+                        button.style.borderColor = "";
                         button.classList.remove("bg-text-primary/10");
                     }
                 });

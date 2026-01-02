@@ -1,0 +1,167 @@
+---
+interface Props {
+    company: string;
+    companyColor: string;
+    title: string;
+    subtitle: string;
+    coverImage: string;
+    logo?: string;
+    accentColor?: string;
+    // Sidebar content
+    about: string;
+    industry: string;
+    duration: string;
+    website?: string;
+    // Table of contents
+    sections: Array<{ id: string; title: string }>;
+}
+
+const {
+    company,
+    companyColor,
+    title,
+    subtitle,
+    coverImage,
+    logo,
+    accentColor = "text-blue-light",
+    about,
+    industry,
+    duration,
+    website,
+    sections,
+} = Astro.props;
+---
+
+<div class="case-study-container">
+    <!-- Two Column Layout -->
+    <div class="w-full px-6 pb-16">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Main Content (Left) -->
+                <main class="lg:col-span-8">
+                    <slot />
+                </main>
+
+                <!-- Sidebar (Right) -->
+                <aside class="lg:col-span-4">
+                    <div class="sticky top-24 flex flex-col gap-8">
+                        <!-- Company Info Card -->
+                        <div
+                            class="flex flex-col gap-6 p-8 rounded-3xl border border-stroke-weak-dark bg-bg-plaque"
+                        >
+                            {
+                                logo && (
+                                    <div
+                                        class={`flex items-center justify-center gap-3 w-full aspect-video rounded-lg ${companyColor}`}
+                                    >
+                                        <img
+                                            src={logo}
+                                            alt={company}
+                                            class="w-1/2"
+                                        />
+                                    </div>
+                                )
+                            }
+
+                            <div class="flex flex-col gap-4">
+                                <div>
+                                    <h5
+                                        class="mono text-blue-light font-normal mb-0.5"
+                                    >
+                                        about:
+                                    </h5>
+                                    <p class="leading-7 text-text-secondary">
+                                        {about}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h5
+                                        class="mono text-yellow-light font-normal mb-1"
+                                    >
+                                        industry:
+                                    </h5>
+                                    <p class="text-base text-text-secondary">
+                                        {industry}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h5
+                                        class="mono text-green-light font-normal mb-1"
+                                    >
+                                        duration:
+                                    </h5>
+                                    <p class="text-base text-text-secondary">
+                                        {duration}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table of Contents -->
+                        <nav
+                            class="flex flex-col gap-4 p-8 rounded-3xl border border-stroke-weak-dark bg-bg-plaque"
+                        >
+                            <h4 class="text-sm mono text-text-secondary">
+                                On this page
+                            </h4>
+                            <ul class="flex flex-col gap-3">
+                                {
+                                    sections.map((section) => (
+                                        <li>
+                                            <a
+                                                href={`#${section.id}`}
+                                                class="text-sm text-text-secondary hover:text-text-primary transition-colors duration-200 toc-link"
+                                                data-section={section.id}
+                                            >
+                                                {section.title}
+                                            </a>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Active state for TOC links */
+    .toc-link.active {
+        color: var(--color-text-primary);
+        font-weight: 500;
+    }
+</style>
+
+<script>
+    // Intersection Observer for TOC active states
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                const id = entry.target.getAttribute("id");
+                const tocLink = document.querySelector(
+                    `[data-section="${id}"]`,
+                );
+
+                if (entry.isIntersecting) {
+                    document.querySelectorAll(".toc-link").forEach((link) => {
+                        link.classList.remove("active");
+                    });
+                    tocLink?.classList.add("active");
+                }
+            });
+        },
+        {
+            rootMargin: "-100px 0px -66%",
+        },
+    );
+
+    // Observe all sections
+    document.querySelectorAll("section[id]").forEach((section) => {
+        observer.observe(section);
+    });
+</script>

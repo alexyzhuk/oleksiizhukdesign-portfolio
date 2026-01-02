@@ -65,7 +65,7 @@ const comparison = variant === 'comparison' ? processComparisonStats(topStat as 
                         alt={(topStat as ProgressStatData).icon}
                         class="w-8 h-8"
                     />
-                    <p class="text-xl font-bold text-text-primary">
+                    <p class="text-xl font-medium text-text-primary">
                         {(topStat as ProgressStatData).quantity}
                     </p>
                 </div>
@@ -73,7 +73,7 @@ const comparison = variant === 'comparison' ? processComparisonStats(topStat as 
                     <div class="flex items-center justify-center w-8 h-8">
                         <img src="check.svg" alt="checkmark" class="w-5 h-5" />
                     </div>
-                    <p class="text-xl font-bold text-text-primary">
+                    <p class="text-xl font-medium text-text-primary">
                         {(topStat as ProgressStatData).stat}%
                     </p>
                 </div>
@@ -85,7 +85,7 @@ const comparison = variant === 'comparison' ? processComparisonStats(topStat as 
                 >
                 </div>
                 <div class="relative bg-bg-light/20 flex grow items-center justify-end px-8">
-                    <p class="text-4xl font-bold text-text-primary">
+                    <p class="text-4xl font-medium text-text-primary">
                         {(topStat as ProgressStatData).progress}
                     </p>
                 </div>
@@ -99,7 +99,7 @@ const comparison = variant === 'comparison' ? processComparisonStats(topStat as 
                     class="flex justify-end items-center"
                     style={`background-color: ${progressBottom.bgColor}; width: ${progressBottom.overlayWidth}%`}
                 >
-                    <p class="text-2xl font-bold text-text-primary px-2">
+                    <p class="text-2xl font-medium text-text-primary px-2">
                         {(bottomStat as ProgressStatData).progress}
                     </p>
                 </div>
@@ -113,7 +113,7 @@ const comparison = variant === 'comparison' ? processComparisonStats(topStat as 
                         alt={(bottomStat as ProgressStatData).icon}
                         class="w-8 h-8"
                     />
-                    <p class="text-xl font-bold text-text-primary">
+                    <p class="text-xl font-medium text-text-primary">
                         {(bottomStat as ProgressStatData).quantity}
                     </p>
                 </div>
@@ -121,7 +121,7 @@ const comparison = variant === 'comparison' ? processComparisonStats(topStat as 
                     <div class="flex items-center justify-center w-8 h-8">
                         <img src="check.svg" alt="checkmark" class="w-5 h-5" />
                     </div>
-                    <p class="text-xl font-bold text-text-primary">
+                    <p class="text-xl font-medium text-text-primary">
                         {(bottomStat as ProgressStatData).stat}%
                     </p>
                 </div>
@@ -135,7 +135,7 @@ const comparison = variant === 'comparison' ? processComparisonStats(topStat as 
         <!-- Top Stat Row - Comparison Variant -->
         <div class="flex flex-col gap-2">
             <div class="flex w-full justify-between items-center">
-                <p class="text-xl font-bold text-text-primary">
+                <p class="text-xl font-medium text-text-primary">
                     {(topStat as ComparisonStatData).label}
                 </p>
                 <div class="flex items-center gap-2">
@@ -144,7 +144,7 @@ const comparison = variant === 'comparison' ? processComparisonStats(topStat as 
                         alt={(topStat as ComparisonStatData).icon}
                         class="w-8 h-8"
                     />
-                    <p class="text-xl font-bold text-text-primary">
+                    <p class="text-xl font-medium text-text-primary">
                         {formatNumber((topStat as ComparisonStatData).quantity)}
                     </p>
                 </div>
@@ -168,7 +168,7 @@ const comparison = variant === 'comparison' ? processComparisonStats(topStat as 
                 </div>
             </div>
             <div class="flex w-full justify-between items-center">
-                <p class="text-xl font-bold text-text-primary">
+                <p class="text-xl font-medium text-text-primary">
                     {(bottomStat as ComparisonStatData).label}
                 </p>
                 <div class="flex items-center gap-2">
@@ -177,7 +177,7 @@ const comparison = variant === 'comparison' ? processComparisonStats(topStat as 
                         alt={(bottomStat as ComparisonStatData).icon}
                         class="w-8 h-8"
                     />
-                    <p class="text-xl font-bold text-text-primary">
+                    <p class="text-xl font-medium text-text-primary">
                         {formatNumber((bottomStat as ComparisonStatData).quantity)}
                     </p>
                 </div>

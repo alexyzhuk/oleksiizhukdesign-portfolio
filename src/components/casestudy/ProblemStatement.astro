@@ -38,17 +38,19 @@ const {
         <div class="flex flex-col max-w-200 mx-auto gap-10">
             <!-- Problems / Challenge -->
             <div class="flex flex-col">
-                <h3 class={`mb-8`}>{problemsTitle}</h3>
+                <h3 class={`mb-8 text-xl sm:text-2xl`}>{problemsTitle}</h3>
                 <div class="flex flex-col gap-8">
                     {
                         problems.map((problem) => (
-                            <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-2">
                                 <img
                                     src={problem.icon}
                                     alt={problem.title}
-                                    class="w-12 h-12"
+                                    class="w-12 h-12 mb-4"
                                 />
-                                <h4>{problem.title}</h4>
+                                <h4 class="text-lg sm:text-xl">
+                                    {problem.title}
+                                </h4>
                                 <p class="text-stroke-weak text-base leading-loose text-balance">
                                     {problem.description}
                                 </p>
@@ -65,20 +67,22 @@ const {
 
             <!-- Goals / Solution -->
             <div class="flex flex-col">
-                <h3 class={`mb-8`}>{goalsTitle}</h3>
+                <h3 class={`text-xl sm:text-2xl mb-8`}>{goalsTitle}</h3>
                 <div class="flex flex-col gap-8">
                     {
                         goals.map((goal) => (
-                            <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-2">
                                 <img
                                     src={goal.icon}
                                     alt={goal.newTitle}
-                                    class="w-12 h-12"
+                                    class="w-12 h-12 mb-4"
                                 />
-                                <p class="text-xl text-stroke-strong/70 line-through">
+                                <p class="text-base sm:text-lg text-stroke-strong/70 line-through">
                                     {goal.oldTitle}
                                 </p>
-                                <h4>{goal.newTitle}</h4>
+                                <h4 class="text-lg sm:text-xl">
+                                    {goal.newTitle}
+                                </h4>
                                 <p class="text-stroke-weak text-base leading-loose text-balance">
                                     {goal.description}
                                 </p>
