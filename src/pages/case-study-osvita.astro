@@ -20,11 +20,11 @@ import CaseFooter from "../components/casestudy/CaseFooter.astro";
         subtitle="In 2023 Osvita XXI asked me to create a website to support their grant application, providing a comprehensive and accessible platform to showcase their project and its potential impact."
         coverImage="/osvita-cover.avif"
         logo="/osvita.svg"
-        accentColor="text-blue-light"
         about="Osvita XXI is a Ukrainian educational organization dedicated to supporting teachers and modernizing education through innovative coaching programs and digital learning solutions."
         industry="Education, EdTech, Non-profit"
         duration="2023 (6 weeks)"
         website="https://osvitaxxi.org.ua"
+        prevCase={{ name: "Datuum.ai", url: "/case-study-datuum" }}
         sections={[
             { id: "overview", title: "Overview" },
             { id: "kickoff", title: "The Kickoff" },
@@ -33,24 +33,14 @@ import CaseFooter from "../components/casestudy/CaseFooter.astro";
             { id: "finished-product", title: "Finished Product" },
         ]}
     >
-        <div class="flex flex-col gap-6">
-            <img
-                src="/osvita-cover.avif"
-                class="flex rounded-4xl border border-stroke-weak-dark overflow-hidden"
-            />
-
+        <div class="flex flex-col gap-12">
             <!-- OVERVIEW SECTION -->
-            <section
-                id="overview"
-                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
-            >
-                <div class="max-w-200 mx-auto">
-                    <h2 class="mb-8 text-3xl sm:text-4xl">Overview</h2>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
-                        <div class="flex flex-col lg:flex-row gap-8">
-                            <div class="flex flex-col gap-4 flex-1">
+            <section id="overview" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">Overview</h2>
+                    <div class="cs-text">
+                        <div class="cs-two-col">
+                            <div class="cs-text flex-1">
                                 <p>
                                     In October 2023, an ex-colleague from
                                     Intellect of Ukraine reached out, to ask if
@@ -94,10 +84,8 @@ import CaseFooter from "../components/casestudy/CaseFooter.astro";
                     </div>
                 </div>
 
-                <div class="max-w-200 mx-auto flex flex-col gap-4">
-                    <h3 class="text-xl sm:text-2xl">
-                        Roles & Responsibilities
-                    </h3>
+                <div class="cs-subsection">
+                    <h3 class="cs-h3">Roles & Responsibilities</h3>
                     <Table
                         columns={[{ key: "role" }, { key: "responsibilities" }]}
                         data={[
@@ -130,8 +118,8 @@ import CaseFooter from "../components/casestudy/CaseFooter.astro";
                     />
                 </div>
 
-                <div class="max-w-200 mx-auto flex flex-col gap-4">
-                    <h3 class="text-xl sm:text-2xl">Platform</h3>
+                <div class="cs-subsection">
+                    <h3 class="cs-h3">Platform</h3>
                     <Table
                         columns={[{ key: "platform" }, { key: "purpose" }]}
                         data={[
@@ -151,17 +139,12 @@ import CaseFooter from "../components/casestudy/CaseFooter.astro";
             </section>
 
             <!-- KICKOFF SECTION -->
-            <section
-                id="kickoff"
-                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
-            >
-                <div class="max-w-200 mx-auto">
-                    <h2 class="mb-8 text-3xl sm:text-4xl">The Kickoff</h2>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
-                        <div class="flex flex-col lg:flex-row gap-8">
-                            <div class="flex flex-col gap-4 flex-1">
+            <section id="kickoff" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">The Kickoff</h2>
+                    <div class="cs-text">
+                        <div class="cs-two-col">
+                            <div class="cs-text flex-1">
                                 <p>
                                     I began my research by thoroughly
                                     understanding the website's target audience.
@@ -236,7 +219,7 @@ import CaseFooter from "../components/casestudy/CaseFooter.astro";
                     </div>
                 </div>
 
-                <div class="max-w-200 mx-auto w-full">
+                <div class="w-full">
                     <ProblemStatement
                         problems={[
                             {
@@ -290,17 +273,12 @@ import CaseFooter from "../components/casestudy/CaseFooter.astro";
             </section>
 
             <!-- DEVELOPMENT SECTION -->
-            <section
-                id="development"
-                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
-            >
-                <div class="max-w-200 mx-auto">
-                    <h2 class="mb-8 text-3xl sm:text-4xl">The Development</h2>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
-                        <div class="flex flex-col lg:flex-row gap-8">
-                            <div class="flex flex-col gap-4 flex-1">
+            <section id="development" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">The Development</h2>
+                    <div class="cs-text">
+                        <div class="cs-two-col">
+                            <div class="cs-text flex-1">
                                 <p>
                                     After finalizing the information
                                     architecture, we started the sitemap
@@ -338,11 +316,9 @@ import CaseFooter from "../components/casestudy/CaseFooter.astro";
                     </div>
                 </div>
 
-                <div class="max-w-200 mx-auto flex flex-col gap-4">
-                    <h3 class="text-xl sm:text-2xl">Website Builder</h3>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+                <div class="cs-subsection">
+                    <h3 class="cs-h3">Website Builder</h3>
+                    <div class="cs-text">
                         <p>
                             When faced with constructing dozens of pages within
                             a tight timeframe, a robust integrated website
@@ -369,17 +345,12 @@ import CaseFooter from "../components/casestudy/CaseFooter.astro";
             </section>
 
             <!-- RESULTS SECTION -->
-            <section
-                id="results"
-                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
-            >
-                <div class="max-w-200 mx-auto">
-                    <h2 class="mb-8 text-3xl sm:text-4xl">Launch Results</h2>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
-                        <h3 class="text-xl sm:text-2xl">Daily Active Users</h3>
-                        <div class="flex flex-col lg:flex-row gap-8">
+            <section id="results" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">Launch Results</h2>
+                    <div class="cs-text">
+                        <h3 class="cs-h3">Daily Active Users</h3>
+                        <div class="cs-two-col">
                             <div class="flex grow w-full">
                                 <p class="text-stroke-weak leading-loose">
                                     Over the initial five months following the
@@ -419,15 +390,10 @@ import CaseFooter from "../components/casestudy/CaseFooter.astro";
             </section>
 
             <!-- FINISHED PRODUCT SECTION -->
-            <section
-                id="finished-product"
-                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
-            >
-                <div class="max-w-200 w-full mx-auto">
-                    <h2 class="mb-8 text-3xl sm:text-4xl">Finished Product</h2>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+            <section id="finished-product" class="cs-section-final">
+                <div>
+                    <h2 class="cs-h2">Finished Product</h2>
+                    <div class="cs-text">
                         <p>
                             The website, launched in late November, is actively
                             maintained by the organization and is poised to
@@ -436,14 +402,15 @@ import CaseFooter from "../components/casestudy/CaseFooter.astro";
                         </p>
                         <a
                             href="https://osvitaxxi.org.ua"
-                            class="outline-btn w-fit"
+                            class="outline-btn
+                        w-fit"
                         >
                             View Live Website
                         </a>
                     </div>
                 </div>
 
-                <div class="w-full flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-6">
                     <ImageBlock
                         src="/case-study-osvita/osvita-showcase-1.webp"
                         alt="Osvita XXI Homepage"
@@ -467,10 +434,5 @@ import CaseFooter from "../components/casestudy/CaseFooter.astro";
                 </div>
             </section>
         </div>
-
-        <CaseFooter
-            isLast={true}
-            prevCase={{ name: "datuum.ai", url: "/case-study-datuum" }}
-        />
     </CaseStudyLayout>
 </BaseLayout>

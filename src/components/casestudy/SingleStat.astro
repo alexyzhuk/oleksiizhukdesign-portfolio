@@ -42,7 +42,9 @@ const bgColor = colorMap[blockColor] || blockColor;
         </div>
     </div>
     <!-- Stat display on the right -->
-    <div class="relative flex-1 flex flex-col items-end justify-center w-fit">
+    <div
+        class="hidden relative flex-1 sm:flex flex-col items-end justify-center w-fit"
+    >
         <p class="text-5xl font-medium text-text-primary">
             {displayValue}
         </p>

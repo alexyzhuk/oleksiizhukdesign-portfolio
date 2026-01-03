@@ -21,7 +21,7 @@ const uniqueId = `gallery-${Math.random().toString(36).substr(2, 9)}`;
                 {
                     slides.map((slide, index) => (
                         <button
-                            class="flex w-full justify-start sm:justify-center gallery-btn tracking-tight px-6 py-3 rounded-full  border-stroke-weak-dark bg-bg-plaque border  hover:border-text-primary hover:bg-text-primary/5 transition"
+                            class="flex w-full justify-center gallery-btn tracking-tight px-6 py-3 rounded-full  border-stroke-weak-dark bg-bg-plaque border  hover:border-text-primary hover:bg-text-primary/5 transition"
                             data-gallery-id={uniqueId}
                             data-index={index}
                         >

@@ -1,14 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CaseStudyLayout from "../components/casestudy/CaseStudyLayout.astro";
-import CaseHero from "../components/casestudy/CaseHero.astro";
 import Table from "../components/casestudy/Table.astro";
 import ImageBlock from "../components/casestudy/ImageBlock.astro";
 import ProblemStatement from "../components/casestudy/ProblemStatement.astro";
 import Gallery from "../components/casestudy/Gallery.astro";
 import SingleStat from "../components/casestudy/SingleStat.astro";
 import DoubleStat from "../components/casestudy/DoubleStat.astro";
-import CaseFooter from "../components/casestudy/CaseFooter.astro";
 import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
 ---
 
@@ -28,6 +26,7 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
         industry="Big Data, AI, B2B SaaS"
         duration="2022-2024 (3 years)"
         website="https://datuum.ai"
+        nextCase={{ name: "Osvita XXI", url: "/case-study-osvita" }}
         sections={[
             { id: "overview", title: "Overview" },
             { id: "kickoff", title: "The Kickoff" },
@@ -38,22 +37,12 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
             { id: "press", title: "Press" },
         ]}
     >
-        <div class="flex flex-col gap-6">
-            <img
-                src="/datuum-cover.avif"
-                class="flex rounded-4xl border border-stroke-weak-dark overflow-hidden"
-            />
-
+        <div class="flex flex-col gap-12">
             <!-- OVERVIEW SECTION -->
-            <section
-                id="overview"
-                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
-            >
-                <div class="max-w-200 mx-auto">
-                    <h2 class="mb-8 text-3xl sm:text-4xl">Overview</h2>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+            <section id="overview" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">Overview</h2>
+                    <div class="cs-text">
                         <p>
                             Datuum is a hybrid SaaS data management platform
                             that simplifies data migration, merging, and
@@ -67,13 +56,10 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                         </p>
                     </div>
                 </div>
-                <div class="max-w-200 mx-auto flex flex-col gap-4">
-                    <h3 class="text-xl sm:text-2xl">
-                        Roles & Responsibilities
-                    </h3>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+
+                <div class="cs-subsection">
+                    <h3 class="cs-h3">Roles & Responsibilities</h3>
+                    <div class="cs-text">
                         <p>
                             Before the global redesign, I collaborated with a
                             UI/UX Designer and another Product Designer to
@@ -112,9 +98,7 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                             },
                         ]}
                     />
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+                    <div class="cs-text">
                         <p>
                             Besides, I worked with four Front-End Devs and
                             consulted with the Principal Developer, CTO, and
@@ -124,8 +108,9 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                         </p>
                     </div>
                 </div>
-                <div class="max-w-200 mx-auto flex flex-col gap-4">
-                    <h3 class="text-xl sm:text-2xl">Platform</h3>
+
+                <div class="cs-subsection">
+                    <h3 class="cs-h3">Platform</h3>
                     <Table
                         columns={[{ key: "platform" }, { key: "purpose" }]}
                         data={[
@@ -140,15 +125,10 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
             </section>
 
             <!-- KICKOFF SECTION -->
-            <section
-                id="kickoff"
-                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
-            >
-                <div class="max-w-200 mx-auto">
-                    <h2 class="mb-8 text-3xl sm:text-4xl">The Kickoff</h2>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+            <section id="kickoff" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">The Kickoff</h2>
+                    <div class="cs-text">
                         <p>
                             When I joined the team as a UI/UX designer there was
                             already a working MVP version of the product and a
@@ -173,7 +153,7 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                     </div>
                 </div>
 
-                <div class="max-w-200 mx-auto w-full">
+                <div class="w-full">
                     <ProblemStatement
                         problems={[
                             {
@@ -229,15 +209,10 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
             </section>
 
             <!-- EXPERIENCE SECTION -->
-            <section
-                id="experience"
-                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
-            >
-                <div class="max-w-200 mx-auto">
-                    <h2 class="mb-8 text-3xl sm:text-4xl">Experience</h2>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+            <section id="experience" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">Experience</h2>
+                    <div class="cs-text">
                         <p>
                             Before diving into the specifics, I'd like to
                             highlight that the true catalyst for our success
@@ -250,13 +225,11 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                     </div>
                 </div>
 
-                <div class="max-w-200 mx-auto flex flex-col gap-4">
-                    <h3 class="text-xl sm:text-2xl">
+                <div class="cs-subsection">
+                    <h3 class="cs-h3">
                         Picking the Right Moment — Information Architecture (IA)
                     </h3>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+                    <div class="cs-text">
                         <p>
                             When I began working on the pilot version of our
                             product, my primary concern was the Information
@@ -297,11 +270,9 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                     </div>
                 </div>
 
-                <div class="max-w-200 mx-auto flex flex-col gap-4">
-                    <h3 class="text-xl sm:text-2xl">The Turnaround</h3>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+                <div class="cs-subsection">
+                    <h3 class="cs-h3">The Turnaround</h3>
+                    <div class="cs-text">
                         <p>
                             When the development team was ready to introduce a
                             project-oriented architecture and product management
@@ -355,13 +326,9 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                     </div>
                 </div>
 
-                <div class="max-w-200 mx-auto flex flex-col gap-4">
-                    <h3 class="text-xl sm:text-2xl">
-                        Design with Users — Dashboard
-                    </h3>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+                <div class="cs-subsection">
+                    <h3 class="cs-h3">Design with Users — Dashboard</h3>
+                    <div class="cs-text">
                         <p>
                             Since our pilot release, the Overview page was at
                             the TBD stage for a significant period, with only a
@@ -401,13 +368,11 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                     </div>
                 </div>
 
-                <div class="max-w-200 mx-auto flex flex-col gap-4">
-                    <h3 class="text-xl sm:text-2xl">
+                <div class="cs-subsection">
+                    <h3 class="cs-h3">
                         User needs are not user 'wants' — User Flows
                     </h3>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+                    <div class="cs-text">
                         <p>
                             If you've conducted user interviews, you know users
                             can request anything. However, as a user experience
@@ -495,15 +460,10 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
             </section>
 
             <!-- DESIGN SYSTEM SECTION -->
-            <section
-                id="design-system"
-                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
-            >
-                <div class="max-w-200 mx-auto">
-                    <h2 class="mb-8 text-3xl sm:text-4xl">Design System</h2>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+            <section id="design-system" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">Design System</h2>
+                    <div class="cs-text">
                         <p>
                             I used two design systems for this project. The
                             first was based on Google Material You, because it
@@ -531,11 +491,9 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                     </div>
                 </div>
 
-                <div class="max-w-200 mx-auto flex flex-col gap-4">
-                    <h3 class="text-xl sm:text-2xl">The Redesign</h3>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+                <div class="cs-subsection">
+                    <h3 class="cs-h3">The Redesign</h3>
+                    <div class="cs-text">
                         <p>
                             To address these limitations and meet the
                             requirements of our new product update – namely, an
@@ -582,18 +540,11 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
             </section>
 
             <!-- RESULTS SECTION -->
-            <section
-                id="results"
-                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
-            >
-                <div class="max-w-200 mx-auto">
-                    <h2 class="mb-8 text-3xl sm:text-4xl">
-                        User Testing Results
-                    </h2>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
-                        <h3 class="text-xl sm:text-2xl">Time on Task</h3>
+            <section id="results" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">User Testing Results</h2>
+                    <div class="cs-text">
+                        <h3 class="cs-h3">Time on Task</h3>
                         <SingleStat
                             statValue={-37}
                             stat="time on task"
@@ -614,9 +565,9 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                     </div>
                 </div>
 
-                <div class="max-w-200 mx-auto flex flex-col gap-4">
-                    <h3 class="text-xl sm:text-2xl">Task Success Rate</h3>
-                    <div class="flex flex-col lg:flex-row gap-8">
+                <div class="cs-subsection">
+                    <h3 class="cs-h3">Task Success Rate</h3>
+                    <div class="cs-two-col">
                         <div class="flex grow w-full">
                             <p class="text-stroke-weak leading-loose">
                                 We saw a solid 14% jump in task success rates,
@@ -652,15 +603,10 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
             </section>
 
             <!-- FINISHED PRODUCT SECTION -->
-            <section
-                id="finished-product"
-                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
-            >
-                <div class="max-w-200 w-full mx-auto">
-                    <h2 class="mb-8 text-3xl sm:text-4xl">Finished Product</h2>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
+            <section id="finished-product" class="cs-section-final">
+                <div>
+                    <h2 class="cs-h2">Finished Product</h2>
+                    <div class="cs-text">
                         <p>
                             After more than 2 years of development, I'm proud to
                             present the finalized design.
@@ -668,7 +614,7 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                     </div>
                 </div>
 
-                <div class="w-full flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-6">
                     <ImageBlock
                         src="/case-study-datuum/datuum-showcase-1.avif"
                         alt="Dashboard | Datuum"
@@ -693,16 +639,11 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
             </section>
 
             <!-- PRESS SECTION -->
-            <section
-                id="press"
-                class="flex flex-col p-8 sm:p-12 gap-12 items-start grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque"
-            >
-                <div class="max-w-200 w-full mx-auto">
-                    <h2 class="mb-8 text-3xl sm:text-4xl">Press</h2>
-                    <div
-                        class="flex flex-col gap-4 leading leading-loose text-stroke-weak"
-                    >
-                        <h3 class="text-xl sm:text-2xl">
+            <section id="press" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">Press</h2>
+                    <div class="cs-text">
+                        <h3 class="cs-h3">
                             Datuum: Automate Data Onboarding with AI
                         </h3>
                         <p>
@@ -716,8 +657,8 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                     </div>
                 </div>
 
-                <div class="max-w-200 w-full mx-auto flex flex-col gap-4">
-                    <h3 class="text-xl sm:text-2xl">
+                <div class="cs-subsection">
+                    <h3 class="cs-h3">
                         The AI-Driven Autopilot for Data Integration and
                         Management
                     </h3>
@@ -730,8 +671,8 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                         href="https://usventure.news/datuum-ai-the-ai-driven-autopilot-for-data-integration-and-management/"
                         class="outline-btn w-fit"
                     >
-                        usventure.news</a
-                    >
+                        usventure.news
+                    </a>
                 </div>
             </section>
         </div>
