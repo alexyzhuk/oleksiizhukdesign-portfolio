@@ -19,6 +19,7 @@
     --color-bg-dark: #101419;
     --color-bg-light: #f9fafb;
     --color-bg-plaque: rgba(7, 8, 10, 0.2);
+    --color-table-tint: #25324412;
 
     /* Borders/Strokes */
     --color-stroke-strong: #7b8da3;
@@ -506,7 +507,7 @@ p {
 }
 
 .cs-text {
-    @apply flex flex-col px-4 sm:px-6 gap-4 leading-loose text-stroke-weak;
+    @apply flex flex-col px-4 sm:px-6 gap-4 leading-loose text-text-secondary;
 }
 
 .cs-card {
@@ -520,7 +521,7 @@ p {
 }
 
 .cs-two-col {
-    @apply flex flex-col lg:flex-row gap-8;
+    @apply flex flex-col lg:flex-row gap-8 px-4 sm:px-6;
 }
 
 .cs-subsection {
@@ -534,7 +535,7 @@ p {
 .toc-link {
     display: flex;
     border-left: 2px solid rgba(249, 250, 251, 0.2);
-    padding: 0.25rem 1.5rem 0.25rem 1rem;
+    padding: 0.5rem 1.5rem 0.5rem 1rem;
     font-size: 1.125rem;
     color: rgba(249, 250, 251, 0.6);
     transition:

@@ -10,18 +10,17 @@ interface Props {
 }
 const { columns, data } = Astro.props;
 ---
-
 <div class="overflow-x-auto">
     <table class="w-full border-collapse">
         <tbody
-            class="flex flex-col gap-4 sm:gap-0 border-t border-stroke-weak-dark"
+            class="flex flex-col gap-8 sm:gap-0 sm:border-t border-stroke-weak-dark"
         >
             {
                 data.map((row, index) => (
-                    <tr class="flex flex-col sm:flex-row border-b border-stroke-weak-dark">
+                    <tr class="flex flex-col sm:flex-row border-y sm:border-t-0 border-stroke-weak-dark">
                         {columns.map((column, colIndex) => (
                             <td
-                                class={`py-3 sm:py-4.5 px-4 sm:px-6 text-base bg-table-tint tracking-[-0.03em] leading-relaxed ${column.width || ""} ${colIndex === 0 ? "border-b border-stroke-medium sm:border-none sm:w-2/5 text-text-primary shrink-0 font-medium" : "flex-1 text-text-secondary"}`}
+                                class=`py-3 sm:py-4.5 px-4 sm:px-6 text-base bg-table-tint tracking-[-0.03em] leading-relaxed ${column.width || ""} ${colIndex === 0 ? "border-b border-stroke-medium sm:border-b-0 sm:border-r sm:border-stroke-weak-dark sm:w-2/5 text-text-primary shrink-0 font-medium" : "flex-1 text-text-secondary"}`}
                             >
                                 {row[column.key]}
                             </td>
