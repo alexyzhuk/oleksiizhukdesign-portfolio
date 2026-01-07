@@ -79,19 +79,26 @@ const expertise = [
 ];
 ---
 
-<section id="expertise" class="px-5 sm:px-6 py-12 sm:py-24">
-    <div class="w-full max-w-7xl mx-auto">
+<section
+    id="expertise"
+    class="min-h-fit w-full flex flex-col items-center justify-center z-10 border-b border-b-stroke-weak-dark"
+>
+    <div
+        class="w-full max-w-7xl flex flex-col py-12 sm:py-24 pb-6 gap-8 border-x border-stroke-weak-dark"
+    >
         {/* Section Header */}
-        <h2 class="mb-12 text-4xl sm:text-5xl font-mediu">Hire me as</h2>
+        <h2 class="text-4xl sm:text-5xl px-4 sm:px-6 font-medium">
+            Hire me as
+        </h2>
 
         {/* Tab Layout */}
         <div class="flex flex-col md:flex-row gap-6">
             {/* Left: Role Tabs */}
-            <div class="flex flex-col gap-0 sm:gap-4 lg:min-w-md">
+            <div class="flex flex-col gap-0 lg:min-w-md">
                 {
                     expertise.map((category, index) => (
                         <button
-                            class={`expertise-tab h-fit md:max-h-60 lg:max-h-full py-2 md:py-3 px-4 md:px-6 border-l-2 text-left font-medium tracking-tight text-2xl lg:text-3xl transition-all duration-300 cursor-pointer ${
+                            class={`expertise-tab h-full md:max-h-60 lg:max-h-full py-3 px-4 sm:px-6 border-l-3 text-left font-medium tracking-tight text-2xl lg:text-3xl transition-all duration-300 cursor-pointer ${
                                 index === 0
                                     ? `text-text-primary ${category.tabColor}`
                                     : "text-text-secondary-inverse border-transparent"
@@ -106,20 +113,25 @@ const expertise = [
             </div>
 
             {/* Right: Skills Grid */}
-            <div class="flex-1">
+            <div class="flex-1 h-full">
                 {
                     expertise.map((category, index) => (
                         <div
                             class={`expertise-content ${index === 0 ? "" : "hidden"}`}
                             data-content-index={index}
                         >
-                            <div class="p-8 sm:p-12 border border-stroke-weak-dark rounded-4xl bg-bg-plaque">
-                                <ul class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4">
-                                    {category.skills.map((skill) => (
-                                        <li class="text-lg sm:text-xl text-text-primary font-medium tracking-tight flex pb-1 border-b border-dashed border-stroke-medium xs:w-fit">
-                                            {skill}
-                                        </li>
-                                    ))}
+                            <div class="border-t border-stroke-weak-dark">
+                                <ul class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3">
+                                    {category.skills.map(
+                                        (skill, skillIndex) => (
+                                            <li
+                                                class="skill-item text-lg sm:text-xl text-text-secondary hover:text-text-primary hover:bg-bg-plaque transition-all duration-300 tracking-tight p-4 sm:px-6 sm:py-5 xs:border-l border-b border-stroke-weak-dark"
+                                                data-skill-index={skillIndex}
+                                            >
+                                                {skill}
+                                            </li>
+                                        ),
+                                    )}
                                 </ul>
                             </div>
                         </div>
@@ -133,7 +145,51 @@ const expertise = [
 <script>
     const tabs = document.querySelectorAll(".expertise-tab");
     const contents = document.querySelectorAll(".expertise-content");
+    const section = document.querySelector("#expertise");
+    let hasAnimated = false;
 
+    // Function to animate skills
+    function animateSkills(container) {
+        const skills = container.querySelectorAll(".skill-item");
+
+        // Reset animation state
+        skills.forEach((skill) => {
+            skill.classList.remove("skill-visible");
+        });
+
+        // Trigger animation with stagger
+        skills.forEach((skill, index) => {
+            setTimeout(() => {
+                skill.classList.add("skill-visible");
+            }, index * 50); // 50ms delay between each skill
+        });
+    }
+
+    // Intersection Observer for initial scroll animation
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting && !hasAnimated) {
+                    hasAnimated = true;
+                    const activeContent = document.querySelector(
+                        ".expertise-content:not(.hidden)",
+                    );
+                    if (activeContent) {
+                        animateSkills(activeContent);
+                    }
+                }
+            });
+        },
+        {
+            threshold: 0.2,
+        },
+    );
+
+    if (section) {
+        observer.observe(section);
+    }
+
+    // Tab switching
     tabs.forEach((tab) => {
         tab.addEventListener("click", () => {
             const index = tab.getAttribute("data-index");
@@ -167,6 +223,11 @@ const expertise = [
                 `[data-content-index="${index}"]`,
             );
             activeContent?.classList.remove("hidden");
+
+            // Animate skills when switching tabs
+            if (activeContent) {
+                animateSkills(activeContent);
+            }
         });
     });
 </script>

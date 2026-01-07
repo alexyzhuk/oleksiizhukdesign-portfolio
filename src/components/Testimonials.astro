@@ -55,54 +55,57 @@ const duplicatedTestimonials = [
 
 <section
     id="testimonials"
-    class="min-h-fit flex flex-col gap-6 items-center px-5 sm:px-6 py-12 sm:py-24 overflow-hidden w-full"
+    class="min-h-fit w-full flex flex-col items-center justify-center z-10"
 >
-    <div class="max-w-7xl mx-auto w-full">
-        <h2 class="mb-6 text-4xl sm:text-5xl font-medium">Kind Words</h2>
+    <div
+        class="w-full max-w-7xl flex flex-col pt-12 sm:pt-24 pb-6 gap-8 border-x border-stroke-weak-dark"
+    >
+        <h2 class="text-4xl sm:text-5xl px-4 sm:px-6 font-medium">
+            Kind Words
+        </h2>
     </div>
 
-    <!-- Testimonial Carousel -->
-    <div
-        id="testimonial-container"
-        class="testimonial-carousel-container testimonial-mobile-scroll"
-    >
+    <div class="flex border-y border-stroke-weak-dark w-full justify-center">
+        <!-- Testimonial Carousel -->
         <div
-            id="testimonial-track"
-            class="testimonial-carousel-track flex gap-6"
+            id="testimonial-container"
+            class="testimonial-carousel-container testimonial-mobile-scroll border-x border-stroke-weak-dark max-w-7xl overflow-hidden"
         >
-            {
-                duplicatedTestimonials.map((testimonial, index) => (
-                    <div class="testimonial-card flex flex-col w-full sm:w-lg p-8 sm:p-12 items-start gap-3 sm:gap-6 border border-stroke-weak-dark rounded-4xl bg-bg-plaque shrink-0">
-                        {/* Avatar and Info */}
-                        <div class="flex gap-4 sm:gap-6 w-full items-center">
-                            <img
-                                src={testimonial.image}
-                                alt={testimonial.name}
-                                class="w-16 h-16 sm:w-16 sm:h-16 object-cover rounded-lg overflow-hidden shrink-0"
-                            />
+            <div id="testimonial-track" class="testimonial-carousel-track flex">
+                {
+                    duplicatedTestimonials.map((testimonial, index) => (
+                        <div class="testimonial-card flex flex-col w-full sm:w-lg p-8 sm:p-12 items-start gap-3 sm:gap-6 border-l border-stroke-weak-dark  bg-bg-plaque shrink-0">
+                            {/* Avatar and Info */}
+                            <div class="flex gap-4 sm:gap-6 w-full items-center">
+                                <img
+                                    src={testimonial.image}
+                                    alt={testimonial.name}
+                                    class="w-16 h-16 sm:w-16 sm:h-16 object-cover rounded-lg overflow-hidden shrink-0"
+                                />
 
-                            <div class="flex flex-col gap-2">
-                                <p class="text-text-primary text-xl sm:text-2xl font-medium">
-                                    {testimonial.name}
-                                </p>
-                                <p
-                                    class={`${accentColors[index % accentColors.length]} mono text-sm sm:text-base text-balance`}
-                                >
-                                    {testimonial.role}
-                                    {testimonial.company
-                                        ? ` @ ${testimonial.company}`
-                                        : ""}
-                                </p>
+                                <div class="flex flex-col gap-2">
+                                    <p class="text-text-primary text-xl sm:text-2xl font-medium">
+                                        {testimonial.name}
+                                    </p>
+                                    <p
+                                        class={`${accentColors[index % accentColors.length]} mono text-sm sm:text-base text-balance`}
+                                    >
+                                        {testimonial.role}
+                                        {testimonial.company
+                                            ? ` @ ${testimonial.company}`
+                                            : ""}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Testimonial Text */}
-                        <p class="text-text-secondary text-sm sm:text-base leading-7 sm:leading-8 text-balance">
-                            {testimonial.text}
-                        </p>
-                    </div>
-                ))
-            }
+                            {/* Testimonial Text */}
+                            <p class="text-text-secondary text-sm sm:text-base leading-7 sm:leading-8 text-balance">
+                                {testimonial.text}
+                            </p>
+                        </div>
+                    ))
+                }
+            </div>
         </div>
     </div>
 </section>

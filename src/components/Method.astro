@@ -84,70 +84,83 @@ const stages = [
 ];
 ---
 
-<section id="method" class="min-h-screen px-5 sm:px-6 py-12 sm:py-24 z-10">
-    <div class="max-w-7xl mx-auto">
-        <h2 class="mb-4 text-4xl sm:text-5xl font-medium">Design Approach</h2>
+<section
+    id="method"
+    class="min-h-fit w-full flex flex-col items-center justify-center z-10"
+>
+    <!-- Header Section -->
+    <div
+        class="w-full max-w-7xl flex flex-col pt-12 sm:pt-24 pb-6 gap-8 px-4 sm:px-6 border-x border-stroke-weak-dark"
+    >
+        <h2 class="text-4xl sm:text-5xl font-medium">Design Approach</h2>
         <p
-            class="mb-6 text-lg text-balance leading-10 text-text-secondary max-w-prose"
+            class="text-lg text-balance leading-10 text-text-secondary max-w-prose"
         >
             I am a huge advocate of the design thinking and humanity-centered
             approaches. After designing for multiple teams at the same time I
             developed the 4-stage method that leads to a desirable outcome every
             time.
         </p>
+    </div>
 
-        <!-- 2x2 Grid with centered icon -->
-        <div class="relative">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {
-                    stages.map((stage) => (
-                        <div class="method-card group relative overflow-hidden rounded-4xl border border-stroke-weak-dark bg-bg-plaque p-8 sm:p-12 min-h-fit has-cursor-pointer">
-                            {/* Icon - State 1: centered white, State 2: top-right with color */}
-                            <div class="method-icon" set:html={stage.svg} />
+    <!-- Grid Container -->
+    <div class="flex w-full flex-col border-y border-stroke-weak-dark">
+        {
+            [0, 2].map((rowStart) => (
+                <>
+                    {/* Row Container */}
+                    <div class="w-full flex flex-col items-center justify-center">
+                        <div class="w-full max-w-7xl border-x border-stroke-weak-dark">
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                {stages
+                                    .slice(rowStart, rowStart + 2)
+                                    .map((stage, colIndex) => (
+                                        <div
+                                            class:list={[
+                                                "method-card group relative overflow-hidden border-stroke-weak-dark p-8 sm:p-12 min-h-fit has-cursor-pointer",
+                                                // Right border for left column card on desktop
+                                                colIndex === 0 && "md:border-r",
+                                                // Top border for right column cards (2nd and 4th stages) on mobile only
+                                                colIndex === 1 &&
+                                                    "border-t md:border-t-0",
+                                            ]}
+                                        >
+                                            {/* Icon */}
+                                            <div
+                                                class="method-icon"
+                                                set:html={stage.svg}
+                                            />
 
-                            {/* Text Content */}
-                            <div class="method-text-container">
-                                {/* Stage Label - appears from top */}
-                                <div class="min-h-32 flex flex-col justify-between">
-                                    <p
-                                        class={`method-label mono font-light text-lg sm:text-xl text-text-primary underline ${stage.labelColor} underline-offset-8 decoration-1`}
-                                    >
-                                        {stage.label}
-                                    </p>
-                                    <h3 class="method-text text-3xl sm:text-4xl text-text-primary mt-4">
-                                        {stage.title}
-                                    </h3>
-                                </div>
+                                            {/* Text Content */}
+                                            <div class="method-text-container">
+                                                <div class="min-h-32 flex flex-col justify-between">
+                                                    <p
+                                                        class={`method-label mono font-light text-lg sm:text-xl text-text-primary underline ${stage.labelColor} underline-offset-8 decoration-1`}
+                                                    >
+                                                        {stage.label}
+                                                    </p>
+                                                    <h3 class="method-text text-3xl sm:text-4xl text-text-primary mt-4">
+                                                        {stage.title}
+                                                    </h3>
+                                                </div>
 
-                                {/* Description - appears from bottom */}
-                                <p class="method-text text-base sm:text-lg text-text-secondary leading-7 sm:leading-9 sm:text-balance">
-                                    {stage.description}
-                                </p>
+                                                <p class="method-text text-base sm:text-lg text-text-secondary leading-7 sm:leading-9 sm:text-balance">
+                                                    {stage.description}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))}
                             </div>
                         </div>
-                    ))
-                }
-            </div>
+                    </div>
 
-            {/* Center icon */}
-            <div
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group has-cursor-pointer hidden md:flex"
-            >
-                <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="transition-all duration-700 ease-out group-hover:rotate-360 group-hover:scale-110"
-                >
-                    <path
-                        d="M4.01951 22.1538H19.9805L16.6301 18.439L15.6984 19.4721L14.5862 14.8693L18.7374 16.1025L17.8073 17.1337L24 24H0L19.9805 1.84615H4.01951L9.6748 8.11659L8.49756 9.42188L0 0H24L4.01951 22.1538Z"
-                        class="fill-[#42628A] group-hover:fill-bg-light transition-colors duration-700"
-                    ></path>
-                </svg>
-            </div>
-        </div>
+                    {/* Full-width separator between rows */}
+                    {rowStart === 0 && (
+                        <div class="w-full border-t border-stroke-weak-dark" />
+                    )}
+                </>
+            ))
+        }
     </div>
 </section>
 
@@ -169,8 +182,8 @@ const stages = [
                 });
             },
             {
-                threshold: 0.5, // Trigger when 50% of the card is visible (middle of viewport)
-                rootMargin: "-25% 0px -25% 0px", // Ensures trigger happens near viewport center
+                threshold: 0.5,
+                rootMargin: "-25% 0px -25% 0px",
             },
         );
 
@@ -178,7 +191,6 @@ const stages = [
             observer.observe(card);
         });
 
-        // Cleanup on page unload
         window.addEventListener("beforeunload", () => {
             cards.forEach((card) => {
                 observer.unobserve(card);

@@ -41,142 +41,161 @@ const projects = [
 
 <section
     id="selected-work"
-    class="min-h-screen px-5 sm:px-6 py-12 sm:py-24 z-10"
+    class="min-h-screen w-full flex flex-col items-center justify-center z-10"
 >
-    <div class="max-w-7xl mx-auto">
+    <div
+        class="w-full max-w-7xl flex flex-col pt-12 sm:pt-24 pb-6 gap-8 px-4 sm:px-6 border-x border-stroke-weak-dark"
+    >
         <!-- Section Header -->
-        <h2 class="mb-6 text-4xl sm:text-5xl font-medium">Portfolio</h2>
+        <h2 class="text-4xl sm:text-5xl font-medium">Portfolio</h2>
         <p
-            class="mb-16 text-lg text-balance leading-10 text-text-secondary max-w-[64ch]"
+            class="text-lg text-balance leading-10 text-text-secondary max-w-[64ch]"
         >
             After more than 10 years of work I've completed 40+ projects. Below
             I've listed the most prominent work that helped products grow and
             progress defying challenges that came along the way.
         </p>
-        <!-- Project Cards -->
-        <div class="flex flex-col gap-24">
-            {
-                projects.map((project, index) => {
-                    const minDuplicates = project.scope.length < 5 ? 6 : 3;
-                    const duplicatedScope = Array(minDuplicates)
-                        .fill(project.scope)
-                        .flat();
+    </div>
+    <!-- Project Cards -->
+    <div class="flex w-full flex-col">
+        {
+            projects.map((project, index) => {
+                const minDuplicates = project.scope.length < 5 ? 6 : 3;
+                const duplicatedScope = Array(minDuplicates)
+                    .fill(project.scope)
+                    .flat();
 
-                    return (
-                        <a
-                            href={project.link}
-                            class="project-card flex flex-col max-w-7xl group gap-6 transition-all duration-300"
-                        >
-                            <div class="flex flex-col-reverse sm:flex-row gap-6">
-                                {/* Content Side */}
-                                <div class="content-section flex flex-col w-full sm:min-w-1/2 md:min-w-xl tracking-tight">
-                                    <div class="flex flex-col p-4 sm:p-12 gap-4 items-start text-balance grow rounded-4xl border border-stroke-weak-dark bg-bg-plaque">
-                                        <div class="flex flex-col justify-center gap-4 w-full grow">
-                                            <h3 class="text-4xl">
-                                                {project.title}
-                                            </h3>
-                                            <p class="case-description text-base text-text-secondary leading-8">
-                                                {project.description}
-                                            </p>
-                                        </div>
-                                        <div class="flex flex-col gap-6 w-full">
-                                            <div class="flex items-start text-lg leading-8 text-text-primary gap-2 w-full">
-                                                <div class="flex flex-col items-start gap-1 text-xl w-full">
-                                                    <span class="lowercase mono text-base text-blue-light">
-                                                        Company
-                                                    </span>
-                                                    {project.company}
-                                                </div>
-                                                <div class="flex flex-col items-start gap-1 text-xl w-full">
-                                                    <span class="lowercase mono text-base text-red-light">
-                                                        Years
-                                                    </span>
-                                                    {project.years}
-                                                </div>
+                return (
+                    <>
+                        <div class="w-full flex flex-col items-center justify-center border-y border-stroke-weak-dark">
+                            <a
+                                href={project.link}
+                                class="project-card flex flex-col w-full max-w-7xl group transition-all duration-300 border-x border-stroke-weak-dark bg-bg-plaque"
+                            >
+                                <div class="flex flex-col-reverse sm:flex-row border-b border-stroke-weak-dark">
+                                    {/* Content Side */}
+                                    <div class="content-section flex flex-col w-full sm:min-w-1/2 md:min-w-xl tracking-tight sm:border-r border-stroke-weak-dark">
+                                        <div class="flex flex-col p-6 sm:p-12 gap-4 items-start text-balance grow ">
+                                            <div class="flex flex-col justify-start gap-4 w-full">
+                                                <h3 class="text-3xl sm:text-4xl">
+                                                    {project.title}
+                                                </h3>
+                                                <p class="case-description text-base text-text-secondary leading-8">
+                                                    {project.description}
+                                                </p>
                                             </div>
-                                            {project.stats && (
-                                                <div class="flex items-start text-4xl leading-8 text-text-primary gap-2 w-full">
-                                                    <div class="flex flex-col items-start font-medium gap-1 text-3xl w-full">
-                                                        {project.stats[0].value}
-                                                        <span class="lowercase mono font-normal text-base text-green-light">
+                                            <div class="flex flex-col gap-6 w-full justify-end grow">
+                                                <div class="flex items-start text-lg leading-8 text-text-primary gap-2 w-full">
+                                                    <div class="flex flex-col items-start gap-1 text-lg sm:text-xl w-full">
+                                                        <span class="lowercase mono text-sm sm:text-base text-blue-light">
+                                                            Company
+                                                        </span>
+                                                        {project.company}
+                                                    </div>
+                                                    <div class="flex flex-col items-start gap-1 text-lg sm:text-xl w-full">
+                                                        <span class="lowercase mono text-sm sm:text-base text-red-light">
+                                                            Years
+                                                        </span>
+                                                        {project.years}
+                                                    </div>
+                                                </div>
+                                                {project.stats && (
+                                                    <div class="flex items-start text-4xl leading-8 text-text-primary gap-2 w-full">
+                                                        <div class="flex flex-col items-start font-medium gap-1 text-3xl w-full">
                                                             {
                                                                 project.stats[0]
-                                                                    .label
+                                                                    .value
                                                             }
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex flex-col items-start font-medium gap-1 text-3xl w-full">
-                                                        {project.stats[1].value}
-                                                        <span class="lowercase mono font-normal text-base text-yellow-light">
+                                                            <span class="lowercase mono font-normal text-sm sm:text-base text-green-light">
+                                                                {
+                                                                    project
+                                                                        .stats[0]
+                                                                        .label
+                                                                }
+                                                            </span>
+                                                        </div>
+                                                        <div class="flex flex-col items-start font-medium gap-1 text-3xl w-full">
                                                             {
                                                                 project.stats[1]
-                                                                    .label
+                                                                    .value
                                                             }
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                    <button class="cs-btn">
-                                        View Case Study
-                                        <div class="flex items-center justify-center w-8 h-8">
-                                            <svg
-                                                class="cs-arrow w-6"
-                                                viewBox="0 0 28 14"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    d="M20.7771 14L19.201 12.5388L23.839 8.0449L9.02452e-07 8.0449V5.9551L23.839 5.9551L19.201 1.46122L20.7771 -3.15721e-07L28 7L20.7771 14Z"
-                                                    fill="currentColor"
-                                                />
-                                            </svg>
-                                        </div>
-                                    </button>
-                                </div>
-                                {/* Image Side */}
-                                <div class="flex rounded-4xl border border-stroke-weak-dark overflow-hidden">
-                                    <img
-                                        src={project.image}
-                                        alt={project.title}
-                                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                    />
-                                </div>
-                            </div>
-                            <div
-                                aria-label="Project Scope"
-                                class="scope-carousel-container"
-                            >
-                                <div
-                                    class="scope-carousel-track justify-center-center items-center"
-                                    data-duplicates={minDuplicates}
-                                >
-                                    {duplicatedScope.map((item, idx) => (
-                                        <>
-                                            <span class="scope-item text-base font-normal text-text-secondary px-5 py-2.5 rounded-full border border-stroke-weak-dark">
-                                                {item}
-                                            </span>
-                                            {/* Add separator after each complete set */}
-                                            {(idx + 1) %
-                                                project.scope.length ===
-                                                0 &&
-                                                idx !==
-                                                    duplicatedScope.length -
-                                                        1 && (
-                                                    <div class="scope-separator shrink-0 text-xl text-text-secondary flex pt-2 px-2 h-5 justify-center-center items-center mono">
-                                                        *
+                                                            <span class="lowercase mono font-normal text-sm sm:text-base text-yellow-light">
+                                                                {
+                                                                    project
+                                                                        .stats[1]
+                                                                        .label
+                                                                }
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 )}
-                                        </>
-                                    ))}
+                                            </div>
+                                        </div>
+                                        <button class="cs-btn">
+                                            View Case Study
+                                            <div class="flex items-center justify-center w-8 h-8">
+                                                <svg
+                                                    class="cs-arrow w-6"
+                                                    viewBox="0 0 28 14"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M20.7771 14L19.201 12.5388L23.839 8.0449L9.02452e-07 8.0449V5.9551L23.839 5.9551L19.201 1.46122L20.7771 -3.15721e-07L28 7L20.7771 14Z"
+                                                        fill="currentColor"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    {/* Image Side */}
+                                    <div class="flex overflow-hidden w-full aspect-4/3">
+                                        <img
+                                            src={project.image}
+                                            alt={project.title}
+                                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    );
-                })
-            }
-        </div>
+                                <div
+                                    aria-label="Project Scope"
+                                    class="scope-carousel-container py-4"
+                                >
+                                    <div
+                                        class="scope-carousel-track justify-center-center items-center"
+                                        data-duplicates={minDuplicates}
+                                    >
+                                        {duplicatedScope.map((item, idx) => (
+                                            <>
+                                                <span class="scope-item text-base font-normal text-text-secondary px-5 py-2.5 rounded-full border border-stroke-weak-dark">
+                                                    {item}
+                                                </span>
+                                                {/* Add separator after each complete set */}
+                                                {(idx + 1) %
+                                                    project.scope.length ===
+                                                    0 &&
+                                                    idx !==
+                                                        duplicatedScope.length -
+                                                            1 && (
+                                                        <div class="scope-separator shrink-0 text-xl text-text-secondary flex pt-2 px-2 h-5 justify-center-center items-center mono">
+                                                            *
+                                                        </div>
+                                                    )}
+                                            </>
+                                        ))}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        {/* Grid Separator - Only between cards, not after last one */}
+                        {index < projects.length - 1 && (
+                            <div class="flex border-x border-stroke-weak-dark w-full max-w-7xl h-24 mx-auto" />
+                        )}
+                    </>
+                );
+            })
+        }
     </div>
 </section>
 
@@ -219,8 +238,8 @@ const projects = [
             let lastScrollPos = 0;
             let userScrolling = false;
             let isAutoScrolling = true;
-            let accumulatedScroll = 0; // ← NEW: Accumulator for fractional values
-            const scrollSpeed = 0.3; // ← NEW: Set your desired speed here
+            let accumulatedScroll = 0;
+            const scrollSpeed = 0.3;
 
             const getResetPoint = () => {
                 const itemCount = getItemCount();
@@ -237,7 +256,6 @@ const projects = [
                     width += item.offsetWidth + 8;
                 }
 
-                // Add one separator width
                 if (separators.length > 0) {
                     const sep = separators[0] as HTMLElement;
                     width += sep.offsetWidth + 8;
@@ -248,14 +266,12 @@ const projects = [
 
             const animateMobile = () => {
                 if (isAutoScrolling && !userScrolling) {
-                    // Accumulate fractional scroll values
                     accumulatedScroll += scrollSpeed;
 
-                    // Only apply when we have at least 1 pixel to scroll
                     if (accumulatedScroll >= 1) {
                         const scrollAmount = Math.floor(accumulatedScroll);
                         container.scrollLeft += scrollAmount;
-                        accumulatedScroll -= scrollAmount; // Keep the remainder
+                        accumulatedScroll -= scrollAmount;
                     }
 
                     const resetPoint = getResetPoint();
@@ -277,7 +293,7 @@ const projects = [
                 if (delta > 2) {
                     userScrolling = true;
                     isAutoScrolling = false;
-                    accumulatedScroll = 0; // ← Reset accumulator when user scrolls
+                    accumulatedScroll = 0;
                 }
 
                 lastScrollPos = container.scrollLeft;
@@ -289,7 +305,6 @@ const projects = [
                 }, 10000);
             });
 
-            // Ensure content is loaded before starting
             setTimeout(() => {
                 console.log("Starting scope carousel animation");
                 animateMobile();

@@ -31,9 +31,9 @@
     --color-yellow: #877a45;
     --color-green: #2e6f4e;
     --color-red: #8e3d43;
-    --color-blue-light: #4788d7;
-    --color-yellow-light: #bcaa62;
-    --color-green-light: #359766;
+    --color-blue-light: #4595f7;
+    --color-yellow-light: #e0c65c;
+    --color-green-light: #2fc67a;
     --color-red-light: #c4454d;
 
     /* Breakpoints */
@@ -77,7 +77,6 @@ section {
    CURSOR STYLES
    ========================================================================= */
 
-/* Hide custom cursor globally */
 body,
 a,
 button,
@@ -93,7 +92,6 @@ label,
     cursor: none !important;
 }
 
-/* Re-enable default cursor on touch devices */
 @media (hover: none) and (pointer: coarse) {
     body,
     a,
@@ -115,7 +113,6 @@ label,
    TYPOGRAPHY
    ========================================================================= */
 
-/* Headings */
 h1,
 h2,
 h3,
@@ -123,19 +120,16 @@ h4 {
     @apply font-medium tracking-tighter;
 }
 
-/* Paragraphs */
 p {
     @apply tracking-tight;
 }
 
-/* Monospace */
 .mono {
     font-family: "Geist Mono", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Labels */
 .label-text {
     @apply text-base lowercase;
 }
@@ -150,7 +144,7 @@ p {
    ========================================================================= */
 
 .nav-text {
-    @apply text-text-primary text-lg font-medium tracking-tight;
+    @apply text-text-secondary font-medium tracking-tight;
     leading-trim: both;
     text-edge: cap;
 }
@@ -160,14 +154,13 @@ p {
 }
 
 .nav-item {
-    @apply flex pl-4.5 pr-5 py-3 gap-1 items-center border border-transparent rounded-2xl transition-all duration-300;
+    @apply flex pl-2.5 pr-3 py-3 gap-1 items-center border border-transparent rounded-2xl transition-all duration-300;
 }
 
 .nav-item:hover {
-    @apply border-stroke-medium;
+    @apply text-text-primary;
 }
 
-/* Navigation hover states */
 .nav-work:hover span {
     opacity: 1;
     color: var(--color-blue-light);
@@ -197,7 +190,7 @@ p {
    ========================================================================= */
 
 .light-btn {
-    @apply text-xl text-center font-medium tracking-tight border border-stroke-medium px-6.5 py-4.5 w-fit rounded-3xl transition-all duration-300;
+    @apply text-lg leading-7 h-14 text-center justify-center items-center font-medium tracking-tight border border-stroke-medium px-5 py-3 pt-3.25 w-fit rounded-2xl transition-all duration-300;
 }
 
 .light-btn:hover {
@@ -262,7 +255,7 @@ p {
    ========================================================================= */
 
 .cs-btn {
-    @apply flex pl-8 pr-5 py-0 text-xl font-medium tracking-tight rounded-4xl border border-bg-light/60 bg-bg-light/0 text-text-primary hover:bg-bg-light hover:text-text-primary-inverse items-center justify-center gap-4 w-full transition-all duration-300;
+    @apply flex pl-8 pr-5 py-0 text-xl font-medium tracking-tight border-t border-stroke-weak-dark bg-bg-light/0 text-text-primary hover:bg-bg-light hover:text-text-primary-inverse items-center justify-center gap-4 w-full transition-all duration-300;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
@@ -282,44 +275,39 @@ p {
     @apply py-4;
 }
 
-.content-section {
-    @apply gap-0 transition-all duration-300;
-}
-
-.project-card:hover .content-section {
-    @apply gap-6;
-}
-
 /* ============================================================================
    CAROUSELS
    ========================================================================= */
 
-/* Tools Carousel */
-.carousel-container {
+.carousel-container,
+.scope-carousel-container,
+.testimonial-carousel-container {
     position: relative;
     width: 100%;
     overflow: hidden;
-    padding: 10px;
-    mask-image: linear-gradient(
-        to right,
-        transparent,
-        black 10%,
-        black 90%,
-        transparent
-    );
-    -webkit-mask-image: linear-gradient(
-        to right,
-        transparent,
-        black 10%,
-        black 90%,
-        transparent
-    );
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.carousel-container::-webkit-scrollbar,
+.scope-carousel-container::-webkit-scrollbar,
+.testimonial-carousel-container::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-track,
+.scope-carousel-track,
+.testimonial-carousel-track {
+    display: flex;
+    will-change: transform;
 }
 
 .carousel-track {
-    display: flex;
     gap: 32px;
-    will-change: transform;
+}
+
+.scope-carousel-track {
+    gap: 8px;
 }
 
 .tool-item {
@@ -346,11 +334,7 @@ p {
     transition: all 300ms cubic-bezier(0.44, 0, 0.56, 1);
 }
 
-/* Scope Carousel */
 .scope-carousel-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
     mask-image: linear-gradient(
         to right,
         transparent,
@@ -365,12 +349,6 @@ p {
         black 90%,
         transparent
     );
-}
-
-.scope-carousel-track {
-    display: flex;
-    gap: 8px;
-    will-change: transform;
 }
 
 .scope-item {
@@ -382,34 +360,6 @@ p {
     flex-shrink: 0;
     display: flex;
     align-items: center;
-}
-
-/* Testimonials Carousel */
-.testimonial-carousel-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    padding: 10px;
-    mask-image: linear-gradient(
-        to right,
-        transparent,
-        black 10%,
-        black 90%,
-        transparent
-    );
-    -webkit-mask-image: linear-gradient(
-        to right,
-        transparent,
-        black 10%,
-        black 90%,
-        transparent
-    );
-}
-
-.testimonial-carousel-track {
-    display: flex;
-    gap: 24px;
-    will-change: transform;
 }
 
 .testimonial-mobile-scroll {
@@ -427,12 +377,13 @@ p {
 
 .method-card {
     position: relative;
-    background: rgba(7, 8, 10, 0.4);
+    background: transparent;
     transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.method-card:hover {
-    background: rgba(7, 8, 10, 0.4);
+.method-card:hover,
+.method-card.active {
+    background: rgba(7, 8, 10, 0.2);
 }
 
 .method-icon {
@@ -487,6 +438,170 @@ p {
 }
 
 /* ============================================================================
+   SKILL ANIMATIONS
+   ========================================================================= */
+
+.skill-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        color 0.3s ease,
+        background 0.3s ease;
+}
+
+.skill-item.skill-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================================================
+   CASE STUDY
+   ========================================================================= */
+
+.cs-btn-primary {
+    @apply flex w-full sm:w-fit items-center justify-center gap-3 py-3.5 pr-4 pl-5.5 font-medium tracking-tight rounded-2xl bg-bg-light text-text-primary-inverse;
+}
+
+.cs-btn-secondary {
+    @apply flex w-full sm:w-fit items-center justify-center gap-3 py-3.5 pl-4 pr-5.5 font-medium tracking-tight rounded-2xl border border-bg-light text-text-primary hover:bg-bg-light hover:text-text-primary-inverse;
+}
+
+.cs-btn-secondary-square {
+    @apply flex w-13 h-13 items-center justify-center p-4 rounded-2xl border border-bg-light text-text-primary hover:bg-bg-light hover:text-text-primary-inverse;
+}
+
+.cs-arrow-left {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: rotate(180deg);
+}
+
+.cs-btn-secondary:hover .cs-arrow-left {
+    transform: rotate(180deg) translateX(4px);
+}
+
+.cs-arrow-right {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cs-btn-primary:hover .cs-arrow-right {
+    transform: translateX(4px);
+}
+
+.cs-section {
+    @apply flex flex-col pb-8 sm:pb-12 gap-12 items-start grow border-b border-stroke-weak-dark py-6 sm:py-12;
+}
+
+.cs-section-final {
+    @apply flex flex-col gap-12 items-start grow pt-6 sm:pt-12;
+}
+
+.cs-h2 {
+    @apply mb-6 px-4 sm:px-6 sm:mb-8 text-3xl sm:text-4xl;
+}
+
+.cs-h3 {
+    @apply text-xl px-4 sm:px-6 sm:text-2xl;
+}
+
+.cs-text {
+    @apply flex flex-col px-4 sm:px-6 gap-4 leading-loose text-stroke-weak;
+}
+
+.cs-card {
+    @apply flex flex-col gap-6 p-6 sm:p-8 rounded-3xl border border-stroke-weak-dark bg-bg-plaque;
+}
+
+.cs-card-blueprint {
+    @apply flex flex-col gap-6;
+    background: transparent;
+    transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cs-two-col {
+    @apply flex flex-col lg:flex-row gap-8;
+}
+
+.cs-subsection {
+    @apply flex flex-col gap-4;
+}
+
+/* ============================================================================
+   TABLE OF CONTENTS
+   ========================================================================= */
+
+.toc-link {
+    display: flex;
+    border-left: 2px solid rgba(249, 250, 251, 0.2);
+    padding: 0.25rem 1.5rem 0.25rem 1rem;
+    font-size: 1.125rem;
+    color: rgba(249, 250, 251, 0.6);
+    transition:
+        color 0.2s,
+        border-color 0.2s;
+}
+
+.toc-link:hover {
+    color: rgba(249, 250, 251, 0.8);
+    border-color: rgba(249, 250, 251, 0.7);
+}
+
+.toc-link.active {
+    @apply text-text-primary border-text-primary;
+}
+
+.toc-wrapper {
+    position: sticky;
+    top: 0;
+    transform: translateY(0);
+    transition:
+        top 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toc-wrapper.toc-centered {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.toc-mobile {
+    background: transparent;
+    transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toc-mobile:hover,
+.toc-mobile[open] {
+    background: rgba(7, 8, 10, 0.2);
+}
+
+.toc-mobile summary::-webkit-details-marker {
+    display: none;
+}
+
+.toc-mobile[open] .toc-chevron {
+    transform: rotate(180deg);
+}
+
+.toc-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toc-mobile[open] .toc-content {
+    grid-template-rows: 1fr;
+}
+
+.toc-content > nav {
+    overflow: hidden;
+}
+
+.toc-mobile.is-closing {
+    pointer-events: none;
+}
+
+/* ============================================================================
    ANIMATIONS
    ========================================================================= */
 
@@ -509,14 +624,12 @@ p {
    RESPONSIVE STYLES
    ========================================================================= */
 
-/* Extra Small Devices (< 480px) */
 @media (max-width: 480px) {
     .label-text {
         @apply text-sm;
     }
 }
 
-/* Small Devices (< 640px) */
 @media (max-width: 639px) {
     body::before {
         background-size: 16%;
@@ -527,32 +640,29 @@ p {
         align-items: center;
     }
 
-    .nav-work span {
-        opacity: 1;
-        color: var(--color-blue-light);
-        font-size: 28px;
-    }
-
-    .nav-about span {
-        opacity: 1;
-        color: var(--color-yellow-light);
-        font-size: 28px;
-    }
-
-    .nav-blog span {
-        opacity: 1;
-        color: var(--color-red-light);
-        font-size: 28px;
-    }
-
+    .nav-work span,
+    .nav-about span,
+    .nav-blog span,
     .nav-contacts span {
         opacity: 1;
-        color: var(--color-green-light);
         font-size: 28px;
+    }
+
+    .nav-work span {
+        color: var(--color-blue-light);
+    }
+    .nav-about span {
+        color: var(--color-yellow-light);
+    }
+    .nav-blog span {
+        color: var(--color-red-light);
+    }
+    .nav-contacts span {
+        color: var(--color-green-light);
     }
 
     .light-btn {
-        @apply w-full text-lg;
+        @apply w-full text-base;
     }
 
     .cs-btn {
@@ -560,16 +670,13 @@ p {
     }
 }
 
-/* Medium Tablets (640px - 1024px) */
 @media (min-width: 640px) and (max-width: 1024px) {
     body::before {
         background-size: 8%;
     }
 }
 
-/* Mobile-specific (< 768px) */
 @media (max-width: 767px) {
-    /* Project Cards */
     .cs-btn {
         max-height: 200px;
         opacity: 1;
@@ -577,26 +684,17 @@ p {
         padding-bottom: 1rem;
     }
 
-    .content-section {
-        gap: 1.5rem;
-    }
-
-    /* Method Cards */
     .method-card:hover .method-icon,
     .method-card.active .method-icon {
         top: 32px;
         right: 32px;
     }
 
-    /* Carousels - Enable native scroll with hidden scrollbars */
-    /* NOTE: Testimonials carousel excluded - has its own implementation */
     .carousel-container,
     .scope-carousel-container {
         display: block !important;
         overflow-x: scroll !important;
         -webkit-overflow-scrolling: touch;
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* IE/Edge */
     }
 
     .carousel-track,
@@ -604,72 +702,4 @@ p {
         display: flex !important;
         width: max-content !important;
     }
-
-    /* Hide scrollbars for Webkit browsers (Chrome, Safari) */
-    .carousel-container::-webkit-scrollbar,
-    .scope-carousel-container::-webkit-scrollbar {
-        display: none;
-    }
-}
-
-/* Hide scrollbars on all screen sizes for carousels */
-.carousel-container,
-.scope-carousel-container,
-.testimonial-carousel-container {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
-}
-
-.carousel-container::-webkit-scrollbar,
-.scope-carousel-container::-webkit-scrollbar,
-.testimonial-carousel-container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-}
-
-/* ============================================================================
-   CASE STUDY UTILITIES
-   ========================================================================= */
-
-.cs-btn-primary {
-    @apply flex w-full sm:w-fit items-center justify-center gap-3 py-3.5 pr-4 pl-5.5 font-medium tracking-tight rounded-2xl bg-bg-light text-text-primary-inverse;
-}
-
-.cs-btn-secondary {
-    @apply flex w-full sm:w-fit items-center justify-center gap-3 py-3.5 pl-4 pr-5.5 font-medium tracking-tight rounded-2xl border border-bg-light text-text-primary hover:bg-bg-light hover:text-text-primary-inverse;
-}
-
-.cs-btn-secondary-square {
-    @apply flex w-13 h-13 items-center justify-center p-4 rounded-2xl border border-bg-light text-text-primary hover:bg-bg-light hover:text-text-primary-inverse;
-}
-
-.cs-section {
-    @apply flex flex-col pb-8 sm:pb-12 gap-12 items-start grow;
-}
-
-.cs-section-final {
-    @apply flex flex-col gap-12 items-start grow;
-}
-
-.cs-h2 {
-    @apply mb-6 sm:mb-8 text-3xl sm:text-4xl;
-}
-
-.cs-h3 {
-    @apply text-xl sm:text-2xl;
-}
-
-.cs-text {
-    @apply flex flex-col gap-4 leading-loose text-stroke-weak;
-}
-
-.cs-card {
-    @apply flex flex-col gap-6 p-6 sm:p-8 rounded-3xl border border-stroke-weak-dark bg-bg-plaque;
-}
-
-.cs-two-col {
-    @apply flex flex-col lg:flex-row gap-8;
-}
-
-.cs-subsection {
-    @apply flex flex-col gap-4;
 }
