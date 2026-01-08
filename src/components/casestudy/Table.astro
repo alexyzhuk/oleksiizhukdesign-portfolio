@@ -20,7 +20,7 @@ const { columns, data } = Astro.props;
                     <tr class="flex flex-col sm:flex-row border-y sm:border-t-0 border-stroke-weak-dark">
                         {columns.map((column, colIndex) => (
                             <td
-                                class=`py-3 sm:py-4.5 px-4 sm:px-6 text-base bg-table-tint tracking-[-0.03em] leading-relaxed ${column.width || ""} ${colIndex === 0 ? "border-b border-stroke-medium sm:border-b-0 sm:border-r sm:border-stroke-weak-dark sm:w-2/5 text-text-primary shrink-0 font-medium" : "flex-1 text-text-secondary"}`}
+                                class=`py-3 sm:py-4.5 px-4 sm:px-6 text-base bg-table-tint tracking-[-0.03em] leading-relaxed ${column.width || ""} ${colIndex === 0 ? "border-b border-stroke-medium border-dashed sm:border-solid sm:border-b-0 sm:border-r sm:border-stroke-weak-dark sm:w-2/5 text-text-primary shrink-0 font-medium" : "flex-1 text-text-secondary"}`}
                             >
                                 {row[column.key]}
                             </td>

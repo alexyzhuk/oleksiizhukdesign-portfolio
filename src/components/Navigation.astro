@@ -157,4 +157,22 @@
             toggleMenu();
         }
     });
+
+    // Scroll detection for background change
+    let isScrolled = false;
+
+    const handleScroll = () => {
+        const scrollPosition = window.scrollY;
+
+        if (scrollPosition > 50 && !isScrolled) {
+            isScrolled = true;
+            navigation?.classList.add("nav-scrolled");
+        } else if (scrollPosition <= 50 && isScrolled) {
+            isScrolled = false;
+            navigation?.classList.remove("nav-scrolled");
+        }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
 </script>

@@ -66,48 +66,8 @@ body::before {
     z-index: 0;
 }
 
-body > * {
-    position: relative;
-}
-
 section {
     position: relative;
-}
-
-/* ============================================================================
-   CURSOR STYLES
-   ========================================================================= */
-
-body,
-a,
-button,
-input,
-textarea,
-select,
-label,
-.gallery-modal,
-.tool-icon,
-.tool-item,
-[role="button"],
-* {
-    cursor: none !important;
-}
-
-@media (hover: none) and (pointer: coarse) {
-    body,
-    a,
-    button,
-    input,
-    textarea,
-    select,
-    label,
-    .gallery-modal,
-    .tool-icon,
-    .tool-item,
-    [role="button"],
-    * {
-        cursor: auto !important;
-    }
 }
 
 /* ============================================================================
@@ -145,12 +105,20 @@ p {
    ========================================================================= */
 
 .nav-container {
-    background: var(--color-bg-dark);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+    transition:
+        background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        backdrop-filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-container.nav-scrolled {
+    background: #111418eb;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .nav-expanded {
-    background: var(--color-bg-dark);
+    background: var(--color-bg-plaque);
 }
 
 .mobile-menu-expanded {
@@ -570,18 +538,14 @@ p {
 
 .toc-link {
     display: flex;
-    border-left: 2px solid rgba(249, 250, 251, 0.2);
+    border-left: 2px solid var(--color-text-secondary);
+    @apply border-l-2 border-text-secondary/60 text-text-secondary/60 transition-all duration-200;
     padding: 0.5rem 1.5rem 0.5rem 1rem;
     font-size: 1.125rem;
-    color: rgba(249, 250, 251, 0.6);
-    transition:
-        color 0.2s,
-        border-color 0.2s;
 }
 
 .toc-link:hover {
-    color: rgba(249, 250, 251, 0.8);
-    border-color: rgba(249, 250, 251, 0.7);
+    @apply text-text-primary border-text-secondary;
 }
 
 .toc-link.active {

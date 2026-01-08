@@ -74,7 +74,7 @@ const duplicatedTestimonials = [
             <div id="testimonial-track" class="testimonial-carousel-track flex">
                 {
                     duplicatedTestimonials.map((testimonial, index) => (
-                        <div class="testimonial-card flex flex-col w-full sm:w-lg p-8 sm:p-12 items-start gap-3 sm:gap-6 border-l border-stroke-weak-dark  bg-bg-plaque shrink-0">
+                        <div class="testimonial-card has-cursor-pointer flex flex-col w-full xs:w-110 p-4 sm:p-6 items-start gap-3 sm:gap-6 border-l border-stroke-weak-dark  bg-bg-plaque shrink-0">
                             {/* Avatar and Info */}
                             <div class="flex gap-4 sm:gap-6 w-full items-center">
                                 <img
@@ -194,11 +194,21 @@ const duplicatedTestimonials = [
             let velocity = 0;
             let lastPosition = 0;
             let lastTime = Date.now();
+            let isHovering = false;
+            let baseSpeed = 0.35;
+            let currentSpeed = baseSpeed;
+            let targetSpeed = baseSpeed;
+
+            const lerp = (start: number, end: number, factor: number) => {
+                return start + (end - start) * factor;
+            };
 
             const animateDesktop = () => {
+                currentSpeed = lerp(currentSpeed, targetSpeed, 0.05);
+
                 if (!isDragging) {
                     if (isAutoScrolling) {
-                        position += 0.3;
+                        position += currentSpeed;
                     } else {
                         velocity *= 0.95;
                         position += velocity;
@@ -248,6 +258,17 @@ const duplicatedTestimonials = [
                 track.style.cursor = "grab";
                 resetInactivityTimer();
             };
+
+            // Hover events for slowdown
+            container.addEventListener("mouseenter", () => {
+                isHovering = true;
+                targetSpeed = baseSpeed * 0.3; // Slow down to 20% on hover
+            });
+
+            container.addEventListener("mouseleave", () => {
+                isHovering = false;
+                targetSpeed = baseSpeed; // Return to normal speed
+            });
 
             track.addEventListener("mousedown", (e) => {
                 e.preventDefault();

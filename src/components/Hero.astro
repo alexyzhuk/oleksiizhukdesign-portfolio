@@ -82,17 +82,17 @@ const calendlyLink = "https://calendly.com/alexy-zhuk/30min";
 ---
 
 <section
-    class="min-h-[90vh] sm:min-h-screen flex flex-col items-center justify-center sm:-mt-32 sm:pt-32 relative z-10 border-b border-stroke-weak-dark"
+    class="min-h-[90vh] sm:min-h-screen flex flex-col items-center justify-center relative z-10 border-b border-stroke-weak-dark"
 >
     <div
-        class="max-w-7xl w-full h-full flex flex-col gap-8 sm:gap-12 px-4 sm:px-6 p-12 border border-t-0 border-stroke-weak-dark justify-center grow"
+        class="max-w-7xl w-full h-full flex flex-col gap-8 sm:gap-12 px-4 sm:px-6 p-12 mt-18 border border-t-0 border-stroke-weak-dark justify-center grow"
     >
         <p class="mono text-stroke-weak sm:text-2xl font-light text-balance">
             Hi! I'm Oleksii Zhuk, <br />a Product Designer & Developer.
         </p>
 
         <h1
-            class="text-4xl sm:text-6xl leading-tight w-full sm:max-w-[25ch] text-balance md:text-wrap"
+            class="text-4xl xs:text-5xl sm:text-6xl leading-tight w-full sm:max-w-[25ch] text-balance md:text-wrap"
         >
             I <span class="italic text-blue-light">dive deep</span> into the root
             of a problem and create solutions
@@ -237,6 +237,7 @@ const calendlyLink = "https://calendly.com/alexy-zhuk/30min";
     };
 
     // ========== MOBILE VERSION ==========
+    // ========== MOBILE VERSION ==========
     if (isMobile && carouselContainer) {
         carouselContainer.style.overflowX = "scroll";
         carouselContainer.style.webkitOverflowScrolling = "touch";
@@ -244,15 +245,22 @@ const calendlyLink = "https://calendly.com/alexy-zhuk/30min";
         let lastScrollPos = 0;
         let userScrolling = false;
         let isAutoScrolling = true;
+        let accumulator = 0; // Add accumulator for fractional pixels
 
         const animateMobile = () => {
             if (isAutoScrolling && !userScrolling) {
-                carouselContainer.scrollLeft += 1;
+                accumulator += 0.6; // Accumulate fractional movement
 
-                const resetPoint = getTrackWidth();
-                if (carouselContainer.scrollLeft >= resetPoint) {
-                    carouselContainer.scrollLeft -= resetPoint;
-                    lastScrollPos = carouselContainer.scrollLeft;
+                if (accumulator >= 1) {
+                    const pixelsToScroll = Math.floor(accumulator);
+                    carouselContainer.scrollLeft += pixelsToScroll;
+                    accumulator -= pixelsToScroll; // Keep the remainder
+
+                    const resetPoint = getTrackWidth();
+                    if (carouselContainer.scrollLeft >= resetPoint) {
+                        carouselContainer.scrollLeft -= resetPoint;
+                        lastScrollPos = carouselContainer.scrollLeft;
+                    }
                 }
             }
 
@@ -283,7 +291,7 @@ const calendlyLink = "https://calendly.com/alexy-zhuk/30min";
     }
     // ========== DESKTOP VERSION ==========
     else if (!isMobile && track) {
-        let baseSpeed = 0.3;
+        let baseSpeed = 0.4;
         let currentSpeed = baseSpeed;
         let targetSpeed = baseSpeed;
         let isHovering = false;

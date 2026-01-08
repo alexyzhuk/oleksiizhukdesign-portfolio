@@ -510,30 +510,32 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                             developed a set of modular components tailored to
                             our specific needs.
                         </p>
-                        <Gallery
-                            slides={[
-                                {
-                                    image: "/case-study-datuum/overview-datuum.avif",
-                                    alt: "Overview",
-                                    label: "Overview",
-                                },
-                                {
-                                    image: "/case-study-datuum/icons-datuum.avif",
-                                    alt: "Icons",
-                                    label: "Icons",
-                                },
-                                {
-                                    image: "/case-study-datuum/pictograms-datuum.avif",
-                                    alt: "Pictograms",
-                                    label: "Pictograms",
-                                },
-                                {
-                                    image: "/case-study-datuum/screenshot-datuum.png",
-                                    alt: "Screenshot",
-                                    label: "Screenshot",
-                                },
-                            ]}
-                        />
+                        <div class="text-text-primary">
+                            <Gallery
+                                slides={[
+                                    {
+                                        image: "/case-study-datuum/overview-datuum.avif",
+                                        alt: "Overview",
+                                        label: "Overview",
+                                    },
+                                    {
+                                        image: "/case-study-datuum/icons-datuum.avif",
+                                        alt: "Icons",
+                                        label: "Icons",
+                                    },
+                                    {
+                                        image: "/case-study-datuum/pictograms-datuum.avif",
+                                        alt: "Pictograms",
+                                        label: "Pictograms",
+                                    },
+                                    {
+                                        image: "/case-study-datuum/screenshot-datuum.png",
+                                        alt: "Screenshot",
+                                        label: "Screenshot",
+                                    },
+                                ]}
+                            />
+                        </div>
                     </div>
                 </div>
             </section>
@@ -543,7 +545,9 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                 <div>
                     <h2 class="cs-h2">User Testing Results</h2>
                     <div class="cs-text">
-                        <h3 class="cs-h3">Time on Task</h3>
+                        <h3 class="text-xl sm:text-2xl text-text-primary">
+                            Time on Task
+                        </h3>
                         <SingleStat
                             statValue={-37}
                             stat="time on task"
@@ -568,7 +572,7 @@ import VideoEmbed from "../components/casestudy/VideoEmbed.astro";
                     <h3 class="cs-h3">Task Success Rate</h3>
                     <div class="cs-two-col">
                         <div class="flex grow w-full">
-                            <p class="text-stroke-weak leading-loose">
+                            <p class="text-text-secondary leading-loose">
                                 We saw a solid 14% jump in task success rates,
                                 and users reported feeling way more confident.
                                 They really liked being able to keep track of

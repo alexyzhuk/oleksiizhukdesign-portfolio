@@ -32,7 +32,7 @@ const {
 } = Astro.props;
 ---
 
-<div class="case-study-container">
+<div class="case-study-container mt-18">
     <!-- Main Layout -->
     <div class="w-full flex flex-col items-center justify-center">
         <div
@@ -40,13 +40,15 @@ const {
         >
             <div class="grid grid-cols-1 lg:grid-cols-12">
                 <!-- Main Content (Left) -->
-                <main class="lg:col-span-8 lg:border-r border-stroke-weak-dark">
+                <main
+                    class="lg:col-span-8 lg:border-r border-stroke-weak-dark z-10"
+                >
                     <img
                         src={coverImage}
                         class="flex border border-stroke-weak-dark overflow-hidden mb-6 sm:mb-12"
                     />
                     <div
-                        class="flex px-4 sm:px-6 flex-col gap-3 sm:gap-8 pb-6 sm:pb-12 border-b border-stroke-weak-dark"
+                        class="flex px-4 sm:px-6 flex-col gap-3 sm:gap-8 pb-6 sm:pb-12 sm:border-b border-stroke-weak-dark"
                     >
                         <h2 class="text-4xl sm:text-5xl font-bold">
                             {title}
@@ -84,13 +86,13 @@ const {
                                 class="toc-content border-b border-stroke-weak-dark"
                             >
                                 <nav>
-                                    <ul class="flex flex-col p-4 sm:p-6">
+                                    <ul class="flex flex-col py-6 px-4 sm:px-6">
                                         {
                                             sections.map((section) => (
                                                 <li>
                                                     <a
                                                         href={`#${section.id}`}
-                                                        class="flex border-l-2 border-text-secondary/20 text-lg text-text-secondary/60 hover:text-text-primary/80 hover:border-text-primary/70 transition-colors duration-200 toc-link"
+                                                        class="flex border-l-2 border-text-secondary/20 text-lg text-text-secondary hover:text-text-primary/80 hover:border-text-primary/70 transition-colors duration-200 toc-link"
                                                         data-section={
                                                             section.id
                                                         }
@@ -262,7 +264,7 @@ const {
         </div>
         <!-- Bottom Navigation -->
         <div
-            class="flex border-t border-stroke-weak-dark w-full justify-center"
+            class="flex border-t border-stroke-weak-dark w-full justify-center z-10"
         >
             <div
                 class="flex flex-col-reverse gap-4 sm:flex-row items-center justify-between p-4 sm:py-6 sm:px-0 border-stroke-weak-dark border-x sm:border-x-0 max-w-7xl w-full"
