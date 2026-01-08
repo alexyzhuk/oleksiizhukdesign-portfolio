@@ -256,7 +256,7 @@ p {
    ========================================================================= */
 
 .cs-btn {
-    @apply flex pl-8 pr-5 py-0 text-xl font-medium tracking-tight border-t border-stroke-weak-dark bg-bg-light/0 text-text-primary hover:bg-bg-light hover:text-text-primary-inverse items-center justify-center gap-4 w-full transition-all duration-300;
+    @apply flex pl-4 sm:pl-12 pr-5 py-0 text-lg font-medium tracking-tight border-t border-stroke-weak-dark bg-bg-light/0 text-text-primary hover:bg-bg-light hover:text-text-primary-inverse items-center justify-between gap-4 w-full transition-all duration-300;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
@@ -304,7 +304,7 @@ p {
 }
 
 .carousel-track {
-    gap: 32px;
+    @apply gap-4 sm:gap-12;
 }
 
 .scope-carousel-track {
@@ -312,8 +312,8 @@ p {
 }
 
 .tool-item {
-    width: 112px;
-    height: 112px;
+    width: 80px;
+    height: 80px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -322,6 +322,7 @@ p {
     transform-origin: center center;
     will-change: transform;
     transition: transform 300ms cubic-bezier(0.44, 0, 0.56, 1);
+    @apply sm:w-28 sm:h-28 sm:p-4;
 }
 
 .tool-item:hover {
@@ -491,7 +492,7 @@ p {
 }
 
 .cs-section {
-    @apply flex flex-col pb-8 sm:pb-12 gap-12 items-start grow border-b border-stroke-weak-dark py-6 sm:py-12;
+    @apply flex flex-col py-12 sm:py-24 gap-12 items-start grow border-b border-stroke-weak-dark;
 }
 
 .cs-section-final {
@@ -515,7 +516,7 @@ p {
 }
 
 .cs-card-blueprint {
-    @apply flex flex-col gap-6;
+    @apply flex flex-col sm:gap-6;
     background: transparent;
     transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -663,7 +664,7 @@ p {
     }
 
     .light-btn {
-        @apply w-full text-base;
+        @apply text-base;
     }
 
     .cs-btn {
