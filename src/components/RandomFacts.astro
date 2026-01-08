@@ -2,19 +2,19 @@
 import BulletPoint from "./BulletPoint.astro";
 ---
 
-<section class="px-4 sm:px-6 py-12 sm:py-24 gap-14">
+<section class="gap-14 border-y border-stroke-weak-dark">
     <div
-        class="flex flex-row gap-16 max-w-7xl mx-auto items-center justify-between"
+        class="flex flex-col-reverse sm:flex-row py-12 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto gap-12 sm:gap-0 justify-between border-x border-stroke-weak-dark items-start sm:items-center"
     >
         <div>
             <h2 class="text-3xl sm:text-4xl font-medium mb-8">
-                Random facts about me
+                7 facts about me
             </h2>
             <div class="flex flex-col gap-4 leading leading-loose">
                 <div class="flex flex-col gap-4 text-balance">
                     <BulletPoint
                         icon="arrow-right-alt"
-                        gap="gap-6"
+                        gap="gap-3 sm:gap-6"
                         itemGap="gap-6"
                         bullets={[
                             "I'm Ukrainian & I work with the whole world",
@@ -30,7 +30,7 @@ import BulletPoint from "./BulletPoint.astro";
         </div>
         <img
             src="/about/hobby-pic.jpg"
-            class="h-104 flex rounded-4xl border border-stroke-weak-dark overflow-hidden"
+            class="w-full sm:w-1/2 flex rounded-xs overflow-hidden"
             alt="Oleksii Zhuk"
         />
     </div>

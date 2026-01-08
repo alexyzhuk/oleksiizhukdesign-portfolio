@@ -4,100 +4,98 @@
 
 <nav
     id="navigation"
-    class="top-0 left-0 right-0 z-1000 fixed border-y border-stroke-weak-dark"
+    class="nav-container top-0 left-0 right-0 z-1000 fixed border-y border-stroke-weak-dark"
 >
     <div
-        class="max-w-7xl mx-auto flex pl-4 pr-3 py-2 border-x border-stroke-weak-dark justify-between items-center"
+        class="max-w-7xl mx-auto flex flex-col border-x border-stroke-weak-dark"
     >
-        <a
-            href="/"
-            class="flex text-text-primary h-10 w-10 sm:h-12 sm:w-12 items-center justify-center shrink-0 z-50 logo-btn"
-        >
-            <img src="/main-logo.svg" alt="Oleksii Zhuk" class="h-7 sm:h-8" />
-        </a>
+        <!-- Header Bar -->
+        <div class="flex pl-4 pr-3 py-2 justify-between items-center">
+            <a
+                href="/"
+                class="flex text-text-primary h-10 w-10 sm:h-12 sm:w-12
+            items-center justify-center shrink-0 z-50 logo-btn"
+            >
+                <img
+                    src="/main-logo.svg"
+                    alt="Oleksii Zhuk"
+                    class="h-7 sm:h-8"
+                />
+            </a>
 
-        <div class="hidden sm:flex gap-1">
-            <a
-                href="/#selected-work"
-                class="nav-item nav-text nav-work text-text-primary"
-            >
-                <span>/</span> work
-            </a>
-            <a
-                href="/about"
-                class="nav-item nav-text nav-about text-text-primary"
-            >
-                <span>/</span> about
-            </a>
-            <!--
-            <a
-                href="/blog"
-                class="nav-item nav-text nav-blog text-text-primary"
-            >
-                <span>/</span> blog
-            </a>-->
-            <a
-                href="/#contacts"
-                class="nav-item nav-text nav-contacts text-text-primary"
-            >
-                <span>/</span> contacts
-            </a>
-        </div>
-        <!-- Mobile Menu Button -->
-        <button
-            id="mobile-menu-button"
-            class="sm:hidden relative z-50 p-4"
-            aria-label="Toggle menu"
-        >
-            <div class="w-6 h-5 flex flex-col justify-between">
-                <span
-                    class="hamburger-line block w-full h-0.5 bg-text-primary transition-all duration-500 origin-center"
-                ></span>
-                <span
-                    class="hamburger-line block w-full h-0.5 bg-text-primary transition-all duration-300"
-                ></span>
-                <span
-                    class="hamburger-line block w-full h-0.5 bg-text-primary transition-all duration-500 origin-center"
-                ></span>
+            <div>
+                <!-- Desktop Menu -->
+                <div class="hidden sm:flex gap-1">
+                    <a
+                        href="/#selected-work"
+                        class="nav-item nav-text nav-work
+            text-text-primary"
+                    >
+                        <span>/</span> work
+                    </a>
+
+                    <a
+                        href="/about"
+                        class="nav-item nav-text nav-about text-text-primary"
+                    >
+                        <span>/</span> about
+                    </a>
+
+                    <a
+                        href="/#contacts"
+                        class="nav-item nav-text nav-contacts text-text-primary"
+                    >
+                        <span>/</span> contacts
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button
+                    id="mobile-menu-button"
+                    class="sm:hidden relative z-50 p-4"
+                    aria-label="Toggle menu"
+                >
+                    <div class="w-6 h-5 flex flex-col justify-between">
+                        <span
+                            class="hamburger-line block w-full h-0.5 bg-text-primary transition-all duration-500 origin-center"
+                        ></span>
+                        <span
+                            class="hamburger-line block w-full h-0.5 bg-text-primary transition-all duration-300"
+                        ></span>
+                        <span
+                            class="hamburger-line block w-full h-0.5 bg-text-primary transition-all duration-500 origin-center"
+                        ></span>
+                    </div>
+                </button>
             </div>
-        </button>
-    </div>
+        </div>
+        <!-- Mobile Menu Items (inside nav container) -->
+        <div
+            id="mobile-menu"
+            class="mobile-menu-expanded sm:hidden overflow-hidden border-t border-stroke-weak-dark"
+        >
+            <div class="flex flex-col">
+                <a
+                    href="/#selected-work"
+                    class="nav-text mobile-nav-item nav-work text-text-primary px-6 py-4 border-b border-stroke-weak-dark border-dashed"
+                >
+                    <span>/</span> work
+                </a>
 
-    <!-- Mobile Menu Overlay -->
-    <div
-        id="mobile-menu"
-        class="absolute opacity-0 top-30 right-5 z-1001 w-48 rounded-4xl border border-stroke-weak-dark sm:hidden max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
-    >
-        <div class="flex flex-col pt-6 px-4 sm:px-6 pb-4">
-            <a
-                href="/#selected-work"
-                class="nav-text mobile-nav-item nav-work text-text-primary py-4"
-            >
-                <span>/</span> work
-            </a>
+                <a
+                    href="/about"
+                    class="nav-text mobile-nav-item nav-about text-text-primary px-6 py-4 border-b border-stroke-weak-dark border-dashed"
+                >
+                    <span>/</span> about
+                </a>
 
-            <a
-                href="/about"
-                class="nav-text mobile-nav-item nav-about text-text-primary py-4 text-2xl"
-            >
-                <span>/</span> about
-            </a>
-
-            <!--
-            <a
-                href="/blog"
-                class="nav-text mobile-nav-item nav-blog text-text-primary py-4 text-2xl
-            uppercase tracking-wide"
-            >
-                <span>/</span> blog
-            </a>-->
-
-            <a
-                href="/#contacts"
-                class="nav-text mobile-nav-item nav-contacts text-text-primary py-4 text-2xl"
-            >
-                <span>/</span> contacts
-            </a>
+                <a
+                    href="/#contacts"
+                    class="nav-text mobile-nav-item nav-contacts text-text-primary px-6 py-4"
+                >
+                    <span>/</span> contacts
+                </a>
+            </div>
         </div>
     </div>
 </nav>
@@ -105,10 +103,8 @@
 <script>
     const mobileMenuButton = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
-    const hamburgerIcon = mobileMenuButton?.querySelector(".hamburger-icon");
-    const closeIcon = mobileMenuButton?.querySelector(".close-icon");
-    const mobileNavItems = document.querySelectorAll(".mobile-nav-item");
     const navigation = document.getElementById("navigation");
+    const mobileNavItems = document.querySelectorAll(".mobile-nav-item");
 
     let isMenuOpen = false;
 
@@ -118,9 +114,8 @@
 
         if (isMenuOpen) {
             // Open menu - expand navbar
-            mobileMenu?.classList.remove("max-h-0");
-            mobileMenu?.classList.add("opacity-100", "max-h-fit", "bg-bg-dark");
-            document.body.style.overflow = "hidden";
+            mobileMenu?.classList.add("menu-open");
+            navigation?.classList.add("nav-expanded");
 
             // Animate hamburger to X
             if (lines) {
@@ -132,13 +127,8 @@
             }
         } else {
             // Close menu - collapse navbar
-            mobileMenu?.classList.add("max-h-0");
-            mobileMenu?.classList.remove(
-                "opacity-100",
-                "max-h-fit",
-                "bg-bg-dark",
-            );
-            document.body.style.overflow = "";
+            mobileMenu?.classList.remove("menu-open");
+            navigation?.classList.remove("nav-expanded");
 
             // Animate X back to hamburger
             if (lines) {
