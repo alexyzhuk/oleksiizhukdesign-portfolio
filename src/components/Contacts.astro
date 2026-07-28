@@ -1,5 +1,5 @@
 ---
-import { CALENDLY_URL, INQUIRY_URL } from "../consts";
+import { CALENDLY_URL } from "../consts";
 
 const resumeDownloadLink =
     "https://drive.google.com/uc?export=download&id=1GNwAVzGcJNmev5ZjnjEOq1El-AAZUMxS";
@@ -48,25 +48,17 @@ const calendlyLink = CALENDLY_URL;
                 >
                     <!-- Subheading -->
                     <p class="text-lg text-balance max-w-xs leading-7">
-                        Tell me about your project, or grab a time for a quick
-                        call — whichever's easier.
+                        Grab a time for a quick call and let's talk about your
+                        project.
                     </p>
 
-                    <!-- CTA Buttons -->
+                    <!-- CTA Button -->
                     <div class="flex flex-wrap gap-2 items-center">
-                        <a
-                            href={INQUIRY_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="flex text-lg leading-7 h-14 text-center justify-center items-center font-medium tracking-tight bg-bg-light text-text-primary-inverse px-5 py-3 w-fit rounded-2xl transition-all duration-300 hover:shadow-[0_0_32px_0_rgba(249,250,251,0.6)]"
-                        >
-                            Start a project
-                        </a>
                         <a
                             href={calendlyLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="light-btn"
+                            class="flex text-lg leading-7 h-14 text-center justify-center items-center font-medium tracking-tight bg-bg-light text-text-primary-inverse px-5 py-3 w-fit rounded-2xl transition-all duration-300 hover:shadow-[0_0_32px_0_rgba(249,250,251,0.6)]"
                         >
                             Book a call
                         </a>
