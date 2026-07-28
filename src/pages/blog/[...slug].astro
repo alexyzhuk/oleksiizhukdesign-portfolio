@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+    return posts.map((post) => ({
+        params: { slug: post.id },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const fmt = (d: Date) =>
+    d.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+---
+
+<BaseLayout
+    title={`${post.data.title} · Oleksii Zhuk`}
+    description={post.data.description}
+>
+    <article
+        class="w-full flex flex-col items-center justify-center z-10 mt-18"
+    >
+        <div
+            class="w-full max-w-3xl flex flex-col pt-12 sm:pt-24 pb-16 gap-4 px-4 sm:px-6"
+        >
+            <a
+                href="/blog"
+                class="mono text-sm text-text-secondary hover:text-text-primary transition-colors w-fit"
+            >
+                ← Blog
+            </a>
+            <span class="mono text-sm text-text-secondary">
+                {fmt(post.data.pubDate)}
+            </span>
+            <h1
+                class="text-3xl sm:text-5xl font-medium tracking-tight text-balance"
+            >
+                {post.data.title}
+            </h1>
+            {
+                post.data.description && (
+                    <p class="sm:text-lg text-text-secondary leading-loose text-balance">
+                        {post.data.description}
+                    </p>
+                )
+            }
+
+            <div class="blog-prose mt-6">
+                <Content />
+            </div>
+        </div>
+    </article>
+</BaseLayout>

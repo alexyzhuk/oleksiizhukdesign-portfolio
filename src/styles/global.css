@@ -603,6 +603,68 @@ p {
 }
 
 /* ============================================================================
+   BLOG
+   ========================================================================= */
+
+.blog-prose {
+    @apply flex flex-col gap-5 text-text-secondary;
+}
+
+.blog-prose h2 {
+    @apply text-2xl sm:text-3xl font-medium tracking-tight text-text-primary mt-6;
+}
+
+.blog-prose h3 {
+    @apply text-xl sm:text-2xl font-medium tracking-tight text-text-primary mt-4;
+}
+
+.blog-prose p {
+    @apply text-base sm:text-lg leading-loose;
+}
+
+.blog-prose a {
+    @apply text-blue-light underline underline-offset-4 hover:text-text-primary transition-colors;
+}
+
+.blog-prose strong {
+    @apply text-text-primary font-medium;
+}
+
+.blog-prose ul {
+    @apply list-disc pl-6;
+}
+
+.blog-prose ol {
+    @apply list-decimal pl-6;
+}
+
+.blog-prose li {
+    @apply text-base sm:text-lg leading-loose;
+}
+
+.blog-prose li + li {
+    @apply mt-2;
+}
+
+.blog-prose li::marker {
+    color: var(--color-stroke-strong);
+}
+
+.blog-prose li > ul,
+.blog-prose li > ol {
+    @apply mt-2;
+}
+
+.blog-prose img,
+.blog-prose video {
+    @apply w-full rounded-lg border border-stroke-weak-dark;
+}
+
+.blog-prose blockquote {
+    @apply border-l-2 border-stroke-strong pl-4 italic;
+}
+
+/* ============================================================================
    ANIMATIONS
    ========================================================================= */
 

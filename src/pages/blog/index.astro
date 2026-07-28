@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const fmt = (d: Date) =>
+    d.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+---
+
+<BaseLayout
+    title="Blog · Oleksii Zhuk"
+    description="Notes on product design, UX, and building for the web."
+>
+    <section
+        class="w-full flex flex-col items-center justify-center z-10 mt-18"
+    >
+        <div
+            class="w-full max-w-7xl flex flex-col pt-12 sm:pt-24 pb-8 gap-6 px-4 sm:px-6 border-x border-stroke-weak-dark"
+        >
+            <h1 class="text-4xl sm:text-5xl font-medium">Blog</h1>
+            <p
+                class="sm:text-lg text-balance leading-loose text-text-secondary max-w-[64ch]"
+            >
+                Notes on product design, UX, and building for the web.
+            </p>
+        </div>
+
+        <div
+            class="w-full flex flex-col items-center border-t border-stroke-weak-dark"
+        >
+            <div class="w-full max-w-7xl border-x border-stroke-weak-dark">
+                {
+                    posts.map((post) => (
+                        <a
+                            href={`/blog/${post.id}`}
+                            class="method-card flex flex-col gap-3 p-6 sm:p-10 border-b border-stroke-weak-dark last:border-b-0"
+                        >
+                            <span class="mono text-sm text-text-secondary">
+                                {fmt(post.data.pubDate)}
+                            </span>
+                            <h2 class="text-2xl sm:text-3xl tracking-tight text-text-primary text-balance">
+                                {post.data.title}
+                            </h2>
+                            {post.data.description && (
+                                <p class="text-base sm:text-lg text-text-secondary leading-8 max-w-[72ch]">
+                                    {post.data.description}
+                                </p>
+                            )}
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+</BaseLayout>
