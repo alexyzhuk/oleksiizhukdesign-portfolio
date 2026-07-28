@@ -2,28 +2,26 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import SelectedWork from "../components/SelectedWork.astro";
+// import Services from "../components/Services.astro"; // temporarily hidden
 import Method from "../components/Method.astro";
 import Expertise from "../components/Expertise.astro";
+import Engagement from "../components/Engagement.astro";
 import Testimonials from "../components/Testimonials.astro";
+import Faq from "../components/Faq.astro";
 import Contacts from "../components/Contacts.astro";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Oleksii Zhuk · Product Designer</title>
-    </head>
-    <body>
-        <BaseLayout title="Oleksii Zhuk · Product Designer">
-            <Hero />
-            <SelectedWork />
-            <Method />
-            <Expertise />
-            <Testimonials />
-            <Contacts />
-        </BaseLayout>
-    </body>
-</html>
+<BaseLayout
+    title="Oleksii Zhuk · Product Designer & Developer"
+    description="Product Designer & Front-End Developer with 10+ years of experience. UX/UI design and custom web development, from first sketch to shipped code."
+>
+    <Hero />
+    <SelectedWork />
+    {/* <Services /> */}
+    <Method />
+    <Expertise />
+    <Engagement />
+    <Testimonials />
+    <Faq />
+    <Contacts />
+</BaseLayout>

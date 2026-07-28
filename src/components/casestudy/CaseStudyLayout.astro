@@ -45,7 +45,7 @@ const {
                 >
                     <img
                         src={coverImage}
-                        class="flex border border-stroke-weak-dark overflow-hidden mb-6 sm:mb-12"
+                        class="flex overflow-hidden mb-6 sm:mb-12"
                     />
                     <div
                         class="flex px-4 sm:px-6 flex-col gap-3 sm:gap-8 pb-6 sm:pb-12 sm:border-b border-stroke-weak-dark"
@@ -60,59 +60,8 @@ const {
                         </p>
                     </div>
 
-                    <!-- Mobile TOC - Between Image and Content -->
-                    <div class="lg:hidden">
-                        <details
-                            class="toc-mobile border-t border-stroke-weak-dark overflow-hidden transition-all duration-300"
-                        >
-                            <summary
-                                class="flex items-center justify-between p-4 sm:p-6 cursor-pointer border-b border-stroke-weak-dark"
-                            >
-                                <span class="text-xl font-medium tracking-tight"
-                                    >Contents</span
-                                >
-                                <svg
-                                    class="toc-chevron w-5 h-5 transition-transform duration-300"
-                                    viewBox="0 0 10 22"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M4.85547 0V21M4.85547 21L0.355469 16.5M4.85547 21L9.35547 16.5"
-                                        stroke="#F9FAFB"></path>
-                                </svg>
-                            </summary>
-                            <div
-                                class="toc-content border-b border-stroke-weak-dark"
-                            >
-                                <nav>
-                                    <ul class="flex flex-col py-6 px-4 sm:px-6">
-                                        {
-                                            sections.map((section) => (
-                                                <li>
-                                                    <a
-                                                        href={`#${section.id}`}
-                                                        class="flex border-l-2 border-text-secondary/20 text-lg text-text-secondary hover:text-text-primary/80 hover:border-text-primary/70 transition-colors duration-200 toc-link"
-                                                        data-section={
-                                                            section.id
-                                                        }
-                                                    >
-                                                        {section.title}
-                                                    </a>
-                                                </li>
-                                            ))
-                                        }
-                                    </ul>
-                                </nav>
-                            </div>
-                        </details>
-                    </div>
-
-                    <!-- Main Content Slot -->
-                    <slot />
-
-                    <!-- Mobile Company Info - At Bottom -->
-                    <div class="lg:hidden mt-4">
+                    <!-- Mobile Company Info - Above Contents -->
+                    <div class="lg:hidden border-t border-stroke-weak-dark">
                         <div class="cs-card-blueprint">
                             {
                                 logo && (
@@ -170,6 +119,57 @@ const {
                             </div>
                         </div>
                     </div>
+
+                    <!-- Mobile TOC - Between Image and Content -->
+                    <div class="lg:hidden">
+                        <details
+                            class="toc-mobile border-t border-stroke-weak-dark overflow-hidden transition-all duration-300"
+                        >
+                            <summary
+                                class="flex items-center justify-between p-4 sm:p-6 cursor-pointer border-b border-stroke-weak-dark"
+                            >
+                                <span class="text-xl font-medium tracking-tight"
+                                    >Contents</span
+                                >
+                                <svg
+                                    class="toc-chevron w-5 h-5 transition-transform duration-300"
+                                    viewBox="0 0 10 22"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M4.85547 0V21M4.85547 21L0.355469 16.5M4.85547 21L9.35547 16.5"
+                                        stroke="#F9FAFB"></path>
+                                </svg>
+                            </summary>
+                            <div
+                                class="toc-content border-b border-stroke-weak-dark"
+                            >
+                                <nav>
+                                    <ul class="flex flex-col py-6 px-4 sm:px-6">
+                                        {
+                                            sections.map((section) => (
+                                                <li>
+                                                    <a
+                                                        href={`#${section.id}`}
+                                                        class="flex border-l-2 border-text-secondary/20 text-lg text-text-secondary hover:text-text-primary/80 hover:border-text-primary/70 transition-colors duration-200 toc-link"
+                                                        data-section={
+                                                            section.id
+                                                        }
+                                                    >
+                                                        {section.title}
+                                                    </a>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                </nav>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Main Content Slot -->
+                    <slot />
                 </main>
 
                 <!-- Desktop Sidebar (Right) -->

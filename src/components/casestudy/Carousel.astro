@@ -1,0 +1,91 @@
+---
+interface Props {
+    images: { src: string; alt: string }[];
+    // Equal height for every slide; widths follow each image's aspect ratio.
+    height?: string;
+}
+const { images, height = "h-[300px] sm:h-[460px]" } = Astro.props;
+---
+
+<div class="cs-carousel relative w-full">
+    <div
+        class={`cs-carousel-track flex overflow-x-auto snap-x snap-mandatory ${height}`}
+    >
+        {
+            images.map((img) => (
+                <img
+                    src={img.src}
+                    alt={img.alt}
+                    class="h-full w-auto shrink-0 snap-start select-none"
+                    draggable="false"
+                />
+            ))
+        }
+    </div>
+
+    <button
+        class="cs-carousel-btn cs-carousel-prev absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full border border-stroke-weak-dark text-text-primary bg-bg-dark/70 backdrop-blur-sm hover:bg-bg-dark transition-colors"
+        data-dir="prev"
+        aria-label="Previous image"
+    >
+        <svg
+            class="w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path d="M15 18l-6-6 6-6"></path>
+        </svg>
+    </button>
+
+    <button
+        class="cs-carousel-btn cs-carousel-next absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full border border-stroke-weak-dark text-text-primary bg-bg-dark/70 backdrop-blur-sm hover:bg-bg-dark transition-colors"
+        data-dir="next"
+        aria-label="Next image"
+    >
+        <svg
+            class="w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path d="M9 18l6-6-6-6"></path>
+        </svg>
+    </button>
+</div>
+
+<style>
+    .cs-carousel-track {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .cs-carousel-track::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+
+<script>
+    document.querySelectorAll(".cs-carousel").forEach((root) => {
+        const track = root.querySelector(
+            ".cs-carousel-track",
+        ) as HTMLElement | null;
+        if (!track) return;
+
+        root.querySelectorAll(".cs-carousel-btn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const dir =
+                    btn.getAttribute("data-dir") === "prev" ? -1 : 1;
+                track.scrollBy({
+                    left: dir * track.clientWidth * 0.8,
+                    behavior: "smooth",
+                });
+            });
+        });
+    });
+</script>

@@ -14,6 +14,15 @@ const testimonials = [
         image: "/oleksandr-testimonial.png",
         text: "I worked with Oleksii at datuum.ai. He was the one who figured out how to implement a technically complex product interface while maintaining a simple and accessible user experience. His work attracted the attention of clients from all over the world. Working in a team, I appreciated the creativity, speed, and quality of work that Oleksii did throughout the project. It's also worth mentioning that Oleksii is a friendly, reliable, easy-going person who will always support and give good advice at the right time.",
     },
+    /* PLACEHOLDER — temporarily hidden; replace with a real development/shipping testimonial.
+    {
+        name: "Client Name",
+        role: "Founder & CEO",
+        company: "Company",
+        image: "/placeholder-avatar.svg",
+        text: "Oleksii designed and built our new website end to end — design, front-end code, performance, and launch. He delivered a fast, accessible site that loads instantly and hasn't given us a single issue since. Reliable, communicative, and genuinely easy to work with.",
+    },
+    */
     {
         name: "Stanislav Zaborkin",
         role: "Front-end Developer",
@@ -131,7 +140,11 @@ const duplicatedTestimonials = [
             return card.offsetWidth + 24;
         };
 
-        const getResetPoint = () => getCardWidth() * 5;
+        // Derive set size from the DOM (track holds 3 duplicated sets),
+        // so adding/removing testimonials keeps the loop in sync.
+        const getSetCount = () =>
+            track.querySelectorAll(".testimonial-card").length / 3;
+        const getResetPoint = () => getCardWidth() * getSetCount();
 
         const resetInactivityTimer = () => {
             clearTimeout(inactivityTimeout);

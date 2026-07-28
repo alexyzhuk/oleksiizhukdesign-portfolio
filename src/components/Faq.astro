@@ -1,0 +1,122 @@
+---
+const faqs = [
+    {
+        q: "What kind of work do you take on?",
+        a: "Two things: UX/UI design — product and web interfaces, design systems, prototypes — and front-end web development — custom marketing sites and web apps. You can hire me for either, or for both end to end.",
+    },
+    {
+        // EDIT: confirm your real pricing approach / ranges before publishing.
+        q: "How much does a project cost?",
+        a: "Every project is scoped individually. After a short discovery call I send a fixed quote based on scope and timeline — no hourly guessing. Monthly retainers are available for ongoing work.",
+    },
+    {
+        // EDIT: confirm your real typical timelines before publishing.
+        q: "How long does a project take?",
+        a: "A focused landing page is usually 2–3 weeks; a larger site or product-design engagement runs 4–8 weeks. You'll get a firm timeline in the proposal, before we start.",
+    },
+    {
+        q: "What do you build with?",
+        a: "Modern, fast, standards-based front-ends — Astro and React, TypeScript, semantic HTML/CSS — with performance, accessibility, and SEO built in from the start. I also work with headless CMSs and existing stacks like WordPress.",
+    },
+    {
+        q: "Do I own the design files and code?",
+        a: "Yes. On final payment, everything is yours — source design files, code, and assets — with a clean handoff and documentation.",
+    },
+    {
+        q: "Can you work with my existing team?",
+        a: "Absolutely. I regularly collaborate with founders, developers, and marketing teams, and can slot into your existing workflow, tools, and repository.",
+    },
+];
+---
+
+<section
+    id="faq"
+    class="w-full flex flex-col items-center justify-center z-10 border-b border-stroke-weak-dark"
+>
+    <!-- Section Header -->
+    <div
+        class="w-full max-w-7xl flex flex-col pt-12 sm:pt-24 pb-6 gap-8 px-4 sm:px-6 border-x border-stroke-weak-dark"
+    >
+        <h2 class="text-4xl sm:text-5xl font-medium">Questions</h2>
+    </div>
+
+    <!-- FAQ Accordion -->
+    <div
+        class="w-full flex flex-col items-center border-t border-stroke-weak-dark"
+    >
+        <div
+            class="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 border-x border-stroke-weak-dark"
+        >
+            {
+                faqs.map((faq, i) => (
+                    <details
+                        class:list={[
+                            "faq-item group border-stroke-weak-dark",
+                            i === 1 && "border-t md:border-t-0",
+                            i >= 2 && "border-t",
+                            i % 2 === 0 && "md:border-r",
+                        ]}
+                    >
+                        <summary class="flex items-center justify-between gap-6 cursor-pointer p-6 sm:px-6 sm:py-8 list-none">
+                            <h3 class="text-xl sm:text-2xl tracking-tight text-text-primary">
+                                {faq.q}
+                            </h3>
+                            <svg
+                                class="faq-chevron w-5 h-5 shrink-0 text-text-secondary transition-transform duration-300"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M5 8L10 13L15 8"
+                                    stroke="currentColor"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </summary>
+                        <div class="faq-answer">
+                            <p class="px-6 pb-6 sm:pb-8 -mt-1 text-base sm:text-lg text-text-secondary leading-8 max-w-[72ch]">
+                                {faq.a}
+                            </p>
+                        </div>
+                    </details>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .faq-item summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .faq-item[open] .faq-chevron {
+        transform: rotate(180deg);
+    }
+
+    /* Smooth open/close via grid-rows trick */
+    .faq-answer {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-item[open] .faq-answer {
+        grid-template-rows: 1fr;
+    }
+
+    .faq-answer > p {
+        overflow: hidden;
+    }
+
+    .faq-item summary {
+        transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-item summary:hover {
+        background: rgba(7, 8, 10, 0.2);
+    }
+</style>

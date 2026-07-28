@@ -1,0 +1,676 @@
+---
+// Ported from the Cascade Systems site — the Lima EW interactive diagrams
+// (SMIL + CSS animation). Colors kept authentic (#f4ff90). English labels
+// only; reduced-motion aware. Switcher via global switchAnim().
+---
+
+<div class="cs-ew-diagrams px-4 sm:px-6">
+    <div class="anim-tabs flex gap-1 mb-5 p-1" role="tablist">
+        <button class="anim-tab tab-active flex-1 mono text-sm tracking-widest uppercase px-4 py-3 cursor-pointer" onclick="switchAnim(0)" data-anim-idx="0" role="tab" aria-selected="true">Jamming</button>
+        <button class="anim-tab flex-1 mono text-sm tracking-widest uppercase px-4 py-3 cursor-pointer" onclick="switchAnim(1)" data-anim-idx="1" role="tab" aria-selected="false">Spoofing</button>
+        <button class="anim-tab flex-1 mono text-sm tracking-widest uppercase px-4 py-3 cursor-pointer" onclick="switchAnim(2)" data-anim-idx="2" role="tab" aria-selected="false">Cyber-breach</button>
+    </div>
+    <div class="cs-ew-panels">
+            <div class="anim-panel" data-panel="0">
+              <svg id="jam-diagram" viewBox="0 0 800 640" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;" role="img" aria-label="Lima EW jamming diagram">
+                <defs>
+                  <marker id="jam-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M0,0.5 L7,4 L0,7.5 Z" fill="var(--stroke-strong)"/>
+                  </marker>
+                  <marker id="jam-dev-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M0,0.5 L7,4 L0,7.5 Z" fill="var(--stroke-strong)"/>
+                  </marker>
+                </defs>
+
+                <!-- Initial horizontal path -->
+                <line class="jam-path" x1="60" y1="310" x2="627" y2="310"
+                      stroke="var(--stroke-strong)" stroke-width="2.5" stroke-dasharray="10,7"
+                      marker-end="url(#jam-arr)"/>
+
+                <!-- Original Destination target at right -->
+                <g class="jam-target">
+                  <g transform="translate(680,310) scale(2.25) translate(-16,-16)">
+                    <path d="M16 -6.99382e-07L16 7M16 32L16 25M32 16L25 16M-6.99382e-07 16L7 16M25 16C25 20.9706 20.9706 25 16 25M25 16C25 11.0294 20.9706 7 16 7M16 25C11.0294 25 7 20.9706 7 16M7 16C7 11.0294 11.0294 7 16 7M30 16C30 23.732 23.732 30 16 30C8.26801 30 2 23.732 2 16C2 8.26801 8.26801 2 16 2C23.732 2 30 8.26801 30 16ZM19 16C19 17.6569 17.6569 19 16 19C14.3431 19 13 17.6569 13 16C13 14.3431 14.3431 13 16 13C17.6569 13 19 14.3431 19 16Z" stroke="var(--icon-strong)" stroke-width="0.8" fill="none"/>
+                  </g>
+                  <text x="680" y="224" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--icon-strong)" class="ew-label-en"><tspan x="680">Original</tspan><tspan x="680" dy="20">Destination</tspan></text>
+                  <text x="680" y="224" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--icon-strong)" class="ew-label-uk"><tspan x="680">Первинна</tspan><tspan x="680" dy="20">ціль</tspan></text>
+                  <g opacity="0">
+                    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.74;0.75;0.99;1" dur="18s" repeatCount="indefinite"/>
+                    <text x="680" y="385" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--ew-safe)" class="ew-label-en">PROTECTED</text>
+                    <text x="680" y="385" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--ew-safe)" class="ew-label-uk">ЗАХИЩЕНО</text>
+                  </g>
+                </g>
+
+                <!-- Safe deviation path (appears at step 2→3) -->
+                <path class="jam-dev" d="M 408,310 Q 480,285 557,242"
+                      stroke="var(--stroke-strong)" stroke-width="2.5" stroke-dasharray="10,7"
+                      fill="none" marker-end="url(#jam-dev-arr)"/>
+
+                <!-- Lima EW device (bottom center) -->
+                <g class="jam-device" transform="translate(400,498)">
+                  <g transform="translate(0,-66) scale(4.5) translate(-15,-2.917)">
+                    <rect class="device-fill" x="0.5" y="17.9" width="29" height="11.6" rx="3.867" fill="none" stroke="none"/>
+                    <circle class="device-fill" cx="15" cy="2.917" r="2.417" fill="none" stroke="none"/>
+                    <circle class="device-fill" cx="26.6" cy="10.167" r="1.933" fill="none" stroke="none"/>
+                    <circle class="device-fill" cx="3.4" cy="10.167" r="1.933" fill="none" stroke="none"/>
+                    <path class="device-shape-outline" d="M15 17.9H4.36667C2.23117 17.9 0.5 19.6312 0.5 21.7667V25.6333C0.5 27.7688 2.23117 29.5 4.36667 29.5H25.6333C27.7688 29.5 29.5 27.7688 29.5 25.6333V21.7667C29.5 19.6312 27.7688 17.9 25.6333 17.9H15ZM15 5.33333C13.6653 5.33333 12.5833 4.25135 12.5833 2.91667C12.5833 1.58198 13.6653 0.5 15 0.5C16.3347 0.5 17.4167 1.58198 17.4167 2.91667C17.4167 4.25135 16.3347 5.33333 15 5.33333ZM24.6667 10.1667C24.6667 9.09892 25.5322 8.23333 26.6 8.23333C27.6677 8.23333 28.5333 9.09892 28.5333 10.1667C28.5333 11.2344 27.6677 12.1 26.6 12.1C25.5322 12.1 24.6667 11.2344 24.6667 10.1667ZM5.33333 10.1667C5.33333 9.09892 4.46775 8.23333 3.4 8.23333C2.33225 8.23333 1.46667 9.09892 1.46667 10.1667C1.46667 11.2344 2.33225 12.1 3.4 12.1C4.46775 12.1 5.33333 11.2344 5.33333 10.1667Z" stroke="#f4ff90" stroke-width="0.4" fill="none"/>
+                    <path class="device-connectors" d="M15 17.9V5.33333M24.6667 10.1667H20.8C19.7322 10.1667 18.8667 11.0322 18.8667 12.1V17.9M5.33333 10.1667H9.2C10.2678 10.1667 11.1333 11.0322 11.1333 12.1V17.9" stroke="#f4ff90" stroke-width="0.4" fill="none"/>
+                  </g>
+                  <circle class="jam-ant-tip" cx="0" cy="-66" r="5.5" fill="#f4ff90" opacity="0.85"/>
+                  <text x="0" y="34" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="20" font-weight="300" fill="#f4ff90" letter-spacing="2">LIMA EW</text>
+                </g>
+
+                <!-- Jamming signal rings from antenna tip at abs (400, 432) -->
+                <g class="jam-sigs">
+                  <circle cx="400" cy="432" r="0" fill="none" stroke="var(--ew-signal)" stroke-width="2">
+                    <animate attributeName="r" values="0;240" dur="3.75s" repeatCount="indefinite" begin="0s"/>
+                    <animate attributeName="opacity" values="0.45;0" dur="3.75s" repeatCount="indefinite" begin="0s"/>
+                  </circle>
+                  <circle cx="400" cy="432" r="0" fill="none" stroke="var(--ew-signal)" stroke-width="1.5">
+                    <animate attributeName="r" values="0;240" dur="3.75s" repeatCount="indefinite" begin="1.25s"/>
+                    <animate attributeName="opacity" values="0.4;0" dur="3.75s" repeatCount="indefinite" begin="1.25s"/>
+                  </circle>
+                  <circle cx="400" cy="432" r="0" fill="none" stroke="var(--ew-signal)" stroke-width="1">
+                    <animate attributeName="r" values="0;240" dur="3.75s" repeatCount="indefinite" begin="2.5s"/>
+                    <animate attributeName="opacity" values="0.35;0" dur="3.75s" repeatCount="indefinite" begin="2.5s"/>
+                  </circle>
+                </g>
+
+                <!-- Guided bomb: smooth bezier path via animateMotion, auto-rotates with path -->
+                <g class="jam-bomb-g">
+                  <animateMotion
+                    path="M -80,310 C 378,310 538,265 688,160"
+                    keyPoints="0;0;1;1;0" keyTimes="0;0.03;0.65;0.66;1" calcMode="linear"
+                    rotate="auto" dur="18s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity"
+                    values="0;1;1;0.1;1;0.1;1;0;0"
+                    keyTimes="0;0.03;0.50;0.53;0.56;0.59;0.62;0.65;1"
+                    calcMode="linear"
+                    dur="18s" repeatCount="indefinite"/>
+                  <g transform="rotate(225) scale(2.5) translate(-12,-12)">
+                      <path d="M17.0505 4.22476L19.7752 6.94952M17.0505 4.22476V1.5L12.9633 5.58714V8.31189M17.0505 4.22476L12.9633 8.31189M19.7752 6.94952H22.5L18.4129 11.0367H15.6881M19.7752 6.94952L15.6881 11.0367M12.9633 8.31189L11.2604 10.0149M9.5574 11.7178L8.87621 9.67427L6.15145 12.399L6.83264 14.4426M9.5574 11.7178L11.2604 10.0149M9.5574 11.7178L6.83264 14.4426M15.6881 11.0367L13.9851 12.7396M12.2822 14.4426L14.3257 15.1238L11.601 17.8485L9.5574 17.1674M12.2822 14.4426L13.9851 12.7396M12.2822 14.4426L9.5574 17.1674M7.51383 19.2109L4.78907 21.9357C4.03665 22.6881 2.81674 22.6881 2.06432 21.9357C1.31189 21.1833 1.31189 19.9633 2.06432 19.2109L4.78907 16.4862M7.51383 19.2109L9.5574 17.1674M7.51383 19.2109L4.78907 16.4862M4.78907 16.4862L6.83264 14.4426M13.9851 12.7396L11.2604 10.0149"
+                        stroke="currentColor" stroke-width="0.6" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+                  </g>
+                </g>
+
+                <!-- Step labels -->
+                <g class="jam-sl jam-sl-1" opacity="0">
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="rgba(255,255,255,0.75)" class="ew-label-en">Threat approaching target</text>
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="rgba(255,255,255,0.75)" class="ew-label-uk">Загроза наближається до цілі</text>
+                </g>
+                <g class="jam-sl jam-sl-2" opacity="0">
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#f4ff90" class="ew-label-en">Lima EW jamming activated</text>
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#f4ff90" class="ew-label-uk">Lima EW: активовано придушення</text>
+                </g>
+                <g class="jam-sl jam-sl-3" opacity="0">
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#f4ff90" class="ew-label-en">Jamming deviates target to a safer trajectory</text>
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#f4ff90" class="ew-label-uk">Придушення відхиляє ціль на безпечну траєкторію</text>
+                </g>
+                <g class="jam-sl jam-sl-4" opacity="0">
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#4ade80" class="ew-label-en">Threat neutralized</text>
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#4ade80" class="ew-label-uk">Загрозу нейтралізовано</text>
+                </g>
+
+              </svg>
+            </div>
+
+            <!-- Panel 1: Spoofing (existing) -->
+            <div class="anim-panel hidden" data-panel="1">
+              <svg id="ew-diagram" viewBox="0 0 800 640" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;" role="img" aria-label="Lima EW GPS spoofing diagram">
+            <defs>
+              <marker id="ew-ay" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,0.5 L7,4 L0,7.5 Z" fill="var(--stroke-strong)"/>
+              </marker>
+              <marker id="ew-ax" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,0.5 L7,4 L0,7.5 Z" fill="var(--stroke-strong)"/>
+              </marker>
+            </defs>
+
+
+
+            <!-- ═══ FALSE LOCATION ═══ -->
+            <g class="ew-false-loc">
+              <g transform="translate(120,165) scale(2.25) translate(-16,-16)">
+                <path d="M27.3137 4.68629L22.364 9.63604M4.68629 27.3137L9.63604 22.364M27.3137 27.3137L22.364 22.364M4.68629 4.68629L9.63604 9.63604M22.364 22.364C18.8492 25.8787 13.1508 25.8787 9.63604 22.364M22.364 22.364C25.8787 18.8492 25.8787 13.1508 22.364 9.63604M9.63604 22.364C6.12132 18.8492 6.12132 13.1508 9.63604 9.63604M9.63604 9.63604C13.1508 6.12132 18.8492 6.12132 22.364 9.63604M16 16L19.182 12.818M16 16L12.818 19.182M16 16L12.818 12.818M16 16L19.182 19.182M25.8995 25.8995C20.4322 31.3668 11.5678 31.3668 6.10051 25.8995C0.633165 20.4322 0.633164 11.5678 6.1005 6.1005C11.5678 0.633165 20.4322 0.633165 25.8995 6.1005C31.3668 11.5678 31.3668 20.4322 25.8995 25.8995Z" stroke="var(--icon-strong)" stroke-width="0.8" fill="none"/>
+              </g>
+              <text x="120" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--icon-strong)" class="ew-label-en">False Location</text>
+              <text x="120" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--icon-strong)" class="ew-label-uk">Хибне місце</text>
+            </g>
+
+            <!-- ═══ ORIGINAL DESTINATION Y ═══ -->
+            <g class="ew-orig-dest">
+              <g transform="translate(680,165) scale(2.25) translate(-16,-16)">
+                <path d="M16 -6.99382e-07L16 7M16 32L16 25M32 16L25 16M-6.99382e-07 16L7 16M25 16C25 20.9706 20.9706 25 16 25M25 16C25 11.0294 20.9706 7 16 7M16 25C11.0294 25 7 20.9706 7 16M7 16C7 11.0294 11.0294 7 16 7M30 16C30 23.732 23.732 30 16 30C8.26801 30 2 23.732 2 16C2 8.26801 8.26801 2 16 2C23.732 2 30 8.26801 30 16ZM19 16C19 17.6569 17.6569 19 16 19C14.3431 19 13 17.6569 13 16C13 14.3431 14.3431 13 16 13C17.6569 13 19 14.3431 19 16Z" stroke="var(--icon-strong)" stroke-width="0.8" fill="none"/>
+              </g>
+              <text x="680" y="85" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--icon-strong)" class="ew-label-en"><tspan x="680">Original</tspan><tspan x="680" dy="20">Destination</tspan></text>
+              <text x="680" y="85" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--icon-strong)" class="ew-label-uk"><tspan x="680">Первинна</tspan><tspan x="680" dy="20">ціль</tspan></text>
+              <text x="680" y="240" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--ew-safe)" class="ew-safe ew-label-en">PROTECTED</text>
+              <text x="680" y="240" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--ew-safe)" class="ew-safe ew-label-uk">ЗАХИЩЕНО</text>
+            </g>
+
+            <!-- ═══ GPS SATELLITE + LEGIT SIGNAL (step 1) ═══ -->
+            <g class="ew-sat" transform="translate(400,58)">
+              <!-- Material Symbols: satellite_alt (outlined), viewBox 0 -960 960 960, scaled to ~50px and centered -->
+              <g transform="rotate(45) scale(0.072) translate(-480, 480)" fill="currentColor" opacity="0.5">
+                <path d="M560-32v-80q117 0 198.5-81.5T840-392h80q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T560-32Zm0-160v-80q50 0 85-35t35-85h80q0 83-58.5 141.5T560-192ZM222-57q-15 0-30-6t-27-17L23-222q-11-12-17-27t-6-30q0-16 6-30.5T23-335l127-127q23-23 57-23.5t57 22.5l50 50 28-28-50-50q-23-23-23-56t23-56l57-57q23-23 56.5-23t56.5 23l50 50 28-28-50-50q-23-23-23-56.5t23-56.5l127-127q12-12 27-18t30-6q15 0 29.5 6t26.5 18l142 142q12 11 17.5 25.5T895-730q0 15-5.5 30T872-673L745-546q-23 23-56.5 23T632-546l-50-50-28 28 50 50q23 23 22.5 56.5T603-405l-56 56q-23 23-56.5 23T434-349l-50-50-28 28 50 50q23 23 22.5 57T405-207L278-80q-11 11-25.5 17T222-57Zm0-79 42-42-142-142-42 42 142 142Zm85-85 42-42-142-142-42 42 142 142Zm184-184 56-56-142-142-56 56 142 142Zm198-198 42-42-142-142-42 42 142 142Zm85-85 42-42-142-142-42 42 142 142Z"/>
+              </g>
+              <!-- Label -->
+              <text x="0" y="-30" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="16" font-weight="300" fill="currentColor" opacity="0.45" class="ew-label-en">GPS SATELLITE</text>
+              <text x="0" y="-30" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="16" font-weight="300" fill="currentColor" opacity="0.45" class="ew-label-uk">GPS СУПУТНИК</text>
+            </g>
+            <g>
+              <animateTransform attributeName="transform" type="rotate"
+                values="30,400,58; 29,400,58; 0,400,58; 0,400,58; 0,400,58; 0,400,58; 0,400,58; 0,400,58; 0,400,58; 0,400,58"
+                keyTimes="0;0.02;0.25;0.45;0.52;0.65;0.76;0.98;0.99;1"
+                calcMode="spline"
+                keySplines="0.42,0,0.58,1 0.42,0,0.58,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1"
+                dur="15s" repeatCount="indefinite"/>
+              <line class="ew-sat-line" x1="400" y1="100" x2="400" y2="460" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5,6" opacity="0.18">
+                <animate attributeName="y2"
+                  values="460;460;300;300;300;300;300;300;300;300"
+                  keyTimes="0;0.02;0.25;0.45;0.52;0.65;0.76;0.98;0.99;1"
+                  calcMode="spline"
+                  keySplines="0.42,0,0.58,1 0.42,0,0.58,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1"
+                  dur="15s" repeatCount="indefinite"/>
+              </line>
+            </g>
+
+            <!-- ═══ PATH: DRONE → Y (intended, step 1) ═══ -->
+            <line class="ew-path-y" x1="200" y1="400" x2="641" y2="185" stroke="var(--stroke-strong)" stroke-width="2.5" stroke-dasharray="10,7" marker-end="url(#ew-ay)"/>
+
+            <!-- ═══ PATH: DRONE → X (diverted, steps 3–4) ═══ -->
+            <path class="ew-path-x" d="M 400,300 Q 320,200 163,175" stroke="var(--stroke-strong)" stroke-width="2.5" stroke-dasharray="9,6" fill="none" marker-end="url(#ew-ax)"/>
+
+            <!-- ═══ ENEMY DRONE (center) ═══ -->
+            <!-- outer: opacity fade — inner groups: SMIL translate then SMIL rotate -->
+            <g class="ew-drone" transform="translate(400,284)">
+              <g>
+                <animateTransform attributeName="transform" type="translate"
+                  values="-200,117; -192,113; -4,21; -4,21; -4,21; -30,-25; -90,-58; -158,-86; -160,-86; -200,117"
+                  keyTimes="0;0.02;0.25;0.45;0.52;0.65;0.76;0.98;0.99;1"
+                  calcMode="spline"
+                  keySplines="0.42,0,0.58,1 0.42,0,0.58,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1"
+                  dur="15s" repeatCount="indefinite"/>
+                <animate attributeName="opacity"
+                  values="0;1;1;0;0"
+                  keyTimes="0;0.02;0.97;0.98;1"
+                  calcMode="linear"
+                  dur="15s" repeatCount="indefinite"/>
+                <g>
+                  <animateTransform attributeName="transform" type="rotate"
+                    values="-158;-158;-158;-218;-271;-285;-290;-295;-295;-158"
+                    keyTimes="0;0.02;0.25;0.45;0.52;0.65;0.76;0.98;0.99;1"
+                    calcMode="spline"
+                    keySplines="0.42,0,0.58,1 0.42,0,0.58,1 0.42,0,0.58,1 0.42,0,0.58,1 0.42,0,0.58,1 0.42,0,0.58,1 0.42,0,0.58,1 0.42,0,0.58,1 0,0,1,1"
+                    dur="15s" repeatCount="indefinite"/>
+                  <circle cx="0" cy="0" r="40" fill="rgba(255,255,255,0.025)" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4,5" opacity="0.08"/>
+                  <g transform="translate(-42,-42) scale(3.5)" stroke="currentColor" stroke-width="0.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6.72913 19.3497L20.0104 16.4624L22.5 13.9729L10.0271 1.5L7.53755 3.9896L4.65032 17.2709M6.72913 19.3497L17.303 8.77583L15.2242 6.69702L4.65032 17.2709M6.72913 19.3497L4.62427 21.4545C3.81679 22.262 2.6717 22.6344 1.54372 22.4563C1.36562 21.3283 1.73799 20.1832 2.54547 19.3757L4.65032 17.2709M6.72913 19.3497L4.65032 17.2709M16.2636 7.73643L18.1742 5.82581M18.1742 5.82581L16.4418 4.09347M18.1742 5.82581L19.9065 7.55815"/>
+                  </g>
+                </g>
+              </g>
+            </g>
+
+            <!-- ═══ SIGNAL: Lima EW → Drone (step 3) ═══ -->
+            <!-- Antenna tip is at absolute (400, 406) -->
+            <g class="ew-sigs">
+              <g class="ew-sig-vis">
+                <line class="ew-sig-line" x1="400" y1="406" x2="400" y2="336" stroke="#f4ff90" stroke-width="2.5" stroke-dasharray="6,10">
+                  <animate attributeName="x2"
+                    values="400;400;397;397;397;378;328;266;264;400"
+                    keyTimes="0;0.02;0.25;0.45;0.52;0.65;0.76;0.98;0.99;1"
+                    calcMode="spline"
+                    keySplines="0.42,0,0.58,1 0.42,0,0.58,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1"
+                    dur="15s" repeatCount="indefinite"/>
+                  <animate attributeName="y2"
+                    values="336;336;336;336;336;297;261;229;229;336"
+                    keyTimes="0;0.02;0.25;0.45;0.52;0.65;0.76;0.98;0.99;1"
+                    calcMode="spline"
+                    keySplines="0.42,0,0.58,1 0.42,0,0.58,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1 0,0,1,1"
+                    dur="15s" repeatCount="indefinite"/>
+                </line>
+              </g>
+              <circle cx="400" cy="406" r="0" fill="none" stroke="var(--ew-signal)" stroke-width="2.5">
+                <animate attributeName="r" values="0;215" dur="3s" repeatCount="indefinite" begin="0s"/>
+                <animate attributeName="opacity" values="0.5;0" dur="3s" repeatCount="indefinite" begin="0s"/>
+              </circle>
+              <circle cx="400" cy="406" r="0" fill="none" stroke="var(--ew-signal)" stroke-width="2">
+                <animate attributeName="r" values="0;215" dur="3s" repeatCount="indefinite" begin="1s"/>
+                <animate attributeName="opacity" values="0.5;0" dur="3s" repeatCount="indefinite" begin="1s"/>
+              </circle>
+              <circle cx="400" cy="406" r="0" fill="none" stroke="var(--ew-signal)" stroke-width="1.5">
+                <animate attributeName="r" values="0;215" dur="3s" repeatCount="indefinite" begin="2s"/>
+                <animate attributeName="opacity" values="0.5;0" dur="3s" repeatCount="indefinite" begin="2s"/>
+              </circle>
+            </g>
+
+            <!-- ═══ LIMA EW DEVICE (bottom center) ═══ -->
+            <g class="ew-device" transform="translate(400,472)">
+              <g transform="translate(0,-66) scale(4.5) translate(-15,-2.917)">
+                <rect class="device-fill" x="0.5" y="17.9" width="29" height="11.6" rx="3.867" fill="none" stroke="none"/>
+                <circle class="device-fill" cx="15" cy="2.917" r="2.417" fill="none" stroke="none"/>
+                <circle class="device-fill" cx="26.6" cy="10.167" r="1.933" fill="none" stroke="none"/>
+                <circle class="device-fill" cx="3.4" cy="10.167" r="1.933" fill="none" stroke="none"/>
+                <path class="device-shape-outline" d="M15 17.9H4.36667C2.23117 17.9 0.5 19.6312 0.5 21.7667V25.6333C0.5 27.7688 2.23117 29.5 4.36667 29.5H25.6333C27.7688 29.5 29.5 27.7688 29.5 25.6333V21.7667C29.5 19.6312 27.7688 17.9 25.6333 17.9H15ZM15 5.33333C13.6653 5.33333 12.5833 4.25135 12.5833 2.91667C12.5833 1.58198 13.6653 0.5 15 0.5C16.3347 0.5 17.4167 1.58198 17.4167 2.91667C17.4167 4.25135 16.3347 5.33333 15 5.33333ZM24.6667 10.1667C24.6667 9.09892 25.5322 8.23333 26.6 8.23333C27.6677 8.23333 28.5333 9.09892 28.5333 10.1667C28.5333 11.2344 27.6677 12.1 26.6 12.1C25.5322 12.1 24.6667 11.2344 24.6667 10.1667ZM5.33333 10.1667C5.33333 9.09892 4.46775 8.23333 3.4 8.23333C2.33225 8.23333 1.46667 9.09892 1.46667 10.1667C1.46667 11.2344 2.33225 12.1 3.4 12.1C4.46775 12.1 5.33333 11.2344 5.33333 10.1667Z" stroke="#f4ff90" stroke-width="0.4" fill="none"/>
+                <path class="device-connectors" d="M15 17.9V5.33333M24.6667 10.1667H20.8C19.7322 10.1667 18.8667 11.0322 18.8667 12.1V17.9M5.33333 10.1667H9.2C10.2678 10.1667 11.1333 11.0322 11.1333 12.1V17.9" stroke="#f4ff90" stroke-width="0.4" fill="none"/>
+              </g>
+              <circle class="ew-ant-tip" cx="0" cy="-66" r="5.5" fill="#f4ff90" opacity="0.85"/>
+              <text x="0" y="34" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="20" font-weight="300" fill="#f4ff90" letter-spacing="2">LIMA EW</text>
+            </g>
+
+            <!-- ═══ STEP LABELS ═══ -->
+            <g class="ew-sl ew-sl-1" opacity="0">
+              <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="rgba(255,255,255,0.75)" class="ew-label-en">Threat approaching target</text>
+              <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="rgba(255,255,255,0.75)" class="ew-label-uk">Загроза наближається до цілі</text>
+            </g>
+            <g class="ew-sl ew-sl-2" opacity="0">
+              <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#f4ff90" class="ew-label-en">False GPS signals transmitted</text>
+              <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#f4ff90" class="ew-label-uk">Хибні GPS-сигнали транслюються</text>
+            </g>
+            <g class="ew-sl ew-sl-3" opacity="0">
+              <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#ff4d5b" class="ew-label-en">Navigation compromised</text>
+              <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#ff4d5b" class="ew-label-uk">Навігацію скомпрометовано</text>
+            </g>
+            <g class="ew-sl ew-sl-4" opacity="0">
+              <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#4ade80" class="ew-label-en">Threat neutralized</text>
+              <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#4ade80" class="ew-label-uk">Загрозу нейтралізовано</text>
+            </g>
+
+              </svg>
+            </div>
+
+            <!-- Panel 2: Cyber-breach -->
+            <div class="anim-panel hidden" data-panel="2">
+              <svg id="cb-diagram" viewBox="0 0 800 640" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;" role="img" aria-label="Lima EW cyber-breach diagram">
+                <defs>
+                  <marker id="cb-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M0,0.5 L7,4 L0,7.5 Z" fill="var(--stroke-strong)"/>
+                  </marker>
+                </defs>
+
+                <!-- Full ballistic trajectory arc (dashed, ends just above target icon) -->
+                <path class="cb-traj" d="M 60,500 Q 293,-373 526,429"
+                      stroke="var(--stroke-strong)" stroke-width="2.5" stroke-dasharray="10,7"
+                      fill="none" marker-end="url(#cb-arr)"/>
+
+                <!-- Original Destination target at trajectory end -->
+                <g class="cb-target">
+                  <g transform="translate(540,480) scale(2.25) translate(-16,-16)">
+                    <path d="M16 -6.99382e-07L16 7M16 32L16 25M32 16L25 16M-6.99382e-07 16L7 16M25 16C25 20.9706 20.9706 25 16 25M25 16C25 11.0294 20.9706 7 16 7M16 25C11.0294 25 7 20.9706 7 16M7 16C7 11.0294 11.0294 7 16 7M30 16C30 23.732 23.732 30 16 30C8.26801 30 2 23.732 2 16C2 8.26801 8.26801 2 16 2C23.732 2 30 8.26801 30 16ZM19 16C19 17.6569 17.6569 19 16 19C14.3431 19 13 17.6569 13 16C13 14.3431 14.3431 13 16 13C17.6569 13 19 14.3431 19 16Z" stroke="var(--icon-strong)" stroke-width="0.8" fill="none"/>
+                  </g>
+                  <text x="410" y="472" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--icon-strong)" class="ew-label-en"><tspan x="410">Original</tspan><tspan x="410" dy="20">Destination</tspan></text>
+                  <text x="410" y="472" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--icon-strong)" class="ew-label-uk"><tspan x="410">Первинна</tspan><tspan x="410" dy="20">ціль</tspan></text>
+                  <g opacity="0">
+                    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.74;0.75;0.99;1" dur="15s" repeatCount="indefinite"/>
+                    <text x="540" y="555" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--ew-safe)" class="ew-label-en">PROTECTED</text>
+                    <text x="540" y="555" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="18" font-weight="300" fill="var(--ew-safe)" class="ew-label-uk">ЗАХИЩЕНО</text>
+                  </g>
+                </g>
+
+                <!-- Falling trajectory (dashed vertical) -->
+                <line class="cb-fall-line" x1="420" y1="151" x2="420" y2="520"
+                      stroke="var(--stroke-strong)" stroke-width="2.5" stroke-dasharray="10,7"
+                      opacity="0"/>
+
+                <!-- Lima EW device (bottom right) -->
+                <g class="cb-device" transform="translate(680,498)">
+                  <g transform="translate(0,-66) scale(4.5) translate(-15,-2.917)">
+                    <rect class="device-fill" x="0.5" y="17.9" width="29" height="11.6" rx="3.867" fill="none" stroke="none"/>
+                    <circle class="device-fill" cx="15" cy="2.917" r="2.417" fill="none" stroke="none"/>
+                    <circle class="device-fill" cx="26.6" cy="10.167" r="1.933" fill="none" stroke="none"/>
+                    <circle class="device-fill" cx="3.4" cy="10.167" r="1.933" fill="none" stroke="none"/>
+                    <path class="device-shape-outline" d="M15 17.9H4.36667C2.23117 17.9 0.5 19.6312 0.5 21.7667V25.6333C0.5 27.7688 2.23117 29.5 4.36667 29.5H25.6333C27.7688 29.5 29.5 27.7688 29.5 25.6333V21.7667C29.5 19.6312 27.7688 17.9 25.6333 17.9H15ZM15 5.33333C13.6653 5.33333 12.5833 4.25135 12.5833 2.91667C12.5833 1.58198 13.6653 0.5 15 0.5C16.3347 0.5 17.4167 1.58198 17.4167 2.91667C17.4167 4.25135 16.3347 5.33333 15 5.33333ZM24.6667 10.1667C24.6667 9.09892 25.5322 8.23333 26.6 8.23333C27.6677 8.23333 28.5333 9.09892 28.5333 10.1667C28.5333 11.2344 27.6677 12.1 26.6 12.1C25.5322 12.1 24.6667 11.2344 24.6667 10.1667ZM5.33333 10.1667C5.33333 9.09892 4.46775 8.23333 3.4 8.23333C2.33225 8.23333 1.46667 9.09892 1.46667 10.1667C1.46667 11.2344 2.33225 12.1 3.4 12.1C4.46775 12.1 5.33333 11.2344 5.33333 10.1667Z" stroke="#f4ff90" stroke-width="0.4" fill="none"/>
+                    <path class="device-connectors" d="M15 17.9V5.33333M24.6667 10.1667H20.8C19.7322 10.1667 18.8667 11.0322 18.8667 12.1V17.9M5.33333 10.1667H9.2C10.2678 10.1667 11.1333 11.0322 11.1333 12.1V17.9" stroke="#f4ff90" stroke-width="0.4" fill="none"/>
+                  </g>
+                  <circle class="cb-ant-tip" cx="0" cy="-66" r="5.5" fill="#f4ff90" opacity="0.85"/>
+                  <text x="0" y="34" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="20" font-weight="300" fill="#f4ff90" letter-spacing="2">LIMA EW</text>
+                </g>
+
+                <!-- Signal rings from antenna tip (680, 432) toward apex (~300, 50) -->
+                <g class="cb-sigs">
+                  <circle cx="680" cy="432" r="0" fill="none" stroke="var(--ew-signal)" stroke-width="2">
+                    <animate attributeName="r" values="0;420" dur="4s" repeatCount="indefinite" begin="0s"/>
+                    <animate attributeName="opacity" values="0.45;0" dur="4s" repeatCount="indefinite" begin="0s"/>
+                  </circle>
+                  <circle cx="680" cy="432" r="0" fill="none" stroke="var(--ew-signal)" stroke-width="1.5">
+                    <animate attributeName="r" values="0;420" dur="4s" repeatCount="indefinite" begin="1.33s"/>
+                    <animate attributeName="opacity" values="0.4;0" dur="4s" repeatCount="indefinite" begin="1.33s"/>
+                  </circle>
+                  <circle cx="680" cy="432" r="0" fill="none" stroke="var(--ew-signal)" stroke-width="1">
+                    <animate attributeName="r" values="0;420" dur="4s" repeatCount="indefinite" begin="2.66s"/>
+                    <animate attributeName="opacity" values="0.35;0" dur="4s" repeatCount="indefinite" begin="2.66s"/>
+                  </circle>
+                </g>
+
+                <!-- Kinzhal missile -->
+                <g class="cb-missile-g">
+                  <!-- Position: arc follows 70% of visible trajectory → short continuation → fall → gone -->
+                  <animateMotion
+                    path="M 60,500 Q 228,-130 396,112 L 420,151 L 420,520"
+                    keyPoints="0;0;0.63;0.67;1;1"
+                    keyTimes="0;0.03;0.49;0.56;0.74;1"
+                    calcMode="linear" dur="15s" repeatCount="indefinite"/>
+                  <!-- Opacity: visible steps 1-3, fade during fall, gone by step 4 -->
+                  <animate attributeName="opacity"
+                    values="0;1;1;1;0.5;0;0"
+                    keyTimes="0;0.03;0.56;0.61;0.68;0.74;1"
+                    calcMode="linear" dur="15s" repeatCount="indefinite"/>
+                  <g>
+                    <!-- Rotation: arc-length-corrected tangent samples, tilts past apex before levelling -->
+                    <animateTransform attributeName="transform" type="rotate"
+                      values="-75;-75;-73;-70;-66;-59;-49;-33;-7;22;43;55;65;75;0;0;-75"
+                      keyTimes="0;0.03;0.12;0.19;0.25;0.30;0.34;0.38;0.40;0.43;0.45;0.49;0.52;0.54;0.58;0.74;1"
+                      calcMode="linear" dur="15s" repeatCount="indefinite"/>
+                    <g transform="rotate(225) scale(2.5) translate(-16,-16)">
+                      <path d="M24.8453 11.431L26.0732 12.6592L24.3277 14.4049L21.5631 14.7134M24.8453 11.431L21.5631 14.7134M24.8453 11.431L26.9972 7.84532L24.1519 5L20.5674 7.15293M24.8453 11.431L20.5674 7.15293M16.4584 19.8196L19.6821 16.5952L21.5631 14.7134M16.4584 19.8196L8.57856 25.5604L5 27L6.43961 23.4214L12.1805 15.5415M16.4584 19.8196L12.1805 15.5415M12.1805 15.5415L15.4042 12.3171L17.2852 10.4353M20.5674 7.15293L19.3417 5.92701L17.5961 7.67272L17.2852 10.4353M20.5674 7.15293L17.2852 10.4353"
+                        stroke="currentColor" stroke-width="0.6" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+                    </g>
+                  </g>
+                </g>
+
+                <!-- Step labels (SMIL-synced with missile) -->
+                <g class="cb-sl" opacity="0">
+                  <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.24;0.25;1" calcMode="linear" dur="15s" repeatCount="indefinite"/>
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="rgba(255,255,255,0.75)" class="ew-label-en">Missile on ballistic trajectory</text>
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="rgba(255,255,255,0.75)" class="ew-label-uk">Ракета на балістичній траєкторії</text>
+                </g>
+                <g class="cb-sl" opacity="0">
+                  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.25;0.49;0.50;1" calcMode="linear" dur="15s" repeatCount="indefinite"/>
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#f4ff90" class="ew-label-en">Lima EW signal interception</text>
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#f4ff90" class="ew-label-uk">Lima EW: перехоплення сигналу</text>
+                </g>
+                <g class="cb-sl" opacity="0">
+                  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.49;0.50;0.74;0.75;1" calcMode="linear" dur="15s" repeatCount="indefinite"/>
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#f4ff90" class="ew-label-en">Cyber-breach activated</text>
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#f4ff90" class="ew-label-uk">Кіберперехоплення активовано</text>
+                </g>
+                <g class="cb-sl" opacity="0">
+                  <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.74;0.75;0.99;1" calcMode="linear" dur="15s" repeatCount="indefinite"/>
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#4ade80" class="ew-label-en">Missile neutralized</text>
+                  <text x="400" y="580" text-anchor="middle" dominant-baseline="central" font-family="'Geist Mono',monospace" font-size="24" font-weight="300" fill="#4ade80" class="ew-label-uk">Ракету нейтралізовано</text>
+                </g>
+
+              </svg>
+            </div>
+    </div>
+</div>
+
+<style>
+    .cs-ew-diagrams {
+        --background: #0c0d13;
+        --stroke-strong: #3b4b65;
+        --icon-weak: #5b6b84;
+        --icon-strong: #91a1bc;
+        --text-strong: #ffffff;
+        --accent-primary: #f4ff90;
+        --ew-signal: #f4ff90;
+        --ew-safe: #4ade80;
+    }
+    :global(.ew-label-uk) {
+        display: none;
+    }
+    .cs-ew-panels {
+        width: 75%;
+        margin-inline: auto;
+    }
+:global(.anim-tabs) {
+  background: transparent;
+  border: 2px solid var(--accent-primary);
+  border-radius: 1.5rem;
+}
+
+:global([data-theme="light"] .anim-tabs) {
+  border-color: var(--text-strong);
+}
+
+:global(.anim-tab) {
+  color: var(--accent-primary);
+  border-radius: 9999px !important;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+:global([data-theme="light"] .anim-tab) {
+  color: var(--text-strong);
+}
+
+:global(.anim-tab.tab-active) {
+  background: var(--accent-primary) !important;
+  color: var(--background) !important;
+}
+
+:global([data-theme="light"] .anim-tab.tab-active) {
+  background: var(--text-strong) !important;
+  color: var(--background) !important;
+}
+
+:global(.anim-panel) {
+  transition: opacity 0.25s ease;
+}
+
+:global(.jam-path) { animation: ew-march 1.4s linear infinite; }
+
+@keyframes jam-k-dev { 0%,49%{opacity:0} 50%,98%{opacity:0.9} 99%,100%{opacity:0} }
+
+:global(.jam-dev) { animation: jam-k-dev 18s linear infinite, ew-march 1.2s linear infinite; }
+
+:global(.jam-ant-tip) {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ew-k-ant 1.2s ease-in-out infinite;
+}
+
+:global(.jam-target) { opacity: 1; }
+
+@keyframes jam-sl1 { 0%{opacity:1} 24%{opacity:1} 25%{opacity:0} 100%{opacity:0} }
+
+@keyframes jam-sl2 { 0%,24%{opacity:0} 25%{opacity:1} 42%{opacity:1} 43%{opacity:0} 100%{opacity:0} }
+
+@keyframes jam-sl3 { 0%,43%{opacity:0} 44%{opacity:1} 74%{opacity:1} 75%{opacity:0} 100%{opacity:0} }
+
+@keyframes jam-sl4 { 0%,74%{opacity:0} 75%{opacity:1} 99%{opacity:1} 100%{opacity:0} }
+
+:global(.jam-sl-1) { animation: jam-sl1 18s linear infinite; }
+
+:global(.jam-sl-2) { animation: jam-sl2 18s linear infinite; }
+
+:global(.jam-sl-3) { animation: jam-sl3 18s linear infinite; }
+
+:global(.jam-sl-4) { animation: jam-sl4 18s linear infinite; }
+
+:global(.cb-traj) { animation: ew-march 1.4s linear infinite; }
+
+:global(.cb-ant-tip) {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ew-k-ant 1.2s ease-in-out infinite;
+}
+
+@keyframes cb-k-fall { 0%,39%{opacity:0} 40%,60%{opacity:0.6} 68%,100%{opacity:0} }
+
+:global(.cb-fall-line) { animation: cb-k-fall 15s linear infinite; }
+
+:global(.cb-target) { opacity: 1; }
+
+:global(.ew-sat),
+
+:global(.ew-sat-line) {
+  color: var(--icon-weak);
+}
+
+:global([data-theme="light"] .ew-sat),
+
+:global([data-theme="light"] .ew-sat-line) {
+  color: var(--icon-strong);
+}
+
+:global([data-theme="light"] .device-connectors) {
+  stroke: var(--text-strong);
+  fill: none;
+}
+
+:global([data-theme="light"] .device-shape-outline) {
+  stroke: var(--text-strong);
+  fill: none;
+}
+
+:global([data-theme="light"] .device-fill) {
+  fill: var(--accent-primary);
+  stroke: none;
+}
+
+:global([data-theme="light"] .ew-device circle:not(.device-fill)),
+
+:global([data-theme="light"] .jam-device circle:not(.device-fill)),
+
+:global([data-theme="light"] .cb-device circle:not(.device-fill)) {
+  stroke: none;
+  fill: var(--accent-primary);
+}
+
+:global([data-theme="light"] .ew-device text),
+
+:global([data-theme="light"] .jam-device text),
+
+:global([data-theme="light"] .cb-device text) {
+  fill: var(--text-strong);
+}
+
+:global([data-theme="light"] .ew-sig-line) {
+  stroke: var(--text-strong);
+}
+
+:global([data-theme="light"] .ew-sl text),
+
+:global([data-theme="light"] .jam-sl text),
+
+:global([data-theme="light"] .cb-sl text) {
+  fill: var(--text-strong);
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50%       { transform: translateY(6px); opacity: 0.3; }
+}
+
+@keyframes ew-march    { to { stroke-dashoffset: -17; } }
+
+@keyframes ew-march-up { to { stroke-dashoffset: -16; } }
+
+@keyframes ew-k-false { 0%,49%{opacity:.22} 52%,98%{opacity:1} 100%{opacity:.22} }
+
+.ew-false-loc { animation: ew-k-false 15s linear infinite; }
+
+.ew-orig-dest { opacity: 1; }
+
+@keyframes ew-k-safe { 0%,74%{opacity:0} 77%,97%{opacity:1} 98%{opacity:0} }
+
+.ew-safe { animation: ew-k-safe 15s linear infinite; }
+
+@keyframes ew-k-sat { 0%,23%{opacity:.75} 26%,100%{opacity:.1} }
+
+.ew-sat { animation: ew-k-sat 15s linear infinite; }
+
+@keyframes ew-k-sat-line { 0%,23%{opacity:.18} 26%,100%{opacity:0} }
+
+.ew-sat-line { animation: ew-k-sat-line 15s linear infinite; }
+
+@keyframes ew-k-py { 0%,23%{opacity:.85} 26%,100%{opacity:0} }
+
+.ew-path-y { animation: ew-k-py 15s linear infinite, ew-march 1.4s linear infinite; }
+
+.ew-py-lbl { animation: ew-k-py 15s linear infinite; }
+
+@keyframes ew-k-px { 0%,52%{opacity:0} 53%,97%{opacity:1} 98%{opacity:0} }
+
+.ew-path-x { animation: ew-k-px 15s linear infinite, ew-march 1.2s linear infinite; }
+
+.ew-px-lbl { animation: ew-k-px 15s linear infinite; }
+
+@keyframes ew-k-pulse { 0%,100%{opacity:.9} 50%{opacity:.15} }
+
+.ew-status-pulse { animation: ew-k-pulse 1.2s ease-in-out infinite; }
+
+.ew-ant-tip {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ew-k-ant 1.2s ease-in-out infinite;
+}
+
+@keyframes ew-k-ant { 0%,100%{transform:scale(1);opacity:.85} 50%{transform:scale(1.6);opacity:1} }
+
+@keyframes ew-k-sig { 0%,25%{opacity:0} 26%,97%{opacity:1} 98%,100%{opacity:0} }
+
+.ew-sig-vis { animation: ew-k-sig 15s linear infinite; }
+
+.ew-sig-line { animation: ew-march-up .7s linear infinite; }
+
+@keyframes ew-sl1 { 0%,1%{opacity:1} 23%{opacity:1} 25%{opacity:0} 100%{opacity:0} }
+
+@keyframes ew-sl2 { 0%,25%{opacity:0} 26%{opacity:1} 51%{opacity:1} 52%{opacity:0} 100%{opacity:0} }
+
+@keyframes ew-sl3 { 0%,52%{opacity:0} 53%{opacity:1} 74%{opacity:1} 75%{opacity:0} 100%{opacity:0} }
+
+@keyframes ew-sl4 { 0%,75%{opacity:0} 76%{opacity:1} 97%{opacity:1} 98%{opacity:0} }
+
+.ew-sl-1 { animation: ew-sl1 15s linear infinite; }
+
+.ew-sl-2 { animation: ew-sl2 15s linear infinite; }
+
+.ew-sl-3 { animation: ew-sl3 15s linear infinite; }
+
+.ew-sl-4 { animation: ew-sl4 15s linear infinite; }
+
+    @media (prefers-reduced-motion: reduce) {
+        .cs-ew-diagrams :global(*) {
+            animation: none !important;
+        }
+    }
+</style>
+
+<script is:inline>
+    ;(function () {
+        var animIdx = 0;
+function switchAnim(idx) {
+  if (idx === animIdx) {
+    /* Clicking the active tab: just reset the animation */
+    resetPanelAnimations(document.querySelectorAll('.anim-panel')[idx]);
+    return;
+  }
+  const panels = document.querySelectorAll('.anim-panel');
+  const tabs = document.querySelectorAll('.anim-tab');
+  const prev = animIdx;
+  animIdx = idx;
+  tabs.forEach((t, i) => {
+    t.classList.toggle('tab-active', i === animIdx);
+    t.setAttribute('aria-selected', i === animIdx ? 'true' : 'false');
+  });
+  panels[prev].style.opacity = '0';
+  setTimeout(() => {
+    panels[prev].classList.add('hidden');
+    panels[prev].style.opacity = '';
+    const next = panels[animIdx];
+    next.classList.remove('hidden');
+    resetPanelAnimations(next);
+    next.style.opacity = '0';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      next.style.opacity = '';
+    }));
+  }, 250);
+}
+
+function resetPanelAnimations(panel) {
+  /* Rock-solid reset: clone and replace the SVG so every CSS + SMIL animation
+     starts fresh at the exact same moment the new node is inserted. */
+  const svg = panel.querySelector('svg');
+  if (!svg) return;
+  const clone = svg.cloneNode(true);
+  svg.parentNode.replaceChild(clone, svg);
+}
+        window.switchAnim = switchAnim;
+        if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('.cs-ew-diagrams svg').forEach(function (s) {
+                if (s.pauseAnimations) s.pauseAnimations();
+            });
+        }
+    })();
+</script>

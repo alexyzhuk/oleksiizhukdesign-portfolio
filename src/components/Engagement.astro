@@ -1,0 +1,108 @@
+---
+const steps = [
+    {
+        number: "01",
+        accent: "text-blue-light",
+        title: "Discovery",
+        description:
+            "A short call to understand your goals, audience, scope, and constraints — and whether we're a good fit to work together.",
+    },
+    {
+        number: "02",
+        accent: "text-yellow-light",
+        title: "Proposal",
+        description:
+            "A clear plan: scope, deliverables, timeline, and a fixed quote or monthly retainer. No surprises, no hourly guessing.",
+    },
+    {
+        number: "03",
+        accent: "text-green-light",
+        title: "Design",
+        description:
+            "Research, wireframes, and UI — reviewed together at each milestone until the direction is signed off.",
+    },
+    {
+        number: "04",
+        accent: "text-red-light",
+        title: "Build",
+        description:
+            "Production code and CMS setup with reusable components, motion, and accessibility — reviewed on a staging URL.",
+    },
+    {
+        number: "05",
+        accent: "text-blue-light",
+        title: "Launch",
+        description:
+            "Cross-device QA, performance and SEO tuning, then deploy to production with a smooth, monitored handoff.",
+    },
+    {
+        number: "06",
+        accent: "text-yellow-light",
+        title: "Support",
+        description:
+            "Ongoing iteration and maintenance on a retainer, or a clean handoff with documentation — your call.",
+    },
+];
+---
+
+<section
+    id="process"
+    class="w-full flex flex-col items-center justify-center z-10"
+>
+    <!-- Section Header -->
+    <div
+        class="w-full max-w-7xl flex flex-col pt-12 sm:pt-24 pb-6 gap-8 px-4 sm:px-6 border-x border-stroke-weak-dark"
+    >
+        <h2 class="text-4xl sm:text-5xl font-medium">
+            How we'll work together
+        </h2>
+    </div>
+
+    <!-- Grid Container (mirrors Method's 2-column row grid) -->
+    <div class="flex w-full flex-col border-y border-stroke-weak-dark">
+        {
+            [0, 2, 4].map((rowStart) => (
+                <>
+                    {/* Row Container */}
+                    <div class="w-full flex flex-col items-center justify-center">
+                        <div class="w-full max-w-7xl border-x border-stroke-weak-dark">
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                {steps
+                                    .slice(rowStart, rowStart + 2)
+                                    .map((step, colIndex) => (
+                                        <div
+                                            class:list={[
+                                                "method-card group relative overflow-hidden border-stroke-weak-dark p-8 sm:p-12 min-h-fit",
+                                                colIndex === 0 && "md:border-r",
+                                                colIndex === 1 &&
+                                                    "border-t md:border-t-0",
+                                            ]}
+                                        >
+                                            <div class="flex flex-col gap-4">
+                                                <span
+                                                    class={`mono text-sm ${step.accent}`}
+                                                >
+                                                    {step.number}
+                                                </span>
+                                                <h3 class="text-3xl sm:text-4xl text-text-primary">
+                                                    {step.title}
+                                                </h3>
+                                                <p class="text-base sm:text-lg text-text-secondary leading-7 sm:leading-9 sm:text-balance">
+                                                    {step.description}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Full-width separator between rows */}
+                    {rowStart < 4 && (
+                        <div class="w-full border-t border-stroke-weak-dark" />
+                    )}
+                </>
+            ))
+        }
+    </div>
+</section>

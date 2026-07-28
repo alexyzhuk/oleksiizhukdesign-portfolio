@@ -5,19 +5,11 @@ import Story from "../components/Story.astro";
 import RandomFacts from "../components/RandomFacts.astro";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Oleksii Zhuk · Product Designer | About</title>
-    </head>
-    <body>
-        <BaseLayout title="Oleksii Zhuk · Product Designer | About">
-            <HeroAlt />
-            <Story />
-            <RandomFacts />
-        </BaseLayout>
-    </body>
-</html>
+<BaseLayout
+    title="Oleksii Zhuk · Product Designer & Developer | About"
+    description="About Oleksii Zhuk — a Product Designer and Front-End Developer with 10+ years of experience across product, brand, and web."
+>
+    <HeroAlt />
+    <Story />
+    <RandomFacts />
+</BaseLayout>

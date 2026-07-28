@@ -1,4 +1,6 @@
 ---
+import { INQUIRY_URL } from "../consts";
+
 const tools = [
     {
         name: "Figma",
@@ -78,7 +80,6 @@ const tools = [
 ];
 
 const duplicatedTools = [...tools, ...tools, ...tools];
-const calendlyLink = "https://calendly.com/alexy-zhuk/30min";
 ---
 
 <section
@@ -87,30 +88,58 @@ const calendlyLink = "https://calendly.com/alexy-zhuk/30min";
     <div
         class="max-w-7xl w-full h-full flex flex-col gap-8 sm:gap-12 px-4 sm:px-6 p-12 mt-18 border border-t-0 border-stroke-weak-dark justify-center grow"
     >
+        <div
+            class="flex items-center gap-2 w-fit px-3 py-1.5 rounded-full border border-stroke-weak-dark bg-bg-plaque"
+        >
+            <span class="relative flex h-2 w-2">
+                <span
+                    class="absolute inline-flex h-full w-full rounded-full bg-green-light opacity-75 animate-ping"
+                ></span>
+                <span
+                    class="relative inline-flex h-2 w-2 rounded-full bg-green-light"
+                ></span>
+            </span>
+            <span class="mono text-sm text-text-secondary"
+                >Available for projects</span
+            >
+        </div>
+
         <p class="mono text-stroke-weak sm:text-2xl font-light text-balance">
-            Hi! I'm Oleksii Zhuk, <br />a Product Designer & Developer.
+            Hi! I'm Oleksii Zhuk, <br />a Product Designer & Front-End
+            Developer.
         </p>
 
         <h1
-            class="text-4xl xs:text-5xl sm:text-6xl leading-tight w-full sm:max-w-[25ch] text-balance md:text-wrap"
+            class="text-4xl xs:text-5xl sm:text-6xl leading-tight w-full sm:max-w-[25ch] text-balance"
         >
-            I <span class="italic text-blue-light">dive deep</span> into the root
-            of a problem and create solutions
-            <span class="italic text-yellow-light">not just for users</span>,
-            but <span class="italic text-green-light">with them</span>.
+            One person, from the first <span class="italic text-yellow-light"
+                >sketch</span
+            > to the last <span class="italic text-green-light">commit</span>.
         </h1>
 
-        <div class="flex gap-2 items-center my-1 sm:my-2">
+        <p
+            class="sm:text-lg text-text-secondary text-balance max-w-[52ch] leading-relaxed"
+        >
+            I offer <span class="text-text-primary">UX/UI design</span> and <span
+                class="text-text-primary">web development</span
+            > as parallel services — from research and interface design through to
+            fast, accessible, production-ready code.
+        </p>
+
+        <div class="flex flex-wrap gap-2 items-center my-1 sm:my-2">
             <a
-                href={calendlyLink}
+                href={INQUIRY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="light-btn"
+                class="flex text-lg leading-7 h-14 text-center justify-center items-center font-medium tracking-tight bg-bg-light text-text-primary-inverse px-5 py-3 w-fit rounded-2xl transition-all duration-300 hover:shadow-[0_0_32px_0_rgba(249,250,251,0.6)]"
             >
-                Book a Meeting
+                Start a project
             </a>
+            <a href="/#selected-work" class="light-btn"> See work </a>
             <a
                 href="https://www.linkedin.com/in/oleksii-zhuk/"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="flex
             h-14 w-14 justify-center items-center p-4 rounded-2xl hover:bg-bg-light/10 transition-background duration-300"
             >

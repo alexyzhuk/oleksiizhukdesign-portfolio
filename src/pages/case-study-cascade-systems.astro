@@ -1,0 +1,379 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CaseStudyLayout from "../components/casestudy/CaseStudyLayout.astro";
+import Table from "../components/casestudy/Table.astro";
+import ImageBlock from "../components/casestudy/ImageBlock.astro";
+import CascadeEWDiagrams from "../components/casestudy/CascadeEWDiagrams.astro";
+import Carousel from "../components/casestudy/Carousel.astro";
+
+// Draft copy — refine as needed. The 3 Eurosatory 2026 photos and any other
+// visuals can be dropped into public/ and wired into the <ImageBlock>/<Gallery> slots.
+---
+
+<BaseLayout
+    title="Cascade Systems — Systems, Made Visible"
+    description="Web design, development, and branding for Cascade Systems, a Ukrainian defence-tech company."
+>
+    <CaseStudyLayout
+        company="Cascade Systems"
+        companyColor="bg-[#101419]"
+        title="Systems, Made Visible"
+        subtitle="In 2026, Cascade Systems needed a presence worthy of its technology — a Ukrainian defence-tech company turning frontline experience and engineering into electronic-warfare systems like its flagship, Lima. I delivered the full package: website, brand, custom iconography and visualizations, a guidelines book, and the assets for its debut at Eurosatory 2026."
+        coverImage="/cs-cover.avif"
+        about="Cascade Systems is a Ukrainian defence-technology company building asymmetric, intelligent electronic-warfare systems — merging frontline combat experience with local engineering to neutralize advanced aerial threats. Its flagship strategic EW system is Lima."
+        industry="Defence Tech, Electronic Warfare"
+        duration="2026"
+        website="https://cascadesystems.com/"
+        prevCase={{ name: "Calibrated", url: "/case-study-calibrated" }}
+        sections={[
+            { id: "overview", title: "Overview" },
+            { id: "challenge", title: "The Challenge" },
+            { id: "design", title: "Design & Brand" },
+            { id: "development", title: "Development" },
+            { id: "finished-product", title: "Finished Product" },
+        ]}
+    >
+        <div class="flex flex-col">
+            <!-- OVERVIEW SECTION -->
+            <section id="overview" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">Overview</h2>
+                    <div class="cs-text">
+                        <p>
+                            In 2026, Cascade Systems came to me to build their
+                            presence from the ground up. It was a full-stack
+                            engagement — design, front-end development, and
+                            branding — spanning the website, a complete visual
+                            identity, custom iconography and visualizations, and
+                            the physical assets the team would need for its
+                            debut at Eurosatory 2026.
+                        </p>
+                        <p>
+                            The work was a collaboration with <a
+                                href="/case-study-calibrated"
+                                class="text-text-primary underline underline-offset-4 decoration-1 hover:decoration-text-primary transition"
+                                >Calibrated</a
+                            >, the strategic communications agency whose own
+                            brand I built earlier — pairing their defence-sector
+                            expertise with my design and development.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="cs-subsection w-full">
+                    <h3 class="cs-h3">Roles & Responsibilities</h3>
+                    <div class="cs-text">
+                        <p>
+                            One person across the whole engagement — design,
+                            front-end build, and brand.
+                        </p>
+                    </div>
+                    <Table
+                        columns={[{ key: "role" }, { key: "responsibilities" }]}
+                        data={[
+                            {
+                                role: "Web Designer",
+                                responsibilities:
+                                    "Designing a responsive, accessible, content-driven website.",
+                            },
+                            {
+                                role: "Front-End Developer",
+                                responsibilities:
+                                    "Building the site with Astro, Tailwind, and DaisyUI, backed by a Sanity CMS.",
+                            },
+                            {
+                                role: "Brand Designer",
+                                responsibilities:
+                                    "Brand identity, documented in a full branding guidelines book.",
+                            },
+                            {
+                                role: "Graphic & Motion Designer",
+                                responsibilities:
+                                    "Custom icons, animations, and data visualizations, plus banners and assets for conferences.",
+                            },
+                        ]}
+                    />
+                </div>
+
+                <div class="cs-subsection w-full">
+                    <h3 class="cs-h3">Platform</h3>
+                    <div class="cs-text">
+                        <p>
+                            Designed desktop-first, then made fully responsive
+                            down to mobile.
+                        </p>
+                    </div>
+                    <Table
+                        columns={[{ key: "platform" }, { key: "purpose" }]}
+                        data={[
+                            {
+                                platform: "Desktop Web",
+                                purpose:
+                                    "A content-driven marketing site presenting Cascade's technology with clarity and credibility.",
+                            },
+                            {
+                                platform: "Mobile (Responsive) Web",
+                                purpose:
+                                    "Fully responsive layouts optimized for readability on smaller screens.",
+                            },
+                        ]}
+                    />
+                </div>
+            </section>
+
+            <!-- CHALLENGE SECTION -->
+            <section id="challenge" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">The Challenge</h2>
+                    <div class="cs-text">
+                        <p>
+                            Defence is a high-stakes, high-trust field, and
+                            Cascade Systems needed to look as advanced as the
+                            technology it builds — credible enough to stand
+                            beside established players at Eurosatory, yet
+                            distinctly its own. The brand had to feel precise
+                            and engineered, make genuinely complex systems
+                            legible at a glance, and hold together across the
+                            website, print, and a conference floor.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DESIGN & BRAND SECTION -->
+            <section id="design" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">Design & Brand</h2>
+                    <div class="cs-text">
+                        <p>
+                            Before the website, I had to develop the full brand
+                            identity and document it in a branding guidelines
+                            document — a single source of truth for a
+                            fast-moving team. To make complex electronic-warfare
+                            concepts legible, I designed a set of custom icons,
+                            animations, and data visualizations that turn dense
+                            capability into something an audience can grasp in
+                            seconds.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="cs-subsection w-full">
+                    <h3 class="cs-h3">Identity</h3>
+                    <div class="cs-text">
+                        <p>
+                            The identity had to feel engineered, not decorative
+                            — precise enough for a defence-tech audience, and
+                            distinct enough to own. It's built from a monogram
+                            and wordmark on a strict grid, a single acid-green
+                            accent against near-black, and a custom type and
+                            icon system.
+                        </p>
+                    </div>
+
+                    <div class="text-text-primary">
+                        <ImageBlock
+                            src="/cs-logo.avif"
+                            alt="Cascade Systems wordmark"
+                            caption="The wordmark — each 'E' rebuilt from stacked bars that read like a signal trace."
+                            fullWidth={true}
+                            noPadding={true}
+                        />
+                    </div>
+
+                    <div class="cs-two-col items-center">
+                        <div
+                            class="flex flex-col gap-4 leading-loose text-text-secondary flex-1"
+                        >
+                            <p>
+                                The monogram is a 'CS' formed from two
+                                interlocking rounded shapes, drawn on a strict
+                                grid so it holds its shape everywhere — from a
+                                browser tab to a building sign.
+                            </p>
+                            <p>
+                                At first the client cared more about the wordmark
+                                than the mark — until it became clear their
+                                hardware product would need a symbol that could
+                                live on the device itself, etched or stamped at
+                                any size. It clicked while I was designing the
+                                favicon, and the stripped-back simplicity of what
+                                emerged is exactly what won them over.
+                            </p>
+                        </div>
+                        <div class="flex w-full lg:w-1/2">
+                            <ImageBlock
+                                src="/cs-icon.avif"
+                                alt="Cascade Systems monogram"
+                                fullWidth={true}
+                                noPadding={true}
+                            />
+                        </div>
+                    </div>
+
+                    <div class="text-text-primary">
+                        <ImageBlock
+                            src="/cs-fonts-and-icons.avif"
+                            alt="Cascade Systems typography and custom icons"
+                            caption="Typography paired with a custom icon set built for the brand."
+                        />
+                    </div>
+                    <div class="cs-two-col items-center">
+                        <div
+                            class="flex flex-col gap-4 leading-loose text-text-secondary flex-1"
+                        >
+                            <p>
+                                The whole color system is tokenized — every
+                                color is a semantic role rather than a raw value
+                                — so the brand stays legible and consistent on
+                                any background, document, or format.
+                            </p>
+                            <p>
+                                The client's team was new to working with design
+                                systems, so everything had to be genuinely easy
+                                to pick up. I gave them a framework for every
+                                scenario — including ready-made document and
+                                presentation templates — so the brand holds
+                                together no matter who's using it.
+                            </p>
+                        </div>
+                        <div class="flex w-full lg:w-1/2">
+                            <ImageBlock
+                                src="/cs-colors.avif"
+                                alt="Cascade Systems color system"
+                                fullWidth={true}
+                                noPadding={true}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cs-subsection w-full">
+                    <h3 class="cs-h3">Lima EW — System Visualizations</h3>
+                    <div class="cs-text">
+                        <p>
+                            To explain electronic warfare without a manual, I
+                            built a set of interactive diagrams showing how Lima
+                            defends against different threats — jamming, GPS
+                            spoofing, and cyber-breach. Switch between them
+                            below.
+                        </p>
+                    </div>
+                    <CascadeEWDiagrams />
+                </div>
+
+                <div class="cs-subsection w-full">
+                    <h3 class="cs-h3">Eurosatory 2026</h3>
+                    <div class="cs-text">
+                        <p>
+                            The brand extended off-screen, too — banners and
+                            assets designed for Cascade Systems' debut at
+                            Eurosatory 2026, one of the world's largest defence
+                            exhibitions.
+                        </p>
+                    </div>
+                    <Carousel
+                        images={[
+                            {
+                                src: "/cs-conference-1.avif",
+                                alt: "Cascade Systems at Eurosatory 2026",
+                            },
+                            {
+                                src: "/cs-conference-2.avif",
+                                alt: "Cascade Systems at Eurosatory 2026",
+                            },
+                            {
+                                src: "/cs-conference-3.avif",
+                                alt: "Cascade Systems at Eurosatory 2026",
+                            },
+                        ]}
+                    />
+                </div>
+            </section>
+
+            <!-- DEVELOPMENT SECTION -->
+            <section id="development" class="cs-section">
+                <div>
+                    <h2 class="cs-h2">Development</h2>
+                    <div class="cs-text">
+                        <p>
+                            The site is a fast, content-driven Astro build with
+                            a headless Sanity CMS, so the team can publish and
+                            update content without touching code. Tailwind and
+                            DaisyUI keep the interface consistent, and the icon
+                            system builds on Material Icons, extended with
+                            custom, on-brand additions.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="cs-subsection w-full">
+                    <h3 class="cs-h3">Tech Stack</h3>
+                    <div class="cs-text">
+                        <p>
+                            A modern, content-driven stack the team can maintain
+                            without a developer.
+                        </p>
+                    </div>
+                    <Table
+                        columns={[{ key: "tech" }, { key: "role" }]}
+                        data={[
+                            {
+                                tech: "Astro",
+                                role: "Content-driven static-site framework for a fast, SEO-friendly build.",
+                            },
+                            {
+                                tech: "Tailwind CSS",
+                                role: "Utility-first styling and design tokens.",
+                            },
+                            {
+                                tech: "DaisyUI",
+                                role: "Component layer on Tailwind for consistent UI.",
+                            },
+                            {
+                                tech: "Sanity CMS",
+                                role: "Headless CMS for structured, client-editable content.",
+                            },
+                            {
+                                tech: "Material Icons",
+                                role: "Base icon set, extended with custom-designed icons.",
+                            },
+                        ]}
+                    />
+                </div>
+            </section>
+
+            <!-- FINISHED PRODUCT SECTION -->
+            <section id="finished-product" class="cs-section-final pb-6">
+                <div>
+                    <h2 class="cs-h2">Finished Product</h2>
+                    <div class="cs-text">
+                        <p>
+                            The result is one coherent system — a fast, editable
+                            website, a documented brand, custom visualizations,
+                            and a set of assets that carry Cascade Systems from
+                            the browser to the show floor.
+                        </p>
+                        <a
+                            href="https://cascadesystems.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="light-btn w-fit"
+                        >
+                            View Live Website
+                        </a>
+                    </div>
+                </div>
+
+                <div class="w-full flex flex-col">
+                    <ImageBlock
+                        src="/cs-final.avif"
+                        alt="Cascade Systems"
+                        fullWidth={true}
+                        noPadding={true}
+                    />
+                </div>
+            </section>
+        </div>
+    </CaseStudyLayout>
+</BaseLayout>
