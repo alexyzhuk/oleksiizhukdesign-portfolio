@@ -70,6 +70,10 @@ section {
     position: relative;
 }
 
+button:not(:disabled) {
+    cursor: pointer;
+}
+
 /* ============================================================================
    TYPOGRAPHY
    ========================================================================= */
@@ -619,7 +623,7 @@ p {
 }
 
 .blog-prose p {
-    @apply text-base sm:text-lg leading-loose;
+    @apply text-base leading-relaxed;
 }
 
 .blog-prose a {
@@ -639,7 +643,7 @@ p {
 }
 
 .blog-prose li {
-    @apply text-base sm:text-lg leading-loose;
+    @apply text-base leading-relaxed;
 }
 
 .blog-prose li + li {

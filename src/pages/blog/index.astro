@@ -30,7 +30,7 @@ const fmt = (d: Date) =>
         class="w-full flex flex-col items-center justify-center z-10 mt-18"
     >
         <div
-            class="w-full max-w-7xl flex flex-col pt-12 sm:pt-24 pb-6 gap-6 px-4 sm:px-6 border-x border-stroke-weak-dark"
+            class="w-full max-w-7xl flex flex-col items-center text-center pt-12 sm:pt-24 pb-6 gap-6 px-4 sm:px-6 border-x border-stroke-weak-dark"
         >
             <h1 class="text-4xl sm:text-5xl font-medium">Blog</h1>
             <p
@@ -40,36 +40,89 @@ const fmt = (d: Date) =>
             </p>
         </div>
 
-        <div
-            class="w-full flex flex-col items-center border-t border-stroke-weak-dark"
-        >
-            <div class="w-full max-w-7xl border-x border-stroke-weak-dark">
-                {
-                    rendered.map(({ post, Content }) => (
-                        <article class="flex flex-col gap-4 p-6 sm:p-12 border-b border-stroke-weak-dark">
-                            <div class="flex flex-col gap-3">
-                                <a
-                                    href={`/blog/${post.id}`}
-                                    class="mono text-sm text-text-secondary hover:text-text-primary transition-colors w-fit"
-                                >
-                                    {fmt(post.data.pubDate)}
-                                </a>
-                                <h2 class="text-3xl sm:text-4xl font-medium tracking-tight text-balance">
-                                    <a
-                                        href={`/blog/${post.id}`}
-                                        class="hover:opacity-80 transition-opacity"
-                                    >
-                                        {post.data.title}
-                                    </a>
-                                </h2>
-                            </div>
-                            <div class="blog-prose">
-                                <Content />
-                            </div>
-                        </article>
-                    ))
-                }
-            </div>
+        <div class="w-full flex flex-col">
+            {
+                rendered.map(({ post, Content }, index) => (
+                    <>
+                        <div
+                            id={post.id}
+                            class="w-full flex flex-col items-center border-y border-stroke-weak-dark scroll-mt-24"
+                        >
+                            <article class="w-full max-w-7xl border-x border-stroke-weak-dark flex flex-col items-center p-6 sm:p-12 bg-bg-plaque">
+                                <div class="w-full max-w-3xl flex flex-col gap-4">
+                                    <div class="flex flex-col gap-3">
+                                        <span class="mono text-sm text-text-secondary">
+                                            {fmt(post.data.pubDate)}
+                                        </span>
+                                        <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-balance">
+                                            {post.data.title}
+                                        </h2>
+                                    </div>
+
+                                    <div class="blog-prose">
+                                        <Content />
+                                    </div>
+
+                                    <div class="flex items-center gap-2 pt-4">
+                                        <button
+                                            type="button"
+                                            class="blog-copy flex items-center gap-2 mono text-sm text-text-secondary hover:text-text-primary transition-colors px-3.5 py-2 rounded-full border border-stroke-weak-dark"
+                                            data-post={post.id}
+                                            aria-label="Copy link to this post"
+                                        >
+                                            <svg
+                                                class="w-4 h-4"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.8"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+                                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                                            </svg>
+                                            <span class="blog-copy-label">Copy link</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        {index < rendered.length - 1 && (
+                            <div class="flex border-x border-stroke-weak-dark w-full max-w-7xl h-12 sm:h-16 mx-auto" />
+                        )}
+                    </>
+                ))
+            }
         </div>
     </section>
 </BaseLayout>
+
+<script>
+    // Copy link — copies the post's anchor URL in the feed.
+    document.querySelectorAll<HTMLButtonElement>(".blog-copy").forEach((btn) => {
+        const id = btn.getAttribute("data-post");
+        const label = btn.querySelector(".blog-copy-label");
+
+        btn.addEventListener("click", async () => {
+            try {
+                await navigator.clipboard.writeText(
+                    `${location.origin}/blog#${id}`,
+                );
+                if (!label) return;
+                const prev = label.textContent;
+                label.textContent = "Copied!";
+                btn.classList.add("text-green-light", "border-green-light");
+                setTimeout(() => {
+                    label.textContent = prev;
+                    btn.classList.remove(
+                        "text-green-light",
+                        "border-green-light",
+                    );
+                }, 1500);
+            } catch {
+                /* clipboard unavailable */
+            }
+        });
+    });
+</script>

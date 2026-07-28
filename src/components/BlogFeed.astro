@@ -11,6 +11,14 @@ let posts = (await getCollection("blog")).sort(
 );
 if (limit) posts = posts.slice(0, limit);
 
+// Cycle accent colors by index, matching the rest of the site.
+const accentColors = [
+    "text-blue-light",
+    "text-yellow-light",
+    "text-green-light",
+    "text-red-light",
+];
+
 const fmt = (d: Date) =>
     d.toLocaleDateString("en-US", {
         year: "numeric",
@@ -24,9 +32,9 @@ const fmt = (d: Date) =>
 >
     <div class="w-full max-w-7xl border-x border-stroke-weak-dark">
         {
-            posts.map((post) => (
+            posts.map((post, index) => (
                 <a
-                    href={`/blog/${post.id}`}
+                    href={`/blog#${post.id}`}
                     class="method-card group flex flex-col gap-3 p-6 sm:p-10 border-b border-stroke-weak-dark"
                 >
                     <span class="mono text-sm text-text-secondary">
@@ -40,7 +48,9 @@ const fmt = (d: Date) =>
                             {post.data.description}
                         </p>
                     )}
-                    <span class="mono text-sm text-blue-light group-hover:underline">
+                    <span
+                        class={`mono text-sm group-hover:underline ${accentColors[index % accentColors.length]}`}
+                    >
                         Read →
                     </span>
                 </a>
