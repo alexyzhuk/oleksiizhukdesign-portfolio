@@ -1,0 +1,50 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+    limit?: number;
+}
+const { limit } = Astro.props;
+
+let posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+if (limit) posts = posts.slice(0, limit);
+
+const fmt = (d: Date) =>
+    d.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+---
+
+<div
+    class="w-full flex flex-col items-center border-t border-stroke-weak-dark"
+>
+    <div class="w-full max-w-7xl border-x border-stroke-weak-dark">
+        {
+            posts.map((post) => (
+                <a
+                    href={`/blog/${post.id}`}
+                    class="method-card group flex flex-col gap-3 p-6 sm:p-10 border-b border-stroke-weak-dark"
+                >
+                    <span class="mono text-sm text-text-secondary">
+                        {fmt(post.data.pubDate)}
+                    </span>
+                    <h3 class="text-2xl sm:text-3xl tracking-tight text-text-primary text-balance">
+                        {post.data.title}
+                    </h3>
+                    {post.data.description && (
+                        <p class="text-base sm:text-lg text-text-secondary leading-8 max-w-[72ch]">
+                            {post.data.description}
+                        </p>
+                    )}
+                    <span class="mono text-sm text-blue-light group-hover:underline">
+                        Read →
+                    </span>
+                </a>
+            ))
+        }
+    </div>
+</div>
