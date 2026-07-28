@@ -49,6 +49,22 @@ const personSchema = {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="generator" content={Astro.generator} />
+
+        <!-- Google Analytics (gtag.js) -->
+        <script
+            is:inline
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-P7ZVLFMNQW"
+        ></script>
+        <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "G-P7ZVLFMNQW");
+        </script>
+
         <link rel="canonical" href={canonicalURL} />
 
         <title>{title}</title>
