@@ -45,14 +45,16 @@ const {
                 >
                     <img
                         src={coverImage}
+                        alt={`${title} — ${company}`}
+                        fetchpriority="high"
                         class="flex overflow-hidden mb-6 sm:mb-12"
                     />
                     <div
                         class="flex px-4 sm:px-6 flex-col gap-3 sm:gap-8 pb-6 sm:pb-12 sm:border-b border-stroke-weak-dark"
                     >
-                        <h2 class="text-4xl sm:text-5xl font-bold">
+                        <h1 class="text-4xl sm:text-5xl font-bold">
                             {title}
-                        </h2>
+                        </h1>
                         <p
                             class="text-base text-text-secondary text-balance leading-loose"
                         >

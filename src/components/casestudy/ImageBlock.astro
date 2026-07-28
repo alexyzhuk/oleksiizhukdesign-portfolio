@@ -16,6 +16,8 @@ const uniqueId = `image-${Math.random().toString(36).substr(2, 9)}`;
     <img
         src={src}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         class="w-full cursor-zoom-in transition"
         id={uniqueId}
     />

@@ -16,6 +16,8 @@ const { images, height = "h-[300px] sm:h-[460px]" } = Astro.props;
                 <img
                     src={img.src}
                     alt={img.alt}
+                    loading="lazy"
+                    decoding="async"
                     class="h-full w-auto shrink-0 snap-start select-none"
                     draggable="false"
                 />
