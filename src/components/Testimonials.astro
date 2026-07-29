@@ -158,18 +158,28 @@ const duplicatedTestimonials = [
             let lastScrollPos = 0;
             let userScrolling = false;
 
-            const animateMobile = () => {
+            // Pixels per second, not per frame — a per-frame step doubles in
+            // speed on 120Hz screens.
+            const MOBILE_SPEED = 30;
+            let autoPos = container.scrollLeft;
+            let lastFrame = performance.now();
+
+            const animateMobile = (now: number) => {
+                // Cap dt so a backgrounded tab doesn't jump on return
+                const dt = Math.min((now - lastFrame) / 1000, 0.05);
+                lastFrame = now;
+
                 if (isAutoScrolling && !userScrolling) {
-                    // Increment scroll position
-                    container.scrollLeft += 1;
+                    autoPos += MOBILE_SPEED * dt;
 
                     // Reset for seamless loop
                     const resetPoint = getResetPoint();
-                    if (container.scrollLeft >= resetPoint) {
-                        container.scrollLeft =
-                            container.scrollLeft - resetPoint;
-                        lastScrollPos = container.scrollLeft;
+                    if (autoPos >= resetPoint) {
+                        autoPos -= resetPoint;
                     }
+
+                    container.scrollLeft = autoPos;
+                    lastScrollPos = container.scrollLeft;
                 }
 
                 animationId = requestAnimationFrame(animateMobile);
@@ -193,11 +203,13 @@ const duplicatedTestimonials = [
                 clearTimeout(scrollTimer);
                 scrollTimer = window.setTimeout(() => {
                     userScrolling = false;
+                    // Pick the drift up from wherever the swipe landed
+                    autoPos = container.scrollLeft;
                     resetInactivityTimer();
                 }, 150);
             });
 
-            animateMobile();
+            animationId = requestAnimationFrame(animateMobile);
         }
         // ========== DESKTOP VERSION ==========
         else {
