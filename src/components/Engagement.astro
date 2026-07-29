@@ -72,21 +72,23 @@ const steps = [
                                     .map((step, colIndex) => (
                                         <div
                                             class:list={[
-                                                "method-card group relative overflow-hidden border-stroke-weak-dark p-8 sm:p-12 min-h-fit",
+                                                "method-card group relative overflow-hidden border-stroke-weak-dark p-4 sm:p-12 min-h-fit",
                                                 colIndex === 0 && "md:border-r",
                                                 colIndex === 1 &&
                                                     "border-t md:border-t-0",
                                             ]}
                                         >
                                             <div class="flex flex-col gap-4">
-                                                <span
-                                                    class={`mono text-sm ${step.accent}`}
-                                                >
-                                                    {step.number}
-                                                </span>
-                                                <h3 class="text-3xl sm:text-4xl text-text-primary">
-                                                    {step.title}
-                                                </h3>
+                                                <div class="flex items-start justify-between gap-4">
+                                                    <h3 class="text-2xl sm:text-3xl text-text-primary">
+                                                        {step.title}
+                                                    </h3>
+                                                    <span
+                                                        class={`mono text-xl sm:text-2xl font-light tracking-tighter shrink-0 ${step.accent}`}
+                                                    >
+                                                        {step.number}
+                                                    </span>
+                                                </div>
                                                 <p class="text-base sm:text-lg text-text-secondary leading-7 sm:leading-9 sm:text-balance">
                                                     {step.description}
                                                 </p>

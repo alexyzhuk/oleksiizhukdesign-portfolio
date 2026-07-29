@@ -86,25 +86,11 @@ const duplicatedTools = [...tools, ...tools, ...tools];
     class="min-h-[90vh] sm:min-h-screen flex flex-col items-center justify-center relative z-10 border-b border-stroke-weak-dark"
 >
     <div
-        class="max-w-7xl w-full h-full flex flex-col gap-8 sm:gap-12 px-4 sm:px-6 p-12 mt-18 border border-t-0 border-stroke-weak-dark justify-center grow"
+        class="max-w-7xl w-full h-full flex flex-col gap-4 sm:gap-12 px-4 sm:px-6 p-20 mt-18 border border-t-0 border-stroke-weak-dark justify-center grow"
     >
-        <div
-            class="flex items-center gap-2 w-fit px-3 py-1.5 rounded-full border border-stroke-weak-dark bg-bg-plaque"
+        <p
+            class="mono text-stroke-weak text-sm sm:text-2xl font-light text-balance leading-normal"
         >
-            <span class="relative flex h-2 w-2">
-                <span
-                    class="absolute inline-flex h-full w-full rounded-full bg-green-light opacity-75 animate-ping"
-                ></span>
-                <span
-                    class="relative inline-flex h-2 w-2 rounded-full bg-green-light"
-                ></span>
-            </span>
-            <span class="mono text-sm text-text-secondary"
-                >Available for projects</span
-            >
-        </div>
-
-        <p class="mono text-stroke-weak sm:text-2xl font-light text-balance">
             Hi! I'm Oleksii Zhuk, <br />a Product Designer & Front-End
             Developer.
         </p>
@@ -114,35 +100,37 @@ const duplicatedTools = [...tools, ...tools, ...tools];
         >
             One person, from the first <span class="italic text-yellow-light"
                 >sketch</span
-            > to the last <span class="italic text-green-light">commit</span>.
+            > to the final <span class="italic text-green-light">commit</span>.
         </h1>
 
         <p
             class="sm:text-lg text-text-secondary text-balance max-w-[52ch] leading-relaxed"
         >
-            I offer <span class="text-text-primary">UX/UI design</span> and <span
-                class="text-text-primary">web development</span
-            > as parallel services — from research and interface design through to
-            fast, accessible, production-ready code.
+            I offer <span class="text-red-light font-medium">UX/UI design</span> and
+            <span class="text-blue-light font-medium">web development</span> as parallel
+            services — from research and interface design through to fast, accessible,
+            production-ready code.
         </p>
 
-        <div class="flex flex-wrap gap-2 items-center my-1 sm:my-2">
+        <div class="flex flex-wrap gap-3 items-center my-1 sm:my-2">
             <a
                 href={CALENDLY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex text-lg leading-7 h-14 text-center justify-center items-center font-medium tracking-tight bg-bg-light text-text-primary-inverse px-5 py-3 w-fit rounded-2xl transition-all duration-300 hover:shadow-[0_0_32px_0_rgba(249,250,251,0.6)]"
+                class="flex text-base leading-7 h-13 text-center justify-center items-center font-medium tracking-tight bg-bg-light text-text-primary-inverse px-6 py-2 w-fit rounded-2xl transition-all duration-300 hover:shadow-[0_0_32px_0_rgba(249,250,251,0.6)]"
             >
                 Book a call
             </a>
-            <a href="/#selected-work" class="light-btn"> See work </a>
+            <a href="/#selected-work" class="light-btn" id="see-work-btn">
+                See work
+            </a>
             <a
                 href="https://www.linkedin.com/in/oleksii-zhuk/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
                 class="flex
-            h-14 w-14 justify-center items-center p-4 rounded-2xl hover:bg-bg-light/10 transition-background duration-300"
+            size-13 justify-center items-center p-4 rounded-2xl hover:bg-bg-light/10 transition-background duration-300"
             >
                 <img src="/linkedin-logo.svg" alt="LinkedIn" class="w-5 h-5" />
             </a>
@@ -371,5 +359,66 @@ const duplicatedTools = [...tools, ...tools, ...tools];
 
     window.addEventListener("beforeunload", () => {
         cancelAnimationFrame(animationFrame);
+    });
+
+    // Smooth scroll to the work section, offset by the fixed nav.
+    // Hand-rolled tween so the pace is slower than the browser's default.
+    const seeWorkBtn = document.getElementById("see-work-btn");
+    const SCROLL_DURATION = 1400;
+
+    const easeInOutCubic = (t: number) =>
+        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const scrollToPosition = (destination: number) => {
+        const start = window.scrollY;
+        const distance = destination - start;
+        let startTime: number | null = null;
+        let cancelled = false;
+
+        // Let the visitor take over at any point
+        const cancel = () => {
+            cancelled = true;
+        };
+        window.addEventListener("wheel", cancel, { passive: true, once: true });
+        window.addEventListener("touchstart", cancel, {
+            passive: true,
+            once: true,
+        });
+
+        const step = (now: number) => {
+            if (cancelled) return;
+            if (startTime === null) startTime = now;
+
+            const progress = Math.min((now - startTime) / SCROLL_DURATION, 1);
+            window.scrollTo(0, start + distance * easeInOutCubic(progress));
+
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                window.removeEventListener("wheel", cancel);
+                window.removeEventListener("touchstart", cancel);
+            }
+        };
+
+        requestAnimationFrame(step);
+    };
+
+    seeWorkBtn?.addEventListener("click", (e) => {
+        const target = document.querySelector("#selected-work");
+        if (!target) return;
+
+        e.preventDefault();
+
+        const navHeight =
+            document.getElementById("navigation")?.offsetHeight ?? 0;
+        const top =
+            target.getBoundingClientRect().top + window.scrollY - navHeight;
+
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            window.scrollTo(0, top);
+            return;
+        }
+
+        scrollToPosition(top);
     });
 </script>

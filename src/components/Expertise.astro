@@ -3,7 +3,7 @@ const expertise = [
     {
         number: "01",
         title: "Product Designer",
-        tabColor: "border-blue-light",
+        accent: "text-blue-light",
         skills: [
             "Research",
             "User Testing",
@@ -22,29 +22,36 @@ const expertise = [
     {
         number: "02",
         title: "Front-End Developer",
-        tabColor: "border-green-light",
+        accent: "text-green-light",
+        // Order pairs the two-line labels into shared rows of the 2-col
+        // mobile grid, so no row has one tall cell next to a short one.
         skills: [
             "HTML & CSS",
             "JavaScript",
             "TypeScript",
-            "Astro",
             "React",
+            "Astro",
+            "Laravel",
+            "API Integration",
+            "CI/CD",
             "Component Architecture",
             "Design Systems in Code",
-            "Core Web Vitals",
+            "Motion & Animation",
             "Accessibility (WCAG)",
             "SEO & Structured Data",
+            // Forced break keeps the long word on its own line in the 2-col
+            // mobile grid; the wider desktop grid fits it on one line.
+            "Internationalization <br class='lg:hidden' />(i18n)",
+            "Core Web Vitals",
             "Headless CMS",
             "Framer",
-            "Squarespace",
             "Wix",
-            "Laravel",
         ],
     },
     {
         number: "03",
         title: "Brand Designer",
-        tabColor: "border-yellow-light",
+        accent: "text-yellow-light",
         skills: [
             "Brand Kit",
             "Logo Design",
@@ -63,7 +70,7 @@ const expertise = [
     {
         number: "04",
         title: "Graphic Designer",
-        tabColor: "border-red-light",
+        accent: "text-red-light",
         skills: [
             "Iconography",
             "Pictograms",
@@ -89,67 +96,160 @@ const expertise = [
     <div
         class="w-full max-w-7xl flex flex-col pt-12 sm:py-24 gap-8 border-x border-stroke-weak-dark"
     >
-        {/* Section Header */}
-        <h2 class="text-4xl sm:text-5xl px-4 sm:px-6 font-medium">
-            Hire me as
-        </h2>
+        {/* Section Header — the role name is the selector */}
+        <div
+            class="flex items-center justify-between gap-2 px-4 sm:px-6 sm:gap-8"
+        >
+            <h2
+                class="text-3xl sm:text-5xl font-medium leading-10 sm:leading-normal"
+            >
+                Hire me as <span class="role-name-mask"
+                    ><span id="role-name" class="text-blue-light"
+                        >{expertise[0].title}</span
+                    ></span
+                >
+            </h2>
 
-        {/* Tab Layout */}
-        <div class="flex flex-col md:flex-row gap-6">
-            {/* Left: Role Tabs */}
-            <div class="flex flex-col gap-0 lg:min-w-md">
-                {
-                    expertise.map((category, index) => (
-                        <button
-                            class={`expertise-tab h-full md:max-h-60 lg:max-h-full py-3 px-4 sm:px-6 border-l-3 text-left font-medium tracking-tight text-2xl lg:text-3xl transition-all duration-300 cursor-pointer ${
-                                index === 0
-                                    ? `text-text-primary ${category.tabColor}`
-                                    : "text-text-secondary-inverse border-transparent"
-                            } hover:text-text-primary`}
-                            data-index={index}
-                            data-color={category.tabColor}
-                        >
-                            {category.title}
-                        </button>
-                    ))
-                }
+            <div class="flex self-end sm:items-center gap-2 shrink-0">
+                <button
+                    id="role-prev"
+                    type="button"
+                    class="role-nav-btn"
+                    aria-label="Previous role"
+                >
+                    <svg
+                        class="size-5 sm:size-7 rotate-180"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M5 8L10 13L15 8"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+
+                <button
+                    id="role-next"
+                    type="button"
+                    class="role-nav-btn"
+                    aria-label="Next role"
+                >
+                    <svg
+                        class="size-5 sm:size-7"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M5 8L10 13L15 8"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                    </svg>
+                </button>
             </div>
+        </div>
 
-            {/* Right: Skills Grid */}
-            <div class="flex-1 h-full">
-                {
-                    expertise.map((category, index) => (
-                        <div
-                            class={`expertise-content ${index === 0 ? "" : "hidden"}`}
-                            data-content-index={index}
-                        >
-                            <div class="border-t border-stroke-weak-dark">
-                                <ul class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3">
-                                    {category.skills.map(
-                                        (skill, skillIndex) => (
-                                            <li
-                                                class="skill-item text-lg sm:text-xl text-text-secondary hover:text-text-primary hover:bg-bg-plaque transition-all duration-300 tracking-tight p-4 sm:px-6 sm:py-5 xs:border-l border-b border-stroke-weak-dark"
-                                                data-skill-index={skillIndex}
-                                            >
-                                                {skill}
-                                            </li>
-                                        ),
-                                    )}
-                                </ul>
-                            </div>
+        {/* Full-width Skills Grid */}
+        <div class="w-full">
+            {
+                expertise.map((category, index) => (
+                    <div
+                        class={`expertise-content ${index === 0 ? "" : "hidden"}`}
+                        data-content-index={index}
+                        data-title={category.title}
+                        data-accent={category.accent}
+                    >
+                        <div class="border-t border-stroke-weak-dark">
+                            <ul class="grid grid-cols-2 lg:grid-cols-3">
+                                {category.skills.map((skill, skillIndex) => (
+                                    <li
+                                        class="skill-item text-lg sm:text-xl text-text-secondary hover:text-text-primary hover:bg-bg-plaque transition-all duration-300 tracking-tight p-4 sm:px-6 sm:py-5 border-l border-b border-stroke-weak-dark break-words"
+                                        data-skill-index={skillIndex}
+                                        set:html={skill}
+                                    />
+                                ))}
+                            </ul>
                         </div>
-                    ))
-                }
-            </div>
+                    </div>
+                ))
+            }
         </div>
     </div>
 </section>
 
+<style>
+    /* 2-col mobile grid: first column sits on the section edge, no left border */
+    @media (width < 48rem) {
+        .skill-item:nth-child(2n + 1) {
+            border-left: 0;
+        }
+    }
+
+    /* Role name rolls upward: old title exits through the top, new one
+       enters from below. Padding/margin pair keeps descenders unclipped. */
+    .role-name-mask {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: bottom;
+        padding-bottom: 0.12em;
+        margin-bottom: -0.12em;
+    }
+
+    #role-name {
+        display: inline-block;
+        will-change: transform;
+    }
+
+    .role-roll-out {
+        animation: role-roll-out 0.26s cubic-bezier(0.4, 0, 1, 1) forwards;
+    }
+
+    .role-roll-in {
+        animation: role-roll-in 0.32s cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    @keyframes role-roll-out {
+        to {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+    }
+
+    @keyframes role-roll-in {
+        from {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .role-roll-out,
+        .role-roll-in {
+            animation: none;
+        }
+    }
+</style>
+
 <script>
-    const tabs = document.querySelectorAll(".expertise-tab");
     const contents = document.querySelectorAll(".expertise-content");
     const section = document.querySelector("#expertise");
+    const roleName = document.getElementById("role-name");
+    const prevBtn = document.getElementById("role-prev");
+    const nextBtn = document.getElementById("role-next");
     let hasAnimated = false;
+
+    // Accent classes come from the markup so the data stays in one place
+    const accents = Array.from(contents)
+        .map((c) => c.getAttribute("data-accent"))
+        .filter(Boolean);
+
+    let activeIndex = 0;
 
     // Function to animate skills
     function animateSkills(container) {
@@ -168,18 +268,97 @@ const expertise = [
         });
     }
 
-    // Intersection Observer for initial scroll animation
+    // Half the roll: title exits upward, then everything swaps and the new
+    // title enters from below.
+    const ROLL_OUT_MS = 260;
+    let swapTimer = null;
+
+    function paintRole(index) {
+        contents.forEach((content, i) => {
+            content.classList.toggle("hidden", i !== index);
+        });
+
+        if (roleName) {
+            roleName.textContent =
+                contents[index].getAttribute("data-title") ?? "";
+            roleName.classList.remove(...accents);
+            if (accents[index]) {
+                roleName.classList.add(accents[index]);
+            }
+        }
+
+        animateSkills(contents[index]);
+    }
+
+    function selectRole(index) {
+        if (index === activeIndex) return;
+        activeIndex = index;
+
+        if (!roleName) {
+            paintRole(index);
+            return;
+        }
+
+        if (swapTimer !== null) clearTimeout(swapTimer);
+
+        roleName.classList.remove("role-roll-in");
+        roleName.classList.add("role-roll-out");
+
+        swapTimer = window.setTimeout(() => {
+            paintRole(index);
+            roleName.classList.remove("role-roll-out");
+            roleName.classList.add("role-roll-in");
+            swapTimer = null;
+        }, ROLL_OUT_MS);
+    }
+
+    // Auto-switch until the visitor steps through the roles themselves
+    const AUTO_SWITCH_DELAY = 7000;
+    let autoTimer = null;
+    let isVisible = false;
+    let userInteracted = false;
+
+    function stopAutoSwitch() {
+        if (autoTimer !== null) {
+            clearInterval(autoTimer);
+            autoTimer = null;
+        }
+    }
+
+    function startAutoSwitch() {
+        stopAutoSwitch();
+        if (userInteracted || !isVisible) return;
+        autoTimer = window.setInterval(() => {
+            selectRole((activeIndex + 1) % contents.length);
+        }, AUTO_SWITCH_DELAY);
+    }
+
+    function step(direction) {
+        userInteracted = true;
+        stopAutoSwitch();
+        selectRole(
+            (activeIndex + direction + contents.length) % contents.length,
+        );
+    }
+
+    prevBtn?.addEventListener("click", () => step(-1));
+    nextBtn?.addEventListener("click", () => step(1));
+
+    // Intersection Observer: first-scroll animation + auto-switch gating
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
+                isVisible = entry.isIntersecting;
+
                 if (entry.isIntersecting && !hasAnimated) {
                     hasAnimated = true;
-                    const activeContent = document.querySelector(
-                        ".expertise-content:not(.hidden)",
-                    );
-                    if (activeContent) {
-                        animateSkills(activeContent);
-                    }
+                    animateSkills(contents[activeIndex]);
+                }
+
+                if (isVisible) {
+                    startAutoSwitch();
+                } else {
+                    stopAutoSwitch();
                 }
             });
         },
@@ -191,46 +370,4 @@ const expertise = [
     if (section) {
         observer.observe(section);
     }
-
-    // Tab switching
-    tabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-            const index = tab.getAttribute("data-index");
-            const color = tab.getAttribute("data-color");
-
-            // Update tab styles
-            tabs.forEach((t) => {
-                t.classList.remove(
-                    "text-text-primary",
-                    "border-blue-light",
-                    "border-yellow-light",
-                    "border-green-light",
-                    "border-red-light",
-                );
-                t.classList.add(
-                    "text-text-secondary-inverse",
-                    "border-transparent",
-                );
-            });
-            tab.classList.remove(
-                "text-text-secondary-inverse",
-                "border-transparent",
-            );
-            tab.classList.add("text-text-primary", color);
-
-            // Update content visibility
-            contents.forEach((content) => {
-                content.classList.add("hidden");
-            });
-            const activeContent = document.querySelector(
-                `[data-content-index="${index}"]`,
-            );
-            activeContent?.classList.remove("hidden");
-
-            // Animate skills when switching tabs
-            if (activeContent) {
-                animateSkills(activeContent);
-            }
-        });
-    });
 </script>

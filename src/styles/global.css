@@ -122,7 +122,9 @@ p {
 }
 
 .nav-expanded {
-    background: var(--color-bg-plaque);
+    background: #111418d9;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .mobile-menu-expanded {
@@ -185,11 +187,11 @@ p {
    ========================================================================= */
 
 .light-btn {
-    @apply text-lg leading-7 h-14 text-center justify-center items-center font-medium tracking-tight border border-stroke-medium px-5 py-3 pt-3.25 w-fit rounded-2xl transition-all duration-300;
+    @apply flex text-lg leading-7 h-13 text-center justify-center items-center font-medium tracking-tight border border-stroke-medium px-7 py-2 w-fit rounded-2xl transition-all duration-300;
 }
 
 .light-btn:hover {
-    @apply border-bg-light bg-bg-light text-text-primary-inverse shadow-[0_0_32px_0_rgba(249,250,251,0.6)] shadow-bg-light/30;
+    @apply border-bg-light shadow-[0_0_32px_0_rgba(249,250,251,0.6)] shadow-bg-light/30;
 }
 
 .iteration-btn {
@@ -239,6 +241,18 @@ p {
 
 .scroller-btn:active {
     background: rgba(249, 250, 251, 0.04);
+}
+
+.role-nav-btn {
+    @apply flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full border border-bg-light text-text-primary transition-all duration-300;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover-capable pointers only — on touch the fill would stick after a tap */
+@media (hover: hover) {
+    .role-nav-btn:hover {
+        @apply bg-bg-light text-text-primary-inverse shadow-[0_0_32px_0_rgba(249,250,251,0.4)];
+    }
 }
 
 .logo-btn:hover img {
@@ -458,6 +472,7 @@ p {
         transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
         color 0.3s ease,
         background 0.3s ease;
+    @apply text-balance;
 }
 
 .skill-item.skill-visible {

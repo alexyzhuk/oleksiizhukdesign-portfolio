@@ -11,17 +11,38 @@
     >
         <!-- Header Bar -->
         <div class="flex pl-4 pr-3 py-2 justify-between items-center">
-            <a
-                href="/"
-                class="flex text-text-primary h-10 w-10 sm:h-12 sm:w-12
+            <div class="flex items-center gap-2 sm:gap-3">
+                <a
+                    href="/"
+                    class="flex text-text-primary h-10 w-10 sm:h-12 sm:w-12
             items-center justify-center shrink-0 z-50 logo-btn"
-            >
-                <img
-                    src="/main-logo.svg"
-                    alt="Oleksii Zhuk"
-                    class="h-7 sm:h-8"
-                />
-            </a>
+                >
+                    <img
+                        src="/main-logo.svg"
+                        alt="Oleksii Zhuk"
+                        class="h-7 sm:h-8"
+                    />
+                </a>
+
+                <span
+                    class="h-6 sm:h-8 w-px shrink-0 bg-stroke-weak-dark"
+                    aria-hidden="true"></span>
+
+                <div class="flex pl-1 items-center gap-2 w-fit shrink-0">
+                    <span class="relative flex h-2 w-2 shrink-0">
+                        <span
+                            class="absolute inline-flex h-full w-full rounded-full bg-green-light opacity-75 animate-ping"
+                        ></span>
+                        <span
+                            class="relative inline-flex h-2 w-2 rounded-full bg-green-light"
+                        ></span>
+                    </span>
+                    <span
+                        class="mono text-[11px] uppercase tracking-widest text-text-secondary"
+                        >Available for projects</span
+                    >
+                </div>
+            </div>
 
             <div>
                 <!-- Desktop Menu -->
